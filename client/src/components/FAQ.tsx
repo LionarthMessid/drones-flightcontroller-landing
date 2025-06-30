@@ -11,24 +11,24 @@ const FAQ = () => {
       answer: 'A FLIGHT CONTROLLER IS THE BRAIN OF YOUR DRONE. IT PROCESSES SENSOR DATA AND CONTROLS THE MOTORS TO KEEP YOUR DRONE STABLE AND RESPONSIVE. OUR CONTROLLERS ARE DESIGNED TO BE BEGINNER-FRIENDLY WHILE OFFERING ADVANCED FEATURES FOR EXPERIENCED USERS.'
     },
     {
-      question: 'HOW DO CODE BLOCKS WORK?',
-      answer: 'OUR VISUAL PROGRAMMING SYSTEM LETS YOU CREATE FLIGHT PROGRAMS BY DRAGGING AND DROPPING CODE BLOCKS. NO NEED TO LEARN COMPLEX SYNTAX - JUST CONNECT BLOCKS TO DEFINE BEHAVIORS, MOVEMENTS, AND RESPONSES. PERFECT FOR BEGINNERS AND EDUCATIONAL USE.'
+      question: 'WHICH FLIGHT CONTROLLER SHOULD I CHOOSE?',
+      answer: 'START WITH THE FC-1 FOR BEGINNERS - IT IS STABLE AND EASY TO CONFIGURE. THE FC-PRO OFFERS ADVANCED FEATURES AND CUSTOM FIRMWARE SUPPORT. THE FC-MINI IS PERFECT FOR MICRO DRONES AND COMPACT BUILDS.'
     },
     {
-      question: 'CAN I SIMULATE BEFORE FLYING?',
-      answer: 'YES! OUR BUILT-IN SIMULATOR LETS YOU TEST YOUR PROGRAMS SAFELY BEFORE REAL FLIGHT. THE SIMULATION IS PHYSICS-ACCURATE AND INCLUDES REALISTIC DRONE BEHAVIOR, WEATHER CONDITIONS, AND ENVIRONMENTAL FACTORS.'
+      question: 'HOW DO I FLASH FIRMWARE?',
+      answer: 'OUR CONTROLLERS SUPPORT STANDARD FIRMWARE FLASHING TOOLS. CONNECT VIA USB, SELECT YOUR BOARD TYPE, AND UPLOAD THE FIRMWARE. WE PROVIDE DETAILED GUIDES AND PRE-CONFIGURED FIRMWARE IMAGES FOR EASY SETUP.'
     },
     {
       question: 'IS AEROQUE OPEN SOURCE?',
-      answer: 'ABSOLUTELY. WE BELIEVE IN OPEN SOURCE DEVELOPMENT. OUR HARDWARE DESIGNS, SOFTWARE, AND DOCUMENTATION ARE FREELY AVAILABLE. THIS ALLOWS THE COMMUNITY TO CONTRIBUTE, MODIFY, AND IMPROVE OUR PRODUCTS.'
+      answer: 'ABSOLUTELY. WE BELIEVE IN OPEN SOURCE DEVELOPMENT. OUR HARDWARE DESIGNS, FIRMWARE, AND DOCUMENTATION ARE FREELY AVAILABLE. THIS ALLOWS THE COMMUNITY TO CONTRIBUTE, MODIFY, AND IMPROVE OUR PRODUCTS.'
     },
     {
       question: 'WHAT SKILL LEVEL IS REQUIRED?',
-      answer: 'AEROQUE IS DESIGNED FOR ALL SKILL LEVELS. COMPLETE BEGINNERS CAN START WITH OUR VISUAL PROGRAMMING INTERFACE, WHILE ADVANCED USERS CAN ACCESS LOW-LEVEL CONTROLS AND CUSTOM FIRMWARE DEVELOPMENT.'
+      answer: 'AEROQUE IS DESIGNED FOR ALL SKILL LEVELS. COMPLETE BEGINNERS CAN START WITH OUR FC-1 CONTROLLER AND BASIC SETUP, WHILE ADVANCED USERS CAN ACCESS LOW-LEVEL CONTROLS AND CUSTOM FIRMWARE DEVELOPMENT.'
     },
     {
       question: 'HOW DO I GET STARTED?',
-      answer: 'START WITH OUR STARTER KIT WHICH INCLUDES A FLIGHT CONTROLLER, BASIC COMPONENTS, AND ACCESS TO OUR SIMULATOR. FOLLOW OUR STEP-BY-STEP TUTORIALS TO BUILD YOUR FIRST DRONE AND CREATE YOUR FIRST FLIGHT PROGRAM.'
+      answer: 'START WITH OUR FC-1 STARTER KIT WHICH INCLUDES A FLIGHT CONTROLLER, BASIC COMPONENTS, AND SETUP GUIDES. FOLLOW OUR STEP-BY-STEP TUTORIALS TO BUILD YOUR FIRST DRONE AND CONFIGURE YOUR FLIGHT CONTROLLER.'
     },
     {
       question: 'WHAT SUPPORT IS AVAILABLE?',
@@ -41,7 +41,7 @@ const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white border-t-4 border-black">
+    <section id="faq" className="py-20 bg-gray-900 border-t-4 border-green-500">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center space-y-6 mb-16">
@@ -51,15 +51,15 @@ const FAQ = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight">
+            <h2 className="text-4xl lg:text-5xl font-bold text-green-500 tracking-tight">
               FAQ
             </h2>
-            <div className="flex items-center justify-center space-x-2 text-black">
-              <div className="w-4 h-4 bg-black border-2 border-black"></div>
+            <div className="flex items-center justify-center space-x-2 text-green-500">
+              <div className="w-4 h-4 bg-green-500 border-2 border-green-300"></div>
               <span className="text-sm font-bold uppercase tracking-wider">FREQUENTLY ASKED QUESTIONS</span>
             </div>
-            <p className="text-gray-600 font-mono">
-              EVERYTHING YOU NEED TO KNOW ABOUT AEROQUE
+            <p className="text-green-300 font-mono">
+              EVERYTHING YOU NEED TO KNOW ABOUT FLIGHT CONTROLLERS
             </p>
           </motion.div>
         </div>
@@ -78,21 +78,21 @@ const FAQ = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-gray-100 border-4 border-black overflow-hidden hover:border-orange-500 transition-colors duration-300"
+              className="bg-black border-4 border-green-500 overflow-hidden hover:border-green-300 transition-colors duration-300"
             >
               <button
                 onClick={() => toggleItem(index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-200 transition-colors duration-200"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-800 transition-colors duration-200"
               >
-                <h3 className="text-lg font-bold text-black pr-4 tracking-wide">
+                <h3 className="text-lg font-bold text-green-500 pr-4 tracking-wide">
                   {item.question}
                 </h3>
                 <motion.div
                   animate={{ rotate: openItem === index ? 45 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="flex-shrink-0 w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center"
+                  className="flex-shrink-0 w-8 h-8 bg-green-500 border-2 border-green-300 flex items-center justify-center"
                 >
-                  <Plus className="w-5 h-5 text-white" />
+                  <Plus className="w-5 h-5 text-black" />
                 </motion.div>
               </button>
 
@@ -106,8 +106,8 @@ const FAQ = () => {
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-6">
-                      <div className="bg-white border-4 border-black p-4">
-                        <p className="text-black leading-relaxed font-mono tracking-wide">
+                      <div className="bg-gray-800 border-4 border-green-500 p-4">
+                        <p className="text-green-300 leading-relaxed font-mono tracking-wide">
                           {item.answer}
                         </p>
                       </div>
@@ -126,16 +126,16 @@ const FAQ = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-gray-600 mb-6 font-mono">
+          <p className="text-green-300 mb-6 font-mono">
             STILL HAVE QUESTIONS? WE'RE HERE TO HELP.
           </p>
           <motion.a
-            href="#contact"
+            href="#programs"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center space-x-2 border-4 border-orange-500 text-orange-500 px-6 py-3 font-bold tracking-wide hover:bg-orange-500 hover:text-white transition-all duration-200"
+            className="inline-flex items-center space-x-2 border-4 border-green-500 text-green-500 px-6 py-3 font-bold tracking-wide hover:bg-green-500 hover:text-black transition-all duration-200"
           >
-            <span>CONTACT US</span>
+            <span>VIEW CONTROLLERS</span>
           </motion.a>
         </motion.div>
       </div>

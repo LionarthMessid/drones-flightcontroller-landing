@@ -6,8 +6,8 @@ const Hero = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
 
   const features = [
-    'BEGINNER FRIENDLY', 'CODE BLOCKS', 'SIMULATION', 'EASY CONFIG', 
-    'OPEN SOURCE', 'MODULAR DESIGN', 'REAL-TIME', 'PLUG & PLAY'
+    'BEGINNER FRIENDLY', 'EASY CONFIG', 'OPEN SOURCE', 'MODULAR DESIGN', 
+    'REAL-TIME', 'PLUG & PLAY', 'STABLE FLIGHT', 'CUSTOM FIRMWARE'
   ];
 
   useEffect(() => {
@@ -18,23 +18,23 @@ const Hero = () => {
   }, [features.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-16">
       {/* Grid Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="grid grid-cols-12 h-full">
           {Array.from({ length: 144 }).map((_, i) => (
-            <div key={i} className="border border-black"></div>
+            <div key={i} className="border border-green-500"></div>
           ))}
         </div>
       </div>
 
       {/* Geometric Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-16 h-16 border-4 border-orange-500 rotate-45"></div>
-        <div className="absolute top-40 right-32 w-12 h-12 border-4 border-black"></div>
-        <div className="absolute bottom-32 left-32 w-20 h-20 border-4 border-gray-400"></div>
+        <div className="absolute top-20 left-20 w-16 h-16 border-4 border-green-500 rotate-45"></div>
+        <div className="absolute top-40 right-32 w-12 h-12 border-4 border-green-300"></div>
+        <div className="absolute bottom-32 left-32 w-20 h-20 border-4 border-green-400"></div>
         <motion.div
-          className="absolute top-32 right-20 w-8 h-8 bg-orange-500 border-2 border-black"
+          className="absolute top-32 right-20 w-8 h-8 bg-green-500 border-2 border-green-300"
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
@@ -49,18 +49,18 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-6xl sm:text-8xl lg:text-9xl font-bold tracking-tighter"
             >
-              <span className="text-black">DRONE</span>
+              <span className="text-green-500">FLIGHT</span>
               <br />
-              <span className="text-orange-500">CONTROL</span>
+              <span className="text-green-300">CONTROL</span>
             </motion.div>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wider text-black"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wider text-green-500"
             >
-              MADE SIMPLE
+              CONTROLLERS
             </motion.div>
           </div>
 
@@ -69,9 +69,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-mono"
+            className="text-xl sm:text-2xl text-green-300 max-w-4xl mx-auto leading-relaxed font-mono"
           >
-            FLIGHT CONTROLLERS FOR BEGINNERS. CODE WITH BLOCKS. SIMULATE EVERYTHING.
+            HARDWARE FLIGHT CONTROLLERS FOR BEGINNERS. EASY CONFIGURATION. STABLE FLIGHT.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -82,47 +82,47 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
             <motion.a
-              href="#controllers"
+              href="#programs"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-orange-500 text-white px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-orange-600 transition-all duration-200 flex items-center space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="bg-green-500 text-black px-8 py-4 border-4 border-green-300 font-bold text-lg tracking-wide hover:bg-green-600 transition-all duration-200 flex items-center space-x-2 shadow-[8px_8px_0px_0px_rgba(0,255,0,0.3)]"
             >
-              <span>START BUILDING</span>
+              <span>VIEW CONTROLLERS</span>
               <ArrowRight className="w-5 h-5" />
             </motion.a>
             
             <motion.a
-              href="#simulator"
+              href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-black px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-gray-100 transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="bg-black text-green-500 px-8 py-4 border-4 border-green-500 font-bold text-lg tracking-wide hover:bg-gray-900 transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(0,255,0,0.3)]"
             >
-              TRY SIMULATOR
+              BROWSE PRODUCTS
             </motion.a>
           </motion.div>
 
           {/* Decorative Elements */}
           <div className="flex items-center justify-center space-x-8 pt-12">
             <motion.div
-              className="p-4 border-4 border-black bg-white"
+              className="p-4 border-4 border-green-500 bg-black"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Square className="w-8 h-8 text-orange-500" />
+              <Square className="w-8 h-8 text-green-500" />
             </motion.div>
             <motion.div
-              className="p-4 border-4 border-black bg-orange-500"
+              className="p-4 border-4 border-green-300 bg-green-500"
               whileHover={{ rotate: -15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Triangle className="w-8 h-8 text-white" />
+              <Triangle className="w-8 h-8 text-black" />
             </motion.div>
             <motion.div
-              className="p-4 border-4 border-black bg-white"
+              className="p-4 border-4 border-green-500 bg-black"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Circle className="w-8 h-8 text-black" />
+              <Circle className="w-8 h-8 text-green-500" />
             </motion.div>
           </div>
         </div>
@@ -135,21 +135,21 @@ const Hero = () => {
           className="pt-16 pb-8"
         >
           <div className="text-center">
-            <h3 className="text-lg font-bold text-gray-600 mb-8 tracking-wider">CURRENT FOCUS:</h3>
+            <h3 className="text-lg font-bold text-green-300 mb-8 tracking-wider">CURRENT FOCUS:</h3>
             <div className="flex items-center justify-center space-x-2 text-2xl font-bold">
-              <span className="text-gray-500">{'>'}</span>
+              <span className="text-green-400">{'>'}</span>
               <motion.span
                 key={currentFeature}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-orange-500 tracking-wider"
+                className="text-green-500 tracking-wider"
               >
                 {features[currentFeature]}
               </motion.span>
-              <span className="text-gray-500">_</span>
+              <span className="text-green-400">_</span>
             </div>
-            <div className="mt-4 text-sm text-gray-500 font-mono">
+            <div className="mt-4 text-sm text-green-400 font-mono">
               {features.length} CORE FEATURES AVAILABLE
             </div>
           </div>

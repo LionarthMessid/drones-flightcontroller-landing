@@ -5,13 +5,13 @@ import ASCIIText from './ASCIIText';
 
 const Footer = () => {
   const ecosystemLinks = [
-    { name: 'FLIGHT SIMULATOR', url: '#' },
-    { name: 'CODE BLOCKS', url: '#' }
+    { name: 'FC-1 CONTROLLER', url: '#' },
+    { name: 'FC-PRO CONTROLLER', url: '#' }
   ];
 
   const quickLinks = [
     { name: 'HOME', url: '/' },
-    { name: 'GET STARTED', url: '/start' }
+    { name: 'CONTROLLERS', url: '#programs' }
   ];
 
   const legalLinks = [
@@ -28,7 +28,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white border-t-4 border-black relative">
+    <footer className="bg-black border-t-4 border-green-500 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
         <div className="py-16 space-y-12">
@@ -41,10 +41,10 @@ const Footer = () => {
               className="space-y-4"
             >
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-orange-500 border-4 border-black flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">AQ</span>
+                <div className="w-8 h-8 bg-green-500 border-4 border-green-300 flex items-center justify-center">
+                  <span className="text-black font-bold text-sm">AQ</span>
                 </div>
-                <span className="text-xl font-bold text-black tracking-wider">AEROQUE</span>
+                <span className="text-xl font-bold text-green-500 tracking-wider">AEROQUE</span>
               </div>
             </motion.div>
 
@@ -54,25 +54,25 @@ const Footer = () => {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              <h3 className="text-xl font-bold text-black tracking-wide">STAY UPDATED*</h3>
+              <h3 className="text-xl font-bold text-green-500 tracking-wide">STAY UPDATED*</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <input
                     type="email"
                     placeholder="YOUR EMAIL"
-                    className="w-full px-4 py-3 bg-gray-100 border-4 border-black text-black placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-colors duration-200 font-mono"
+                    className="w-full px-4 py-3 bg-gray-900 border-4 border-green-500 text-green-500 placeholder-green-300 focus:outline-none focus:border-green-300 transition-colors duration-200 font-mono"
                   />
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-orange-500 text-white px-6 py-3 border-4 border-black font-bold tracking-wide hover:bg-orange-600 transition-all duration-200 flex items-center justify-center space-x-2"
+                  className="bg-green-500 text-black px-6 py-3 border-4 border-green-300 font-bold tracking-wide hover:bg-green-600 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>SUBSCRIBE</span>
                   <Mail className="w-4 h-4" />
                 </motion.button>
               </div>
-              <p className="text-sm text-gray-500 font-mono">*ONLY VALUABLE UPDATES</p>
+              <p className="text-sm text-green-300 font-mono">*ONLY VALUABLE UPDATES</p>
             </motion.div>
           </div>
 
@@ -85,13 +85,13 @@ const Footer = () => {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              <h4 className="text-lg font-bold text-black uppercase tracking-wider">ECOSYSTEM</h4>
+              <h4 className="text-lg font-bold text-green-500 uppercase tracking-wider">CONTROLLERS</h4>
               <ul className="space-y-3">
                 {ecosystemLinks.map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.url}
-                      className="text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center space-x-2 group font-mono"
+                      className="text-green-300 hover:text-green-500 transition-colors duration-200 flex items-center space-x-2 group font-mono"
                     >
                       <span>{link.name}</span>
                       <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -109,13 +109,13 @@ const Footer = () => {
               transition={{ delay: 0.1 }}
               className="space-y-4"
             >
-              <h4 className="text-lg font-bold text-black uppercase tracking-wider">QUICK LINKS</h4>
+              <h4 className="text-lg font-bold text-green-500 uppercase tracking-wider">QUICK LINKS</h4>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.url}
-                      className="text-gray-600 hover:text-orange-500 transition-colors duration-200 font-mono"
+                      className="text-green-300 hover:text-green-500 transition-colors duration-200 font-mono"
                     >
                       {link.name}
                     </a>
@@ -132,13 +132,13 @@ const Footer = () => {
               transition={{ delay: 0.2 }}
               className="space-y-4"
             >
-              <h4 className="text-lg font-bold text-black uppercase tracking-wider">LEGAL</h4>
+              <h4 className="text-lg font-bold text-green-500 uppercase tracking-wider">LEGAL</h4>
               <ul className="space-y-3">
                 {legalLinks.map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.url}
-                      className="text-gray-600 hover:text-orange-500 transition-colors duration-200 font-mono"
+                      className="text-green-300 hover:text-green-500 transition-colors duration-200 font-mono"
                     >
                       {link.name}
                     </a>
@@ -155,7 +155,7 @@ const Footer = () => {
               transition={{ delay: 0.3 }}
               className="space-y-4"
             >
-              <h4 className="text-lg font-bold text-black uppercase tracking-wider">FOLLOW US</h4>
+              <h4 className="text-lg font-bold text-green-500 uppercase tracking-wider">FOLLOW US</h4>
               <ul className="space-y-3">
                 {socialLinks.map((link, index) => (
                   <li key={index}>
@@ -163,7 +163,7 @@ const Footer = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center space-x-2 group font-mono"
+                      className="text-green-300 hover:text-green-500 transition-colors duration-200 flex items-center space-x-2 group font-mono"
                     >
                       <span>{link.name}</span>
                       <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -176,7 +176,7 @@ const Footer = () => {
         </div>
 
         {/* ASCII Text Section */}
-        <div className="relative h-64 border-t-4 border-black">
+        <div className="relative h-64 border-t-4 border-green-500">
           <ASCIIText
             text="AEROQUE"
             enableWaves={true}
@@ -185,13 +185,13 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-8 border-t-4 border-black">
+        <div className="py-8 border-t-4 border-green-500">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex items-center space-x-4 text-gray-600 font-mono"
+              className="flex items-center space-x-4 text-green-300 font-mono"
             >
               <span>© 2025</span>
               <span>ALL RIGHTS RESERVED BY AEROQUE.COM</span>
@@ -205,9 +205,9 @@ const Footer = () => {
             >
               {/* Decorative elements */}
               <div className="flex space-x-2">
-                <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-                <div className="w-4 h-4 bg-black border-2 border-black"></div>
-                <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
+                <div className="w-4 h-4 bg-green-500 border-2 border-green-300"></div>
+                <div className="w-4 h-4 bg-green-300 border-2 border-green-500"></div>
+                <div className="w-4 h-4 bg-green-500 border-2 border-green-300"></div>
               </div>
             </motion.div>
           </div>
