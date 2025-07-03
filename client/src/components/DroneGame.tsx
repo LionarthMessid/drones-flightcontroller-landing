@@ -8,7 +8,13 @@ interface Obstacle {
   type: 'cafe' | 'hotel' | 'tower';
 }
 
-const DroneGame = () => {
+interface DroneGameProps {
+  inModal?: boolean;
+  onClose?: () => void;
+  onPlayInWindow?: () => void;
+}
+
+const DroneGame = ({ inModal = false, onClose, onPlayInWindow }: DroneGameProps = {}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
   const [droneY, setDroneY] = useState(260); // Start on ground
@@ -174,15 +180,40 @@ const DroneGame = () => {
     });
   }, [droneY, obstacles, isPlaying, gameOver]);
 
+  const containerClass = inModal 
+    ? "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" 
+    : "py-16 bg-gray-100";
+  
+  const contentClass = inModal 
+    ? "bg-white p-6 rounded-lg border-4 border-black max-w-4xl mx-4 relative" 
+    : "max-w-4xl mx-auto px-4";
+
   return (
-    <div className="py-16 bg-gray-100">
-      <div className="max-w-4xl mx-auto px-4 text-center">
+    <div className={containerClass}>
+      <div className={`${contentClass} text-center`}>
+        {inModal && onClose && (
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 border-2 border-black font-bold hover:bg-red-600 text-sm"
+          >
+            ✕
+          </button>
+        )}
         <h3 className="text-2xl font-bold text-black font-mono mb-4">
-          EASTER EGG: DRONE RUNNER
+          {inModal ? "DRONE RUNNER" : "EASTER EGG: DRONE RUNNER"}
         </h3>
         <p className="text-gray-600 font-mono mb-6">
           Press SPACE or click to jump! You can double jump in mid-air!
         </p>
+        
+        {!inModal && onPlayInWindow && (
+          <button
+            onClick={onPlayInWindow}
+            className="mb-6 bg-orange-500 text-white px-6 py-3 border-2 border-black font-bold text-lg hover:bg-orange-600 transition-colors"
+          >
+            🎮 PLAY IN WINDOW
+          </button>
+        )}
         
         <div className="inline-block bg-white border-4 border-black p-4">
           <div className="mb-4 flex justify-between items-center">

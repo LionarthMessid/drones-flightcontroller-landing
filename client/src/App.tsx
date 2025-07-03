@@ -7,7 +7,7 @@ import ProductGlimpse from './components/ProductGlimpse';
 import Team from './components/Team';
 import FAQ from './components/FAQ';
 import Updates from './components/Updates';
-import DroneGame from './components/DroneGame';
+import DroneGameWrapper from './components/DroneGameWrapper';
 import Footer from './components/Footer';
 import ControllerBoard from './pages/ControllerBoard';
 import SimulationDemo from './pages/SimulationDemo';
@@ -51,7 +51,7 @@ const HomePage = () => {
       <Team />
       <FAQ />
       <Updates />
-      <DroneGame />
+      <DroneGameWrapper />
       <Footer />
     </div>
   );
