@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Square, Triangle, Circle, Cpu, Settings } from 'lucide-react';
+import { ArrowRight, Square, Triangle, Circle } from 'lucide-react';
 
 const Hero = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
@@ -165,105 +165,6 @@ const Hero = () => {
             <div className="mt-4 text-sm text-gray-500 font-mono">
               {features.length} CORE FEATURES AVAILABLE
             </div>
-          </div>
-        </motion.div>
-
-        {/* Company Mission Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0 }}
-          className="pt-16 pb-16 max-w-4xl mx-auto text-center"
-        >
-          <h2 className="text-3xl lg:text-4xl font-bold text-black mb-6">OUR MISSION</h2>
-          <div className="flex items-center justify-center space-x-2 text-orange-500 mb-6">
-            <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-            <span className="text-sm font-bold uppercase tracking-wider">BUILDING THE FUTURE</span>
-          </div>
-          <p className="text-lg text-gray-600 font-mono leading-relaxed mb-8">
-            WE ARE BUILDING ADVANCED, ACCESSIBLE FLIGHT CONTROL SYSTEMS FOR DRONE DEVELOPERS. 
-            OUR ESP32-BASED CONTROLLERS COMBINE POWERFUL PROCESSING WITH WIRELESS CONNECTIVITY, 
-            MAKING DRONE DEVELOPMENT MORE INTUITIVE AND AFFORDABLE FOR EVERYONE.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 text-left">
-            <div className="bg-gray-50 p-6 border-2 border-black rounded">
-              <h3 className="font-bold text-black mb-2">ACCESSIBILITY</h3>
-              <p className="text-sm font-mono text-gray-600">Making advanced flight control available to hobbyists and professionals alike</p>
-            </div>
-            <div className="bg-gray-50 p-6 border-2 border-black rounded">
-              <h3 className="font-bold text-black mb-2">INNOVATION</h3>
-              <p className="text-sm font-mono text-gray-600">Leveraging ESP32's dual-core architecture for next-gen drone capabilities</p>
-            </div>
-            <div className="bg-gray-50 p-6 border-2 border-black rounded">
-              <h3 className="font-bold text-black mb-2">COMMUNITY</h3>
-              <p className="text-sm font-mono text-gray-600">Open-source development fostering collaborative innovation</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Product Glimpse Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="pt-16 pb-8"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-black mb-6">CURRENTLY IN DEVELOPMENT</h2>
-            <div className="flex items-center justify-center space-x-2 text-orange-500 mb-6">
-              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-              <span className="text-sm font-bold uppercase tracking-wider">PRODUCT LINEUP</span>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Controller Boards */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white p-8 border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
-            >
-              <div className="w-16 h-16 bg-orange-500 rounded-lg flex items-center justify-center mb-6 mx-auto">
-                <Cpu className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-black mb-4 text-center">CONTROLLER BOARDS</h3>
-              <p className="text-gray-600 font-mono text-sm mb-4 text-center">
-                ESP32-BASED FLIGHT CONTROLLERS WITH DUAL-CORE PROCESSING AND WIRELESS CONNECTIVITY
-              </p>
-              <div className="space-y-2 text-sm font-mono">
-                <div className="flex justify-between">
-                  <span>VERSION A:</span>
-                  <span className="text-orange-500">60% COMPLETE</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>VERSION B:</span>
-                  <span className="text-gray-500">25% COMPLETE</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Simulators */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white p-8 border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
-            >
-              <div className="w-16 h-16 bg-orange-500 rounded-lg flex items-center justify-center mb-6 mx-auto">
-                <Settings className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-black mb-4 text-center">SIMULATORS</h3>
-              <p className="text-gray-600 font-mono text-sm mb-4 text-center">
-                PHYSICS-ACCURATE FLIGHT SIMULATION PLATFORM FOR TESTING AND DEVELOPMENT
-              </p>
-              <div className="space-y-2 text-sm font-mono">
-                <div className="flex justify-between">
-                  <span>BASIC SIM:</span>
-                  <span className="text-green-500">AVAILABLE</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>ADVANCED SIM:</span>
-                  <span className="text-orange-500">IN PROGRESS</span>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </motion.div>
       </div>

@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowRight, Mail } from 'lucide-react';
 import ASCIIText from './ASCIIText';
-import DroneGame from './DroneGame';
 
 const Footer = () => {
-  const [showDroneGame, setShowDroneGame] = useState(false);
   const ecosystemLinks = [
     { name: 'FLIGHT SIMULATOR', url: '#' },
     { name: 'CODE BLOCKS', url: '#' }
