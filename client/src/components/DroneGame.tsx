@@ -11,7 +11,7 @@ interface Obstacle {
 const DroneGame = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
-  const [droneY, setDroneY] = useState(250); // Start on ground
+  const [droneY, setDroneY] = useState(240); // Start on ground
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [gameOver, setGameOver] = useState(false);
   const [velocity, setVelocity] = useState(0);
@@ -20,7 +20,7 @@ const DroneGame = () => {
   const GAME_HEIGHT = 300;
   const GAME_WIDTH = 600;
   const DRONE_SIZE = 20;
-  const GROUND_HEIGHT = 250; // Ground level
+  const GROUND_HEIGHT = 240; // Ground level - adjusted for drone positioning
   const GRAVITY = 0.8;
   const JUMP_FORCE = -15;
   const OBSTACLE_WIDTH = 20;
@@ -241,7 +241,7 @@ const DroneGame = () => {
                   className="absolute"
                   style={{
                     left: obstacle.x,
-                    top: GROUND_HEIGHT - obstacle.height, // Position from top to sit exactly on ground
+                    top: GROUND_HEIGHT - obstacle.height + 2, // Position 2px closer to ground to reduce gap
                     width: buildingWidth,
                     height: obstacle.height,
                     objectFit: 'contain',
