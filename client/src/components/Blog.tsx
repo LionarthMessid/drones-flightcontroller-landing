@@ -5,49 +5,49 @@ import { ArrowRight, Calendar, User } from 'lucide-react';
 const Blog = () => {
   const blogPosts = [
     {
-      title: 'GETTING STARTED WITH VISUAL PROGRAMMING',
-      excerpt: 'LEARN HOW TO CREATE YOUR FIRST DRONE PROGRAM USING OUR INTUITIVE CODE BLOCKS SYSTEM.',
-      author: 'RAHUL ASHOK',
-      date: 'JAN 15, 2025',
-      category: 'TUTORIAL',
-      readTime: '5 MIN READ'
+      title: 'ESP32 FLIGHT CONTROLLER DEVELOPMENT UPDATE',
+      excerpt: 'LATEST PROGRESS ON OUR ESP32-BASED FLIGHT CONTROLLER. VERSION A PROTOTYPING AND EARLY TESTING RESULTS.',
+      author: 'ALEX CHEN',
+      date: 'JUN 28, 2025',
+      category: 'DEVELOPMENT',
+      readTime: '4 MIN READ'
     },
     {
-      title: 'FLIGHT CONTROLLER SETUP GUIDE',
-      excerpt: 'STEP-BY-STEP INSTRUCTIONS FOR CONFIGURING YOUR AEROQUE FLIGHT CONTROLLER.',
-      author: 'PRITHAM DEVPRASAD', 
-      date: 'JAN 12, 2025',
-      category: 'GUIDE',
-      readTime: '8 MIN READ'
-    },
-    {
-      title: 'SIMULATION VS REAL FLIGHT TESTING',
-      excerpt: 'UNDERSTANDING THE BENEFITS AND LIMITATIONS OF VIRTUAL TESTING ENVIRONMENTS.',
-      author: 'MEGHA',
-      date: 'JAN 10, 2025',
-      category: 'ANALYSIS',
+      title: 'DUAL-CORE PROCESSING FOR FLIGHT CONTROL',
+      excerpt: 'HOW WE\'RE LEVERAGING ESP32\'S DUAL-CORE ARCHITECTURE FOR ENHANCED FLIGHT PERFORMANCE AND STABILITY.',
+      author: 'SARAH MARTINEZ', 
+      date: 'JUN 25, 2025',
+      category: 'TECHNICAL',
       readTime: '6 MIN READ'
     },
     {
-      title: 'OPEN SOURCE DRONE DEVELOPMENT',
-      excerpt: 'WHY WE CHOSE OPEN SOURCE AND HOW IT BENEFITS THE DRONE COMMUNITY.',
-      author: 'SIDDARTH',
-      date: 'JAN 8, 2025',
-      category: 'PHILOSOPHY',
+      title: 'VERSION A VS VERSION B: DESIGN DECISIONS',
+      excerpt: 'EXPLORING THE TECHNICAL DIFFERENCES BETWEEN OUR TWO PLANNED FLIGHT CONTROLLER VERSIONS.',
+      author: 'DAVID KIM',
+      date: 'JUN 22, 2025',
+      category: 'HARDWARE',
+      readTime: '5 MIN READ'
+    },
+    {
+      title: 'WIRELESS CONNECTIVITY IN DRONE CONTROL',
+      excerpt: 'THE ADVANTAGES OF WI-FI AND BLUETOOTH INTEGRATION IN MODERN FLIGHT CONTROLLERS.',
+      author: 'MAYA PATEL',
+      date: 'JUN 20, 2025',
+      category: 'CONNECTIVITY',
+      readTime: '4 MIN READ'
+    },
+    {
+      title: 'BUILDING A STARTUP AROUND ESP32',
+      excerpt: 'OUR JOURNEY FROM CONCEPT TO PROTOTYPE: CHALLENGES AND BREAKTHROUGHS IN ESP32 FLIGHT CONTROLLER DEVELOPMENT.',
+      author: 'ALEX CHEN',
+      date: 'JUN 18, 2025',
+      category: 'STARTUP',
       readTime: '7 MIN READ'
     },
     {
-      title: 'MODULAR DESIGN PRINCIPLES',
-      excerpt: 'HOW MODULAR ARCHITECTURE MAKES DRONE BUILDING MORE ACCESSIBLE AND FLEXIBLE.',
-      author: 'RAHUL ASHOK',
-      date: 'JAN 5, 2025',
-      category: 'DESIGN',
-      readTime: '9 MIN READ'
-    },
-    {
-      title: 'SAFETY FIRST: DRONE PROGRAMMING BEST PRACTICES',
-      excerpt: 'ESSENTIAL SAFETY GUIDELINES FOR PROGRAMMING AND TESTING YOUR DRONE SYSTEMS.',
-      author: 'PRITHAM DEVPRASAD',
+      title: 'SIMULATION PLATFORM DEVELOPMENT',
+      excerpt: 'HOW WE CREATED AN ACCURATE ESP32 FLIGHT SIMULATION ENVIRONMENT FOR PRE-HARDWARE TESTING.',
+      author: 'SARAH MARTINEZ',
       date: 'JAN 3, 2025',
       category: 'SAFETY',
       readTime: '10 MIN READ'
@@ -66,8 +66,12 @@ const Blog = () => {
             className="space-y-4"
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight">
-              LATEST NEWS
+              DEVELOPMENT UPDATES
             </h2>
+            <div className="flex items-center space-x-2 text-orange-500">
+              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
+              <span className="text-sm font-bold uppercase tracking-wider">STARTUP JOURNEY</span>
+            </div>
           </motion.div>
 
           <motion.a

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ExternalLink, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const CrypticText = ({ children, className = "" }) => {
+const CrypticText = ({ children, className = "" }: { children: string; className?: string }) => {
   const [displayText, setDisplayText] = useState(children);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -16,10 +16,10 @@ const CrypticText = ({ children, className = "" }) => {
 
     let iteration = 0;
     const interval = setInterval(() => {
-      setDisplayText(prev => 
+      setDisplayText((prev: string) => 
         children
           .split("")
-          .map((letter, index) => {
+          .map((letter: string, index: number) => {
             if (index < iteration) {
               return children[index];
             }
@@ -54,10 +54,10 @@ const Header = () => {
   const [isEcosystemOpen, setIsEcosystemOpen] = useState(false);
 
   const ecosystemItems = [
-    { name: 'FLIGHT SIMULATOR', url: '#', description: 'DRONE SIM' },
-    { name: 'CODE BLOCKS', url: '#', description: 'VISUAL PROGRAMMING' },
-    { name: 'BOARD CONFIGURATOR', url: '#', description: 'HARDWARE SETUP' },
-    { name: 'DOCUMENTATION', url: '#', description: 'TECH SPECS' },
+    { name: 'FLIGHT SIMULATOR', url: '#simulation', description: 'DRONE SIMULATION' },
+    { name: 'VERSION A SPECS', url: '#controller-board', description: 'STANDARD EDITION' },
+    { name: 'VERSION B SPECS', url: '#controller-board', description: 'PROFESSIONAL EDITION' },
+    { name: 'DEVELOPMENT DOCS', url: '#faq', description: 'TECH SPECS & FAQ' },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -75,38 +75,26 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-black border-2 border-black flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AQ</span>
+              <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
+                <span className="text-white font-bold text-sm">FC</span>
               </div>
-              <span className="text-xl font-bold text-black tracking-wider">AEROQUE</span>
+              <span className="text-xl font-bold text-black tracking-wider">FLIGHTCONTROL</span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             <button 
-              onClick={() => scrollToSection('programs')}
+              onClick={() => scrollToSection('controller-board')}
               className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
             >
-              <CrypticText>FLIGHT CONTROLLERS</CrypticText>
+              <CrypticText>THE CONTROLLER</CrypticText>
             </button>
             <button 
-              onClick={() => scrollToSection('portfolio')}
+              onClick={() => scrollToSection('simulation')}
               className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
             >
-              <CrypticText>PROJECTS</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('media')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>MEDIA</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('testimonials')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>REVIEWS</CrypticText>
+              <CrypticText>SIMULATION</CrypticText>
             </button>
             <button 
               onClick={() => scrollToSection('team')}
@@ -124,7 +112,7 @@ const Header = () => {
               onClick={() => scrollToSection('blog')}
               className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
             >
-              <CrypticText>BLOG</CrypticText>
+              <CrypticText>UPDATES</CrypticText>
             </button>
           </nav>
 
@@ -190,28 +178,16 @@ const Header = () => {
           >
             <div className="px-4 py-6 space-y-4">
               <button 
-                onClick={() => scrollToSection('programs')}
+                onClick={() => scrollToSection('controller-board')}
                 className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
               >
-                FLIGHT CONTROLLERS
+                THE CONTROLLER
               </button>
               <button 
-                onClick={() => scrollToSection('portfolio')}
+                onClick={() => scrollToSection('simulation')}
                 className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
               >
-                PROJECTS
-              </button>
-              <button 
-                onClick={() => scrollToSection('media')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                MEDIA
-              </button>
-              <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                REVIEWS
+                SIMULATION
               </button>
               <button 
                 onClick={() => scrollToSection('team')}
@@ -229,7 +205,7 @@ const Header = () => {
                 onClick={() => scrollToSection('blog')}
                 className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
               >
-                BLOG
+                UPDATES
               </button>
             </div>
           </motion.div>

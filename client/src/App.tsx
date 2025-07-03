@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Programs from './components/Programs';
+import Simulation from './components/Simulation';
 import Portfolio from './components/Portfolio';
 import Media from './components/Media';
 import Testimonials from './components/Testimonials';
@@ -16,9 +17,7 @@ function App() {
       <Header />
       <Hero />
       <Programs />
-      <Portfolio />
-      <Media />
-      <Testimonials />
+      <Simulation />
       <Team />
       <FAQ />
       <Blog />

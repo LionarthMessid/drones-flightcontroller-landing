@@ -6,8 +6,8 @@ const Hero = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
 
   const features = [
-    'BEGINNER FRIENDLY', 'CODE BLOCKS', 'SIMULATION', 'EASY CONFIG', 
-    'OPEN SOURCE', 'MODULAR DESIGN', 'REAL-TIME', 'PLUG & PLAY'
+    'ESP32 DUAL-CORE', 'WIFI & BLUETOOTH', 'USB TYPE-C', 'ONBOARD IMU', 
+    'COMPACT PCB', 'VERSION A & B', 'STARTUP READY', 'FUTURE TECH'
   ];
 
   useEffect(() => {
@@ -49,9 +49,11 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-6xl sm:text-8xl lg:text-9xl font-bold tracking-tighter"
             >
-              <span className="text-black">DRONE</span>
+              <span className="text-black">ESP32</span>
               <br />
-              <span className="text-orange-500">CONTROL</span>
+              <span className="text-orange-500">FLIGHT</span>
+              <br />
+              <span className="text-black">CONTROLLER</span>
             </motion.div>
             
             <motion.div
@@ -60,9 +62,20 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
               className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wider text-black"
             >
-              MADE SIMPLE
+              NEXT-GEN AVIATION BOARD
             </motion.div>
           </div>
+
+          {/* Status Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="inline-flex items-center space-x-2 bg-orange-500 text-white px-4 py-2 border-4 border-black font-bold text-sm tracking-wider"
+          >
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <span>IN DEVELOPMENT</span>
+          </motion.div>
 
           {/* Description */}
           <motion.p
@@ -71,7 +84,7 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-mono"
           >
-            FLIGHT CONTROLLERS FOR BEGINNERS. CODE WITH BLOCKS. SIMULATE EVERYTHING.
+            REVOLUTIONARY ESP32-BASED FLIGHT CONTROLLER. TWO VERSIONS IN DEVELOPMENT. INNOVATION MEETS SIMPLICITY.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -82,22 +95,22 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
             <motion.a
-              href="#controllers"
+              href="#controller-board"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-orange-500 text-white px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-orange-600 transition-all duration-200 flex items-center space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
             >
-              <span>START BUILDING</span>
+              <span>VIEW THE CONTROLLER BOARD</span>
               <ArrowRight className="w-5 h-5" />
             </motion.a>
             
             <motion.a
-              href="#simulator"
+              href="#simulation"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white text-black px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-gray-100 transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
             >
-              TRY SIMULATOR
+              CHECKOUT THE SIMULATION
             </motion.a>
           </motion.div>
 
@@ -135,7 +148,7 @@ const Hero = () => {
           className="pt-16 pb-8"
         >
           <div className="text-center">
-            <h3 className="text-lg font-bold text-gray-600 mb-8 tracking-wider">CURRENT FOCUS:</h3>
+            <h3 className="text-lg font-bold text-gray-600 mb-8 tracking-wider">KEY SPECIFICATIONS:</h3>
             <div className="flex items-center justify-center space-x-2 text-2xl font-bold">
               <span className="text-gray-500">{'>'}</span>
               <motion.span

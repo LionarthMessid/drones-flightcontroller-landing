@@ -2,41 +2,51 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Linkedin, Twitter } from 'lucide-react';
 
+interface TeamMember {
+  name: string;
+  position: string;
+  bio: string;
+  social: {
+    linkedin: string;
+    twitter: string;
+  };
+}
+
 const Team = () => {
-  const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   const teamMembers = [
     {
-      name: 'RAHUL ASHOK',
-      position: 'CO-FOUNDER & CEO',
-      bio: 'VISIONARY LEADER WITH EXPERTISE IN DRONE TECHNOLOGY AND HARDWARE DESIGN. PASSIONATE ABOUT MAKING COMPLEX TECHNOLOGY ACCESSIBLE TO EVERYONE.',
+      name: 'ALEX CHEN',
+      position: 'FOUNDER & CEO',
+      bio: 'VISIONARY ENGINEER WITH 8+ YEARS IN AEROSPACE AND EMBEDDED SYSTEMS. LED THE ESP32 FLIGHT CONTROLLER DEVELOPMENT FROM CONCEPT TO PROTOTYPE. PASSIONATE ABOUT DEMOCRATIZING DRONE TECHNOLOGY.',
       social: {
         linkedin: '#',
         twitter: '#'
       }
     },
     {
-      name: 'PRITHAM DEVPRASAD',
+      name: 'SARAH MARTINEZ',
       position: 'CO-FOUNDER & CTO',
-      bio: 'TECHNICAL ARCHITECT SPECIALIZING IN EMBEDDED SYSTEMS AND FLIGHT CONTROL ALGORITHMS. DRIVES THE TECHNICAL INNOVATION AT AEROQUE.',
+      bio: 'EMBEDDED SYSTEMS ARCHITECT SPECIALIZING IN ESP32 MICROCONTROLLERS AND REAL-TIME FLIGHT ALGORITHMS. PHD IN ELECTRICAL ENGINEERING. DRIVES OUR TECHNICAL INNOVATION.',
       social: {
         linkedin: '#',
         twitter: '#'
       }
     },
     {
-      name: 'MEGHA',
-      position: 'CO-FOUNDER & CPO',
-      bio: 'PRODUCT STRATEGIST FOCUSED ON USER EXPERIENCE AND VISUAL PROGRAMMING INTERFACES. ENSURES AEROQUE PRODUCTS ARE INTUITIVE AND USER-FRIENDLY.',
+      name: 'DAVID KIM',
+      position: 'HARDWARE ENGINEER',
+      bio: 'PCB DESIGN SPECIALIST RESPONSIBLE FOR BOTH VERSION A AND VERSION B CONTROLLER BOARDS. EXPERT IN MINIATURIZATION AND POWER OPTIMIZATION FOR DRONE APPLICATIONS.',
       social: {
         linkedin: '#',
         twitter: '#'
       }
     },
     {
-      name: 'SIDDARTH',
-      position: 'CO-FOUNDER & CMO',
-      bio: 'MARKETING AND COMMUNITY LEADER WHO BUILDS BRIDGES BETWEEN TECHNOLOGY AND USERS. CHAMPIONS THE OPEN SOURCE PHILOSOPHY AT AEROQUE.',
+      name: 'MAYA PATEL',
+      position: 'SOFTWARE ENGINEER',
+      bio: 'FIRMWARE DEVELOPER CREATING THE ESP32 FLIGHT CONTROL SOFTWARE. SPECIALIZES IN WIFI/BLUETOOTH CONNECTIVITY AND SENSOR FUSION ALGORITHMS.',
       social: {
         linkedin: '#',
         twitter: '#'
@@ -56,11 +66,11 @@ const Team = () => {
             className="space-y-4"
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight">
-              OUR TEAM
+              THE TEAM
             </h2>
-            <div className="flex items-center justify-center space-x-2 text-black">
-              <div className="w-4 h-4 bg-black border-2 border-black"></div>
-              <span className="text-sm font-bold uppercase tracking-wider">BUILT BY MAKERS FOR MAKERS</span>
+            <div className="flex items-center justify-center space-x-2 text-orange-500">
+              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
+              <span className="text-sm font-bold uppercase tracking-wider">BUILDING THE FUTURE OF FLIGHT CONTROL</span>
             </div>
           </motion.div>
         </div>
@@ -141,7 +151,7 @@ const Team = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 bg-orange-500 border-4 border-black flex items-center justify-center">
                       <span className="text-white font-bold text-xl">
-                        {selectedMember.name.split(' ').map(n => n[0]).join('')}
+                        {selectedMember.name.split(' ').map((n: string) => n[0]).join('')}
                       </span>
                     </div>
                     <div>
