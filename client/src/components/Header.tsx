@@ -68,12 +68,14 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
-                <span className="text-white font-bold text-sm">FC</span>
+            <Link href="/game">
+              <div className="flex items-center space-x-2 cursor-pointer">
+                <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">FC</span>
+                </div>
+                <span className="font-bold text-black tracking-wider text-[19px]">Aeroque</span>
               </div>
-              <span className="font-bold text-black tracking-wider text-[19px]">Aeroque</span>
-            </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
