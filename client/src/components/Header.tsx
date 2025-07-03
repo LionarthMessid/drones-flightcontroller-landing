@@ -73,7 +73,7 @@ const Header = () => {
                 <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
                   <span className="text-white font-bold text-sm">FC</span>
                 </div>
-                <span className="text-xl font-bold text-black tracking-wider">FLIGHTCONTROL</span>
+                <span className="font-bold text-black tracking-wider text-[19px]">Aeroque</span>
               </div>
             </Link>
           </div>
