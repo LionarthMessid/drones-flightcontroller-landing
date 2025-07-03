@@ -31,6 +31,42 @@ const Portfolio = () => {
       tags: ['ADVANCED', 'CUSTOM']
     },
     {
+      name: 'BLOCK CODER',
+      category: 'Software',
+      description: 'Visual programming environment',
+      stats: {
+        users: '5.1K',
+        projects: '1.2K+',
+        rating: '4.7/5',
+        downloads: '25K'
+      },
+      tags: ['VISUAL', 'EASY']
+    },
+    {
+      name: 'DRONE SIM',
+      category: 'Software',
+      description: 'Real-time flight simulator',
+      stats: {
+        users: '3.8K',
+        projects: '800+',
+        rating: '4.6/5',
+        downloads: '18K'
+      },
+      tags: ['SIMULATION', 'TRAINING']
+    },
+    {
+      name: 'CONFIG TOOL',
+      category: 'Software',
+      description: 'Hardware configuration utility',
+      stats: {
+        users: '2.9K',
+        projects: '600+',
+        rating: '4.5/5',
+        downloads: '12K'
+      },
+      tags: ['UTILITY', 'SETUP']
+    },
+    {
       name: 'AEROQUE MINI',
       category: 'Flight Controller',
       description: 'Compact controller for micro drones',
@@ -41,53 +77,17 @@ const Portfolio = () => {
         downloads: '9K'
       },
       tags: ['COMPACT', 'MICRO']
-    },
-    {
-      name: 'AEROQUE FC-RACING',
-      category: 'Flight Controller',
-      description: 'High-speed racing flight controller',
-      stats: {
-        users: '900',
-        projects: '200+',
-        rating: '4.7/5',
-        downloads: '5K'
-      },
-      tags: ['RACING', 'FAST']
-    },
-    {
-      name: 'AEROQUE FC-GPS',
-      category: 'Flight Controller',
-      description: 'GPS-enabled navigation controller',
-      stats: {
-        users: '1.5K',
-        projects: '350+',
-        rating: '4.6/5',
-        downloads: '7K'
-      },
-      tags: ['GPS', 'NAVIGATION']
-    },
-    {
-      name: 'AEROQUE FC-CUSTOM',
-      category: 'Flight Controller',
-      description: 'Fully customizable open-source board',
-      stats: {
-        users: '750',
-        projects: '150+',
-        rating: '4.9/5',
-        downloads: '3K'
-      },
-      tags: ['CUSTOM', 'OPEN SOURCE']
     }
   ];
 
-  const categories = ['all', 'Flight Controller'];
+  const categories = ['all', 'Flight Controller', 'Software'];
 
   const filteredItems = activeCategory === 'all' 
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
-    <section id="portfolio" className="py-20 bg-black border-t-4 border-green-500">
+    <section id="portfolio" className="py-20 bg-white border-t-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center space-y-6 mb-16">
@@ -97,14 +97,14 @@ const Portfolio = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <div className="flex items-center justify-center space-x-2 text-green-500">
-              <div className="w-4 h-4 bg-green-500 border-2 border-green-300"></div>
-              <span className="text-sm font-bold uppercase tracking-wider">OUR CONTROLLERS</span>
+            <div className="flex items-center justify-center space-x-2 text-orange-500">
+              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
+              <span className="text-sm font-bold uppercase tracking-wider">OUR PRODUCTS</span>
             </div>
             <h2 className="text-4xl lg:text-6xl font-bold tracking-tight">
-              <span className="text-green-500">FLIGHT</span>
+              <span className="text-black">PRODUCT</span>
               <br />
-              <span className="text-green-300">CONTROLLERS</span>
+              <span className="text-orange-500">LINEUP</span>
             </h2>
           </motion.div>
 
@@ -120,10 +120,10 @@ const Portfolio = () => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 border-4 border-green-500 font-bold tracking-wide transition-all duration-200 ${
+                className={`px-6 py-2 border-4 border-black font-bold tracking-wide transition-all duration-200 ${
                   activeCategory === category
-                    ? 'bg-green-500 text-black shadow-[4px_4px_0px_0px_rgba(0,255,0,0.3)]'
-                    : 'bg-black text-green-500 hover:bg-gray-900'
+                    ? 'bg-orange-500 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                    : 'bg-white text-black hover:bg-gray-100'
                 }`}
               >
                 {category.toUpperCase()}
@@ -146,25 +146,25 @@ const Portfolio = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="bg-gray-900 border-4 border-green-500 overflow-hidden hover:border-green-300 transition-all duration-300 group shadow-[8px_8px_0px_0px_rgba(0,255,0,0.1)] hover:shadow-[8px_8px_0px_0px_rgba(0,255,0,0.3)]"
+              className="bg-white border-4 border-black overflow-hidden hover:border-orange-500 transition-all duration-300 group shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[8px_8px_0px_0px_rgba(255,165,0,0.3)]"
             >
               {/* Header */}
-              <div className="p-6 border-b-4 border-green-500">
+              <div className="p-6 border-b-4 border-black">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-green-500 text-black text-sm font-bold tracking-wide border-2 border-green-300">
+                  <span className="px-3 py-1 bg-orange-500 text-white text-sm font-bold tracking-wide border-2 border-black">
                     {item.category.toUpperCase()}
                   </span>
                   <motion.button
                     whileHover={{ scale: 1.1, rotate: 45 }}
-                    className="w-8 h-8 bg-gray-800 border-2 border-green-500 flex items-center justify-center group-hover:bg-green-500 group-hover:text-black transition-colors duration-300"
+                    className="w-8 h-8 bg-gray-200 border-2 border-black flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300"
                   >
-                    <ArrowRight className="w-4 h-4 text-green-500 group-hover:text-black" />
+                    <ArrowRight className="w-4 h-4" />
                   </motion.button>
                 </div>
-                <h3 className="text-xl font-bold text-green-500 mb-2 group-hover:text-green-300 transition-colors duration-300 tracking-wide">
+                <h3 className="text-xl font-bold text-black mb-2 group-hover:text-orange-500 transition-colors duration-300 tracking-wide">
                   {item.name}
                 </h3>
-                <p className="text-green-300 text-sm leading-relaxed font-mono">
+                <p className="text-gray-600 text-sm leading-relaxed font-mono">
                   {item.description.toUpperCase()}
                 </p>
               </div>
@@ -173,32 +173,32 @@ const Portfolio = () => {
               <div className="p-6 space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="flex items-center justify-center space-x-1 text-green-500 mb-1">
+                    <div className="flex items-center justify-center space-x-1 text-green-600 mb-1">
                       <Users className="w-4 h-4" />
                       <span className="font-bold">{item.stats.users}</span>
                     </div>
-                    <div className="text-xs text-green-300 font-mono">USERS</div>
+                    <div className="text-xs text-gray-500 font-mono">USERS</div>
                   </div>
                   <div className="text-center">
-                    <div className="flex items-center justify-center space-x-1 text-green-400 mb-1">
+                    <div className="flex items-center justify-center space-x-1 text-blue-600 mb-1">
                       <TrendingUp className="w-4 h-4" />
                       <span className="font-bold">{item.stats.projects}</span>
                     </div>
-                    <div className="text-xs text-green-300 font-mono">PROJECTS</div>
+                    <div className="text-xs text-gray-500 font-mono">PROJECTS</div>
                   </div>
                   <div className="text-center">
-                    <div className="flex items-center justify-center space-x-1 text-green-500 mb-1">
+                    <div className="flex items-center justify-center space-x-1 text-purple-600 mb-1">
                       <Award className="w-4 h-4" />
                       <span className="font-bold">{item.stats.rating}</span>
                     </div>
-                    <div className="text-xs text-green-300 font-mono">RATING</div>
+                    <div className="text-xs text-gray-500 font-mono">RATING</div>
                   </div>
                   <div className="text-center">
-                    <div className="flex items-center justify-center space-x-1 text-green-400 mb-1">
+                    <div className="flex items-center justify-center space-x-1 text-orange-600 mb-1">
                       <DollarSign className="w-4 h-4" />
                       <span className="font-bold">{item.stats.downloads}</span>
                     </div>
-                    <div className="text-xs text-green-300 font-mono">DOWNLOADS</div>
+                    <div className="text-xs text-gray-500 font-mono">DOWNLOADS</div>
                   </div>
                 </div>
 
@@ -207,7 +207,7 @@ const Portfolio = () => {
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-green-500 text-black text-xs font-bold border border-green-300 tracking-wide"
+                      className="px-2 py-1 bg-gray-200 text-black text-xs font-bold border border-gray-400 tracking-wide"
                     >
                       {tag}
                     </span>
@@ -226,12 +226,12 @@ const Portfolio = () => {
           className="text-center mt-16"
         >
           <motion.a
-            href="#faq"
+            href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center space-x-2 border-4 border-green-500 text-green-500 px-8 py-4 font-bold tracking-wide hover:bg-green-500 hover:text-black transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(0,255,0,0.3)]"
+            className="inline-flex items-center space-x-2 border-4 border-orange-500 text-orange-500 px-8 py-4 font-bold tracking-wide hover:bg-orange-500 hover:text-white transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(255,165,0,0.3)]"
           >
-            <span>LEARN MORE</span>
+            <span>VIEW ALL PRODUCTS</span>
             <ArrowRight className="w-5 h-5" />
           </motion.a>
         </motion.div>
