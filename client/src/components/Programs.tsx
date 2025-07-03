@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Zap, Target, Users, Rocket } from 'lucide-react';
+import { useStaggeredScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Programs = () => {
   const [activeProgram, setActiveProgram] = useState(0);
+  const containerRef = useStaggeredScrollAnimation(150);
 
   const programs = [
     {
@@ -39,7 +41,11 @@ const Programs = () => {
   ];
 
   return (
-    <section id="programs" className="py-20 bg-gray-900 border-t-4 border-green-500">
+    <section 
+      id="programs" 
+      ref={containerRef as React.RefObject<HTMLElement>}
+      className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 border-t-4 border-emerald-500"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Flight Controllers Section */}
         <div className="mb-20">
@@ -60,35 +66,30 @@ const Programs = () => {
                 </h2>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="space-y-6"
-              >
+              <div className="space-y-6 scroll-animate-left">
                 <div className="grid grid-cols-2 gap-4">
                   {['BEGINNER', 'MODULAR', 'OPEN SOURCE', 'PLUG & PLAY'].map((feature, index) => (
                     <motion.div
                       key={feature}
-                      whileHover={{ scale: 1.05 }}
-                      className="p-4 border-4 border-green-500 bg-black text-center font-bold tracking-wide relative overflow-hidden group hover:bg-green-500 hover:text-black transition-all duration-200"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="p-4 border-4 border-emerald-500 bg-slate-800 text-center font-bold tracking-wide relative overflow-hidden group hover:bg-emerald-500 hover:text-slate-900 transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/40"
                     >
-                      <span className="relative z-10 text-green-500 group-hover:text-black">{feature}</span>
+                      <span className="relative z-10 text-emerald-400 group-hover:text-slate-900">{feature}</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-400 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
                     </motion.div>
                   ))}
                 </div>
 
                 <motion.a
                   href="#portfolio"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center space-x-2 bg-green-500 text-black px-6 py-3 border-4 border-green-300 font-bold tracking-wide hover:bg-green-600 transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,255,0,0.3)]"
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-emerald-400 text-slate-900 px-6 py-3 border-4 border-emerald-300 font-bold tracking-wide hover:from-emerald-400 hover:to-emerald-300 transition-all duration-300 shadow-xl shadow-emerald-500/25 hover:shadow-emerald-400/40"
                 >
                   <span>VIEW CONTROLLERS</span>
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
-              </motion.div>
+              </div>
             </div>
 
             <motion.div

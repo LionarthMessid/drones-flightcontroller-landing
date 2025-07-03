@@ -69,16 +69,16 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black border-b-4 border-green-500">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl border-b-4 border-emerald-500 shadow-xl shadow-emerald-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-500 border-2 border-green-500 flex items-center justify-center">
-                <span className="text-black font-bold text-sm">AQ</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-400 border-2 border-emerald-300 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+                <span className="text-slate-900 font-bold text-sm">AQ</span>
               </div>
-              <span className="text-xl font-bold text-green-500 tracking-wider">AEROQUE</span>
+              <span className="text-xl font-bold text-transparent bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text tracking-wider">AEROQUE</span>
             </div>
           </div>
 
@@ -86,21 +86,24 @@ const Header = () => {
           <nav className="hidden lg:flex items-center space-x-8">
             <button 
               onClick={() => scrollToSection('programs')}
-              className="text-green-500 hover:text-green-300 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              className="text-emerald-400 hover:text-emerald-300 transition-all duration-300 cursor-pointer font-bold tracking-wide hover:scale-105 relative group"
             >
-              <CrypticText>CONTROLLERS</CrypticText>
+              <span className="relative z-10"><CrypticText>CONTROLLERS</CrypticText></span>
+              <div className="absolute inset-0 bg-emerald-500/10 scale-0 group-hover:scale-100 transition-transform duration-300 rounded"></div>
             </button>
             <button 
               onClick={() => scrollToSection('portfolio')}
-              className="text-green-500 hover:text-green-300 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              className="text-emerald-400 hover:text-emerald-300 transition-all duration-300 cursor-pointer font-bold tracking-wide hover:scale-105 relative group"
             >
-              <CrypticText>PRODUCTS</CrypticText>
+              <span className="relative z-10"><CrypticText>PRODUCTS</CrypticText></span>
+              <div className="absolute inset-0 bg-emerald-500/10 scale-0 group-hover:scale-100 transition-transform duration-300 rounded"></div>
             </button>
             <button 
               onClick={() => scrollToSection('faq')}
-              className="text-green-500 hover:text-green-300 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              className="text-emerald-400 hover:text-emerald-300 transition-all duration-300 cursor-pointer font-bold tracking-wide hover:scale-105 relative group"
             >
-              <CrypticText>FAQ</CrypticText>
+              <span className="relative z-10"><CrypticText>FAQ</CrypticText></span>
+              <div className="absolute inset-0 bg-emerald-500/10 scale-0 group-hover:scale-100 transition-transform duration-300 rounded"></div>
             </button>
           </nav>
 
@@ -110,32 +113,34 @@ const Header = () => {
             <div className="relative">
               <button
                 onClick={() => setIsEcosystemOpen(!isEcosystemOpen)}
-                className="flex items-center space-x-2 text-green-500 hover:text-green-300 transition-colors duration-200 font-bold tracking-wide"
+                className="flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 transition-all duration-300 font-bold tracking-wide hover:scale-105 relative group px-3 py-1"
               >
-                <CrypticText>BOARDS</CrypticText>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isEcosystemOpen ? 'rotate-180' : ''}`} />
+                <span className="relative z-10"><CrypticText>BOARDS</CrypticText></span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isEcosystemOpen ? 'rotate-180' : ''}`} />
+                <div className="absolute inset-0 bg-emerald-500/10 scale-0 group-hover:scale-100 transition-transform duration-300 rounded"></div>
               </button>
 
               <AnimatePresence>
                 {isEcosystemOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full right-0 mt-2 w-80 bg-black border-4 border-green-500 shadow-[8px_8px_0px_0px_rgba(0,255,0,0.3)] overflow-hidden"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute top-full right-0 mt-2 w-80 bg-slate-800/95 backdrop-blur-xl border-4 border-emerald-500 shadow-2xl shadow-emerald-500/25 overflow-hidden rounded-lg"
                   >
                     <div className="p-4 space-y-2">
                       {ecosystemItems.map((item, index) => (
                         <a
                           key={index}
                           href={item.url}
-                          className="flex items-center justify-between p-3 border-2 border-gray-700 hover:border-green-500 hover:bg-gray-900 transition-all duration-200 group"
+                          className="flex items-center justify-between p-3 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-700/50 transition-all duration-300 group rounded"
                         >
                           <div>
-                            <div className="font-bold text-green-500 tracking-wide">{item.name}</div>
-                            <div className="text-sm text-green-300 font-mono">{item.description}</div>
+                            <div className="font-bold text-emerald-400 tracking-wide group-hover:text-emerald-300">{item.name}</div>
+                            <div className="text-sm text-emerald-200 font-mono">{item.description}</div>
                           </div>
-                          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-green-500 transition-colors duration-200" />
+                          <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-emerald-400 transition-colors duration-300" />
                         </a>
                       ))}
                     </div>
