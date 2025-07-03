@@ -4,141 +4,25 @@
 
 @layer base {
   :root {
-    /* Enhanced UI/UX Color System */
-    --background: 220 13% 9%;
-    --background-secondary: 220 13% 7%;
-    --foreground: 140 65% 85%;
-    --card: 220 13% 11%;
-    --card-foreground: 140 65% 85%;
-    --popover: 220 13% 11%;
-    --popover-foreground: 140 65% 85%;
-    --primary: 140 100% 50%;
-    --primary-hover: 140 100% 45%;
-    --primary-foreground: 220 13% 9%;
-    --secondary: 140 30% 20%;
-    --secondary-foreground: 140 65% 85%;
-    --muted: 220 13% 15%;
-    --muted-foreground: 140 25% 60%;
-    --accent: 140 60% 25%;
-    --accent-foreground: 140 65% 85%;
+    --background: 0 0% 0%;
+    --foreground: 120 100% 50%;
+    --card: 0 0% 5%;
+    --card-foreground: 120 100% 50%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 120 100% 50%;
+    --primary: 120 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 120 100% 50%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 120 50% 70%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 120 100% 50%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 140 30% 25%;
-    --input: 220 13% 15%;
-    --ring: 140 100% 50%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 120 100% 50%;
     --radius: 0.5rem;
-    
-    /* Custom brand colors */
-    --brand-primary: 140 100% 50%;
-    --brand-secondary: 140 80% 35%;
-    --brand-tertiary: 140 60% 25%;
-    --surface-1: 220 13% 9%;
-    --surface-2: 220 13% 11%;
-    --surface-3: 220 13% 15%;
-    --text-primary: 140 65% 85%;
-    --text-secondary: 140 25% 60%;
-    --text-muted: 140 15% 45%;
   }
-}
-
-/* Smooth scrolling behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--brand-secondary));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--brand-primary));
-}
-
-/* Enhanced animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scroll triggered animations */
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scroll-animate.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-animate-left {
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scroll-animate-left.in-view {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.scroll-animate-right {
-  opacity: 0;
-  transform: translateX(30px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scroll-animate-right.in-view {
-  opacity: 1;
-  transform: translateX(0);
 }
