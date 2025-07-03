@@ -263,7 +263,7 @@ const SimulationDemo = () => {
           transition={{ delay: 0.8 }}
           className="mb-20"
         >
-          <div className="text-center mb-12">
+          <div className="text-center mt-[35px] mb-[35px]">
             <h2 className="text-3xl font-bold text-black font-mono mt-[12px] mb-[12px]">
               CODE EXAMPLES
             </h2>
