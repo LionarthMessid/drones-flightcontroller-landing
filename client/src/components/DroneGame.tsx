@@ -157,10 +157,10 @@ const DroneGame = ({ inModal = false, onClose, onPlayInWindow }: DroneGameProps 
 
       const obstacleWidth = obstacle.type === 'cafe' ? 50 : obstacle.type === 'tower' ? 80 : 70;
       
-      // Reduce collision area by 40% on all sides for more forgiving gameplay
+      // Reduce collision area by 50% on all sides for more forgiving gameplay
       const collisionReduction = {
-        width: obstacleWidth * 0.4,
-        height: obstacle.height * 0.4
+        width: obstacleWidth * 0.5,
+        height: obstacle.height * 0.5
       };
       
       const obstacleLeft = obstacle.x + collisionReduction.width / 2;
