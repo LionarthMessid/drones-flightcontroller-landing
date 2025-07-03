@@ -133,157 +133,145 @@ const ControllerBoard = () => {
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Version A */}
-            <div className="bg-white border-4 border-black p-6">
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-black">VERSION A</h3>
-                  <div className="bg-orange-500 text-white px-3 py-1 border-2 border-black font-bold text-xs">
-                    IN DEVELOPMENT
-                  </div>
-                </div>
-                <div className="text-orange-500 font-bold mb-2">Standard Edition</div>
-                <div className="text-gray-600 text-sm">Essential flight control features</div>
+            <div className="bg-white border-4 border-black p-8 relative">
+            <div className="absolute -top-4 left-8 bg-orange-500 text-white px-4 py-2 font-bold text-sm">
+              VERSION A - STANDARD
+            </div>
+            <div className="mt-4 mb-6">
+              <div className="w-full h-48 bg-gray-200 border-2 border-black mb-4 flex items-center justify-center">
+                <Cpu className="w-16 h-16 text-gray-400" />
               </div>
-
-              {/* Feature Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">ESP32 DUAL-CORE</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">WIFI ENABLED</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">USB TYPE-C</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">COMPACT DESIGN</div>
-                </div>
+              <p className="text-sm text-gray-600 font-mono">CONCEPT VISUALIZATION - ACTUAL BOARD IN DEVELOPMENT</p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <Cpu className="w-5 h-5 text-orange-500" />
+                <span className="font-mono text-sm">ESP32 DUAL-CORE PROCESSOR</span>
               </div>
-
-              {/* Technical Specifications */}
-              <div className="space-y-3">
-                <h4 className="font-bold text-black text-sm">TECHNICAL SPECIFICATIONS</h4>
-                <div className="text-xs space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-bold">PROCESSOR:</span>
-                    <span>ESP32-S3 Dual Core</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">FREQUENCY:</span>
-                    <span>240MHz</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">MEMORY:</span>
-                    <span>512KB SRAM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">CONNECTIVITY:</span>
-                    <span>Wi-Fi 802.11b/g/n</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">PORTS:</span>
-                    <span>USB-C, 6x PWM</span>
-                  </div>
-                </div>
+              <div className="flex items-center space-x-3">
+                <Wifi className="w-5 h-5 text-orange-500" />
+                <span className="font-mono text-sm">WI-FI 802.11 B/G/N</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Usb className="w-5 h-5 text-orange-500" />
+                <span className="font-mono text-sm">USB TYPE-C PROGRAMMING</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Zap className="w-5 h-5 text-orange-500" />
+                <span className="font-mono text-sm">4MB FLASH MEMORY</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Settings className="w-5 h-5 text-orange-500" />
+                <span className="font-mono text-sm">BASIC I/O PORTS</span>
               </div>
             </div>
+            
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="text-sm text-gray-600 font-mono">STATUS: IN DEVELOPMENT</div>
+              <div className="text-sm text-gray-600 font-mono">TARGET: ENTRY-LEVEL USERS</div>
+            </div>
+          </div>
 
-            {/* Version B */}
-            <div className="bg-white border-4 border-black p-6">
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-black">VERSION B</h3>
-                  <div className="bg-gray-400 text-white px-3 py-1 border-2 border-black font-bold text-xs">
-                    CONCEPT PHASE
-                  </div>
-                </div>
-                <div className="text-orange-500 font-bold mb-2">Professional Edition</div>
-                <div className="text-gray-600 text-sm">Advanced features & sensors</div>
+          {/* Version B */}
+          <div className="bg-white rounded-lg border-2 border-black p-8 relative">
+            <div className="absolute -top-4 left-8 bg-black text-white px-4 py-2 font-bold text-sm">
+              VERSION B - PROFESSIONAL
+            </div>
+            <div className="mt-4 mb-6">
+              <div className="w-full h-48 bg-gray-200 border-2 border-black mb-4 flex items-center justify-center">
+                <Cpu className="w-16 h-16 text-gray-400" />
               </div>
-
-              {/* Feature Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">ESP32 DUAL-CORE</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">WIFI & BLUETOOTH</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">ONBOARD IMU</div>
-                </div>
-                <div className="bg-gray-50 border-2 border-gray-300 p-3 text-center">
-                  <div className="font-bold text-xs">ADVANCED PCB</div>
-                </div>
+              <p className="text-sm text-gray-600 font-mono">CONCEPT VISUALIZATION - FUTURE RELEASE</p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <Cpu className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">ESP32 DUAL-CORE PROCESSOR</span>
               </div>
+              <div className="flex items-center space-x-3">
+                <Wifi className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">WI-FI 802.11 B/G/N</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Bluetooth className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">BLUETOOTH 5.0</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Usb className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">USB TYPE-C PROGRAMMING</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Zap className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">8MB PSRAM MEMORY</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Settings className="w-5 h-5 text-black" />
+                <span className="font-mono text-sm">ONBOARD IMU SENSORS</span>
+              </div>
+            </div>
+            
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="text-sm text-gray-600 font-mono">STATUS: CONCEPT PHASE</div>
+              <div className="text-sm text-gray-600 font-mono">TARGET: ADVANCED USERS</div>
+            </div>
+          </div>
+          </div>
+        </motion.div>
 
-              {/* Technical Specifications */}
-              <div className="space-y-3">
-                <h4 className="font-bold text-black text-sm">TECHNICAL SPECIFICATIONS</h4>
-                <div className="text-xs space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-bold">PROCESSOR:</span>
-                    <span>ESP32-S3 Dual Core</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">FREQUENCY:</span>
-                    <span>240MHz</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">MEMORY:</span>
-                    <span>512KB SRAM + 8MB PSRAM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">CONNECTIVITY:</span>
-                    <span>Wi-Fi + Bluetooth 5.0</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-bold">PORTS:</span>
-                    <span>USB-C, 8x PWM, I2C, SPI</span>
-                  </div>
-                </div>
+        {/* Technical Details */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-lg border-2 border-black p-8 mb-16"
+        >
+          <h2 className="text-3xl font-bold text-black mb-6">TECHNICAL SPECIFICATIONS</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">PROCESSOR & MEMORY</h3>
+              <div className="space-y-2 font-mono text-sm">
+                <div>• DUAL-CORE XTENSA 32-BIT LX6</div>
+                <div>• UP TO 240 MHZ CLOCK SPEED</div>
+                <div>• 520 KB SRAM</div>
+                <div>• 4MB-8MB FLASH STORAGE</div>
+                <div>• OPTIONAL 8MB PSRAM (VERSION B)</div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">CONNECTIVITY</h3>
+              <div className="space-y-2 font-mono text-sm">
+                <div>• WI-FI 802.11 B/G/N 2.4GHZ</div>
+                <div>• BLUETOOTH 5.0 (VERSION B)</div>
+                <div>• USB TYPE-C PROGRAMMING</div>
+                <div>• UART, SPI, I2C INTERFACES</div>
+                <div>• PWM OUTPUT CHANNELS</div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Development Progress */}
+        {/* Development Status */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mb-20"
+          className="bg-orange-50 border-2 border-orange-500 rounded-lg p-8 text-center"
         >
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
-              DEVELOPMENT PROGRESS
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-xl font-bold text-black mb-4">VERSION A STATUS</h3>
-              <div className="bg-orange-500 text-white px-4 py-2 border-2 border-black font-bold text-center mb-4">
-                VERSION A: 75% COMPLETE
-              </div>
-              <div className="text-sm text-gray-600 space-y-2">
-                <div>✓ Hardware design finalized</div>
-                <div>✓ Core firmware development</div>
-                <div>→ Testing & validation in progress</div>
-                <div>→ Production preparation</div>
-              </div>
+          <h2 className="text-3xl font-bold text-black mb-4">DEVELOPMENT STATUS</h2>
+          <p className="text-gray-700 font-mono mb-6">
+            BOTH VERSIONS ARE CURRENTLY IN DEVELOPMENT. VERSION A IS IN PROTOTYPING PHASE, 
+            WHILE VERSION B IS IN CONCEPT DESIGN PHASE.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <div className="bg-orange-500 text-white px-6 py-3 rounded font-bold">
+              VERSION A: 60% COMPLETE
             </div>
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-xl font-bold text-black mb-4">VERSION B STATUS</h3>
-              <div className="bg-gray-400 text-white px-4 py-2 border-2 border-black font-bold text-center mb-4">
-                VERSION B: 25% COMPLETE
-              </div>
-              <div className="text-sm text-gray-600 space-y-2">
-                <div>✓ Concept development</div>
-                <div>→ Advanced feature planning</div>
-                <div>→ Hardware specification</div>
-                <div>→ Development timeline TBD</div>
-              </div>
+            <div className="bg-gray-400 text-white px-6 py-3 rounded font-bold">
+              VERSION B: 25% COMPLETE
             </div>
           </div>
         </motion.div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ExternalLink, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'wouter';
 
 const CrypticText = ({ children, className = "" }: { children: string; className?: string }) => {
   const [displayText, setDisplayText] = useState(children);
@@ -52,21 +53,14 @@ const CrypticText = ({ children, className = "" }: { children: string; className
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEcosystemOpen, setIsEcosystemOpen] = useState(false);
+  const [location] = useLocation();
 
   const ecosystemItems = [
-    { name: 'FLIGHT SIMULATOR', url: '#simulation', description: 'DRONE SIMULATION' },
-    { name: 'VERSION A SPECS', url: '#controller-board', description: 'STANDARD EDITION' },
-    { name: 'VERSION B SPECS', url: '#controller-board', description: 'PROFESSIONAL EDITION' },
-    { name: 'DEVELOPMENT DOCS', url: '#faq', description: 'TECH SPECS & FAQ' },
+    { name: 'FLIGHT SIMULATOR', url: '/simulation', description: 'DRONE SIMULATION' },
+    { name: 'VERSION A SPECS', url: '/controller', description: 'STANDARD EDITION' },
+    { name: 'VERSION B SPECS', url: '/controller', description: 'PROFESSIONAL EDITION' },
+    { name: 'DEVELOPMENT DOCS', url: '/#faq', description: 'TECH SPECS & FAQ' },
   ];
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-black">
@@ -74,46 +68,79 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
-                <span className="text-white font-bold text-sm">FC</span>
+            <Link href="/">
+              <div className="flex items-center space-x-2 cursor-pointer">
+                <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">FC</span>
+                </div>
+                <span className="text-xl font-bold text-black tracking-wider">FLIGHTCONTROL</span>
               </div>
-              <span className="text-xl font-bold text-black tracking-wider">FLIGHTCONTROL</span>
-            </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('controller-board')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>THE CONTROLLER</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('simulation')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>SIMULATION</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('team')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>TEAM</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('faq')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>FAQ</CrypticText>
-            </button>
-            <button 
-              onClick={() => scrollToSection('blog')}
-              className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
-            >
-              <CrypticText>UPDATES</CrypticText>
-            </button>
+            <Link href="/controller">
+              <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                <CrypticText>THE CONTROLLER</CrypticText>
+              </span>
+            </Link>
+            <Link href="/simulation">
+              <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                <CrypticText>SIMULATION</CrypticText>
+              </span>
+            </Link>
+            {location === '/' ? (
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('team');
+                  if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              >
+                <CrypticText>TEAM</CrypticText>
+              </button>
+            ) : (
+              <Link href="/#team">
+                <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                  <CrypticText>TEAM</CrypticText>
+                </span>
+              </Link>
+            )}
+            {location === '/' ? (
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('faq');
+                  if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              >
+                <CrypticText>FAQ</CrypticText>
+              </button>
+            ) : (
+              <Link href="/#faq">
+                <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                  <CrypticText>FAQ</CrypticText>
+                </span>
+              </Link>
+            )}
+            {location === '/' ? (
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('updates');
+                  if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide"
+              >
+                <CrypticText>UPDATES</CrypticText>
+              </button>
+            ) : (
+              <Link href="/#updates">
+                <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                  <CrypticText>UPDATES</CrypticText>
+                </span>
+              </Link>
+            )}
           </nav>
 
           {/* Desktop Actions */}
@@ -177,36 +204,85 @@ const Header = () => {
             className="lg:hidden bg-white border-t-4 border-black"
           >
             <div className="px-4 py-6 space-y-4">
-              <button 
-                onClick={() => scrollToSection('controller-board')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                THE CONTROLLER
-              </button>
-              <button 
-                onClick={() => scrollToSection('simulation')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                SIMULATION
-              </button>
-              <button 
-                onClick={() => scrollToSection('team')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                TEAM
-              </button>
-              <button 
-                onClick={() => scrollToSection('faq')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                FAQ
-              </button>
-              <button 
-                onClick={() => scrollToSection('blog')}
-                className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
-              >
-                UPDATES
-              </button>
+              <Link href="/controller">
+                <span 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  THE CONTROLLER
+                </span>
+              </Link>
+              <Link href="/simulation">
+                <span 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  SIMULATION
+                </span>
+              </Link>
+              {location === '/' ? (
+                <button 
+                  onClick={() => {
+                    const element = document.getElementById('team');
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  TEAM
+                </button>
+              ) : (
+                <Link href="/#team">
+                  <span 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                  >
+                    TEAM
+                  </span>
+                </Link>
+              )}
+              {location === '/' ? (
+                <button 
+                  onClick={() => {
+                    const element = document.getElementById('faq');
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  FAQ
+                </button>
+              ) : (
+                <Link href="/#faq">
+                  <span 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                  >
+                    FAQ
+                  </span>
+                </Link>
+              )}
+              {location === '/' ? (
+                <button 
+                  onClick={() => {
+                    const element = document.getElementById('updates');
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  UPDATES
+                </button>
+              ) : (
+                <Link href="/#updates">
+                  <span 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                  >
+                    UPDATES
+                  </span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

@@ -40,7 +40,7 @@ const SimulationDemo = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -253,6 +253,194 @@ const SimulationDemo = () => {
                 <li>• REAL-TIME TELEMETRY</li>
                 <li>• SENSOR INTEGRATION</li>
               </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Code Examples Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              PROGRAMMING EXAMPLES
+            </h2>
+            <p className="text-gray-600 font-mono">
+              Sample code for controlling the ESP32 flight controller in the simulation
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Basic Flight Control */}
+            <div className="bg-white border-4 border-black p-6">
+              <h3 className="text-lg font-bold text-black mb-4">BASIC FLIGHT CONTROL</h3>
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
+                <pre>{`// Basic ESP32 flight initialization
+#include "FlightController.h"
+
+FlightController fc;
+
+void setup() {
+  Serial.begin(115200);
+  fc.init();
+  fc.calibrateIMU();
+  
+  // Set flight parameters
+  fc.setThrottleRange(1000, 2000);
+  fc.enableStabilization(true);
+}
+
+void loop() {
+  // Read sensor data
+  fc.updateSensors();
+  
+  // Apply PID control
+  fc.stabilize();
+  
+  // Output to motors
+  fc.updateMotors();
+  
+  delay(10); // 100Hz loop
+}`}</pre>
+              </div>
+            </div>
+
+            {/* WiFi Telemetry */}
+            <div className="bg-white border-4 border-black p-6">
+              <h3 className="text-lg font-bold text-black mb-4">WIFI TELEMETRY</h3>
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
+                <pre>{`// WiFi telemetry streaming
+#include <WiFi.h>
+#include <WebSocketsServer.h>
+
+WebSocketsServer webSocket(81);
+
+void setup() {
+  WiFi.begin("SSID", "PASSWORD");
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+}
+
+void sendTelemetry() {
+  String data = "{";
+  data += "\"altitude\":" + String(altitude);
+  data += ",\"speed\":" + String(speed);
+  data += ",\"battery\":" + String(battery);
+  data += "}";
+  
+  webSocket.broadcastTXT(data);
+}`}</pre>
+              </div>
+            </div>
+
+            {/* Autonomous Flight */}
+            <div className="bg-white border-4 border-black p-6">
+              <h3 className="text-lg font-bold text-black mb-4">AUTONOMOUS FLIGHT</h3>
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
+                <pre>{`// Waypoint navigation
+struct Waypoint {
+  float lat, lon, alt;
+};
+
+Waypoint waypoints[] = {
+  {40.7128, -74.0060, 10.0},
+  {40.7589, -73.9851, 15.0},
+  {40.7505, -73.9934, 12.0}
+};
+
+void followWaypoints() {
+  for(int i = 0; i < 3; i++) {
+    navigateToWaypoint(waypoints[i]);
+    while(!atWaypoint(waypoints[i])) {
+      delay(100);
+    }
+  }
+}`}</pre>
+              </div>
+            </div>
+
+            {/* Sensor Integration */}
+            <div className="bg-white border-4 border-black p-6">
+              <h3 className="text-lg font-bold text-black mb-4">SENSOR INTEGRATION</h3>
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
+                <pre>{`// IMU data processing
+#include <MPU6050.h>
+
+MPU6050 mpu;
+
+void readIMU() {
+  Vector rawAccel = mpu.readRawAccel();
+  Vector rawGyro = mpu.readRawGyro();
+  
+  // Apply calibration
+  accelX = (rawAccel.XAxis - accelOffset.X) / accelScale.X;
+  accelY = (rawAccel.YAxis - accelOffset.Y) / accelScale.Y;
+  accelZ = (rawAccel.ZAxis - accelOffset.Z) / accelScale.Z;
+  
+  // Calculate angles
+  pitch = atan2(accelX, sqrt(accelY*accelY + accelZ*accelZ)) * 180/PI;
+  roll = atan2(accelY, accelZ) * 180/PI;
+}`}</pre>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Simulation Features */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              SIMULATION FEATURES
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white border-4 border-black p-6 text-center">
+              <div className="w-12 h-12 bg-orange-500 border-2 border-black mx-auto mb-4 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black mb-2">REAL-TIME PHYSICS</h3>
+              <p className="text-sm text-gray-600 font-mono">
+                Accurate flight dynamics with gravity, wind, and inertial effects
+              </p>
+            </div>
+
+            <div className="bg-white border-4 border-black p-6 text-center">
+              <div className="w-12 h-12 bg-black border-2 border-black mx-auto mb-4 flex items-center justify-center">
+                <Wifi className="w-6 h-6 text-orange-500" />
+              </div>
+              <h3 className="text-lg font-bold text-black mb-2">WIRELESS TESTING</h3>
+              <p className="text-sm text-gray-600 font-mono">
+                Test WiFi telemetry and remote control features
+              </p>
+            </div>
+
+            <div className="bg-white border-4 border-black p-6 text-center">
+              <div className="w-12 h-12 bg-gray-200 border-2 border-black mx-auto mb-4 flex items-center justify-center">
+                <Settings className="w-6 h-6 text-black" />
+              </div>
+              <h3 className="text-lg font-bold text-black mb-2">CODE VALIDATION</h3>
+              <p className="text-sm text-gray-600 font-mono">
+                Upload and test your flight control algorithms
+              </p>
+            </div>
+
+            <div className="bg-white border-4 border-black p-6 text-center">
+              <div className="w-12 h-12 bg-orange-500 border-2 border-black mx-auto mb-4 flex items-center justify-center">
+                <Cpu className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black mb-2">PERFORMANCE ANALYSIS</h3>
+              <p className="text-sm text-gray-600 font-mono">
+                Monitor CPU usage, memory, and timing performance
+              </p>
             </div>
           </div>
         </motion.div>
