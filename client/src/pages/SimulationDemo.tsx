@@ -264,7 +264,7 @@ const SimulationDemo = () => {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+            <h2 className="text-3xl font-bold text-black font-mono mt-[12px] mb-[12px]">
               CODE EXAMPLES
             </h2>
             <p className="text-gray-600 font-mono">
