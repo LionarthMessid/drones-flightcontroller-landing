@@ -64,7 +64,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-lg border-2 border-black p-8 mb-8"
+          className="bg-white rounded-lg border-2 border-black p-8 mb-8 relative z-10"
         >
           {/* Simulation Display */}
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
@@ -257,124 +257,46 @@ const SimulationDemo = () => {
           </div>
         </motion.div>
 
-        {/* Code Examples Section */}
+        {/* Programming Guide Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mb-20"
+          className="mb-20 bg-white border-4 border-black p-8"
         >
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-black mb-4 font-mono">
-              PROGRAMMING EXAMPLES
+              PROGRAMMING GUIDE
             </h2>
             <p className="text-gray-600 font-mono">
-              Sample code for controlling the ESP32 flight controller in the simulation
+              Essential concepts for ESP32 flight controller development
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Basic Flight Control */}
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-lg font-bold text-black mb-4">BASIC FLIGHT CONTROL</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
-                <pre className="whitespace-pre-wrap">{`// Basic ESP32 flight initialization
-#include "FlightController.h"
-
-FlightController fc;
-
-void setup() {
-  Serial.begin(115200);
-  fc.init();
-  fc.calibrateIMU();
-  fc.setThrottleRange(1000, 2000);
-  fc.enableStabilization(true);
-}
-
-void loop() {
-  fc.updateSensors();
-  fc.stabilize();
-  fc.updateMotors();
-  delay(10); // 100Hz loop
-}`}</pre>
-              </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">FLIGHT CONTROL</h3>
+              <p className="text-gray-600 font-mono text-sm">
+                Initialize sensors, configure PID controllers, and manage motor outputs
+              </p>
             </div>
-
-            {/* WiFi Telemetry */}
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-lg font-bold text-black mb-4">WIFI TELEMETRY</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
-                <pre className="whitespace-pre-wrap">{`// WiFi telemetry streaming
-#include <WiFi.h>
-#include <WebSocketsServer.h>
-
-WebSocketsServer webSocket(81);
-
-void setup() {
-  WiFi.begin("SSID", "PASSWORD");
-  webSocket.begin();
-  webSocket.onEvent(webSocketEvent);
-}
-
-void sendTelemetry() {
-  String data = "{";
-  data += "\"altitude\":" + String(altitude);
-  data += ",\"speed\":" + String(speed);
-  data += ",\"battery\":" + String(battery);
-  data += "}";
-  webSocket.broadcastTXT(data);
-}`}</pre>
-              </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">WIFI TELEMETRY</h3>
+              <p className="text-gray-600 font-mono text-sm">
+                Stream real-time flight data via WebSocket connections
+              </p>
             </div>
-
-            {/* Autonomous Flight */}
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-lg font-bold text-black mb-4">AUTONOMOUS FLIGHT</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
-                <pre className="whitespace-pre-wrap">{`// Waypoint navigation
-struct Waypoint {
-  float lat, lon, alt;
-};
-
-Waypoint waypoints[] = {
-  {40.7128, -74.0060, 10.0},
-  {40.7589, -73.9851, 15.0}
-};
-
-void followWaypoints() {
-  for(int i = 0; i < 2; i++) {
-    navigateToWaypoint(waypoints[i]);
-    while(!atWaypoint(waypoints[i])) {
-      delay(100);
-    }
-  }
-}`}</pre>
-              </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">AUTONOMOUS FLIGHT</h3>
+              <p className="text-gray-600 font-mono text-sm">
+                Implement waypoint navigation and automated flight patterns
+              </p>
             </div>
-
-            {/* Sensor Integration */}
-            <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-lg font-bold text-black mb-4">SENSOR INTEGRATION</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
-                <pre className="whitespace-pre-wrap">{`// IMU data processing
-#include <MPU6050.h>
-
-MPU6050 mpu;
-
-void readIMU() {
-  Vector rawAccel = mpu.readRawAccel();
-  Vector rawGyro = mpu.readRawGyro();
-  
-  // Apply calibration
-  accelX = (rawAccel.XAxis - accelOffset.X) / accelScale.X;
-  accelY = (rawAccel.YAxis - accelOffset.Y) / accelScale.Y;
-  accelZ = (rawAccel.ZAxis - accelOffset.Z) / accelScale.Z;
-  
-  // Calculate angles
-  pitch = atan2(accelX, sqrt(accelY*accelY + accelZ*accelZ)) * 180/PI;
-  roll = atan2(accelY, accelZ) * 180/PI;
-}`}</pre>
-              </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">SENSOR INTEGRATION</h3>
+              <p className="text-gray-600 font-mono text-sm">
+                Process IMU data and calculate orientation angles
+              </p>
             </div>
           </div>
         </motion.div>
