@@ -263,7 +263,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mb-20 bg-white border-4 border-black p-8"
+          className="bg-white border-4 border-black p-8 mt-[46px] mb-[46px]"
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-black font-mono mb-4">
