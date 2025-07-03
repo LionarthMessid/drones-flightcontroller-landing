@@ -105,19 +105,19 @@ const DroneGame = () => {
           return true;
         });
 
-        // Add new obstacles (ground obstacles)
-        if (onScreen.length === 0 || onScreen[onScreen.length - 1].x < GAME_WIDTH - 300) {
+        // Add new obstacles (ground obstacles) - reduced gap
+        if (onScreen.length === 0 || onScreen[onScreen.length - 1].x < GAME_WIDTH - 200) {
           const buildingTypes: Array<'cafe' | 'hotel' | 'tower'> = ['cafe', 'hotel', 'tower'];
           const randomType = buildingTypes[Math.floor(Math.random() * buildingTypes.length)];
           
           // Different heights for different building types
           let buildingHeight = OBSTACLE_HEIGHT;
           if (randomType === 'cafe') {
-            buildingHeight = 40; // Half the size of hotel/tower
+            buildingHeight = 60; // Increased cafe size
           } else if (randomType === 'hotel') {
-            buildingHeight = 80; // Large hotel
+            buildingHeight = 90; // Large hotel
           } else if (randomType === 'tower') {
-            buildingHeight = 80; // Same size as hotel
+            buildingHeight = 110; // Bigger tower
           }
           
           onScreen.push({
@@ -145,7 +145,7 @@ const DroneGame = () => {
       const droneTop = droneY;
       const droneBottom = droneY + DRONE_SIZE;
 
-      const obstacleWidth = obstacle.type === 'cafe' ? 40 : 60;
+      const obstacleWidth = obstacle.type === 'cafe' ? 50 : obstacle.type === 'tower' ? 80 : 70;
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + obstacleWidth;
       const obstacleTop = GROUND_HEIGHT - obstacle.height;
@@ -232,18 +232,20 @@ const DroneGame = () => {
 
             {/* Ground obstacles */}
             {obstacles.map(obstacle => {
-              const buildingWidth = obstacle.type === 'cafe' ? 40 : 60; // Cafe half size, hotel/tower same size
+              const buildingWidth = obstacle.type === 'cafe' ? 50 : obstacle.type === 'tower' ? 80 : 70; // Increased sizes
               return (
                 <img
                   key={obstacle.id}
                   src={`/game-assets/${obstacle.type}.png`}
                   alt={obstacle.type}
-                  className="absolute object-contain"
+                  className="absolute"
                   style={{
                     left: obstacle.x,
-                    bottom: GAME_HEIGHT - GROUND_HEIGHT, // Position from bottom to sit on ground
+                    top: GROUND_HEIGHT - obstacle.height, // Position from top to sit exactly on ground
                     width: buildingWidth,
                     height: obstacle.height,
+                    objectFit: 'contain',
+                    objectPosition: 'bottom', // Align image to bottom to eliminate gap
                   }}
                 />
               );
