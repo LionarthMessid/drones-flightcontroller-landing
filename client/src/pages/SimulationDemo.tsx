@@ -256,16 +256,457 @@ const SimulationDemo = () => {
           </div>
         </motion.div>
 
-        {/* Programming Guide Section */}
+        {/* Code Examples Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="bg-white border-4 border-black p-8 mt-[41px] mb-[41px]"
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              CODE EXAMPLES
+            </h2>
+            <p className="text-gray-600 font-mono">
+              Interactive programming examples for ESP32 flight controllers
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Basic Flight Control */}
+            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
+              <div className="bg-black text-white p-3 font-mono text-sm">
+                <span className="text-orange-500">●</span> basic_flight.ino
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-black mb-3">BASIC FLIGHT CONTROL</h3>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                  <pre className="whitespace-pre-wrap">{`#include "FlightController.h"
+
+FlightController fc;
+
+void setup() {
+  Serial.begin(115200);
+  fc.init();
+  fc.calibrateIMU();
+  fc.setThrottleRange(1000, 2000);
+  fc.enableStabilization(true);
+  Serial.println("Flight Controller Ready");
+}
+
+void loop() {
+  fc.updateSensors();
+  fc.stabilize();
+  fc.updateMotors();
+  delay(10);
+}`}</pre>
+                </div>
+              </div>
+            </div>
+
+            {/* WiFi Telemetry */}
+            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
+              <div className="bg-black text-white p-3 font-mono text-sm">
+                <span className="text-orange-500">●</span> wifi_telemetry.ino
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-black mb-3">WIFI TELEMETRY</h3>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                  <pre className="whitespace-pre-wrap">{`#include <WiFi.h>
+#include <WebSocketsServer.h>
+
+WebSocketsServer webSocket(81);
+
+void setup() {
+  WiFi.begin("DroneNet", "password");
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+}
+
+void sendTelemetry() {
+  String data = "{";
+  data += "\\"altitude\\":" + String(altitude);
+  data += ",\\"speed\\":" + String(speed);
+  data += ",\\"battery\\":" + String(battery);
+  data += "}";
+  webSocket.broadcastTXT(data);
+}`}</pre>
+                </div>
+              </div>
+            </div>
+
+            {/* Autonomous Flight */}
+            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
+              <div className="bg-black text-white p-3 font-mono text-sm">
+                <span className="text-orange-500">●</span> autonomous_flight.ino
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-black mb-3">AUTONOMOUS FLIGHT</h3>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                  <pre className="whitespace-pre-wrap">{`struct Waypoint {
+  float lat, lon, alt;
+};
+
+Waypoint waypoints[] = {
+  {40.7128, -74.0060, 10.0},
+  {40.7589, -73.9851, 15.0}
+};
+
+void followWaypoints() {
+  for(int i = 0; i < 2; i++) {
+    navigateToWaypoint(waypoints[i]);
+    while(!atWaypoint(waypoints[i])) {
+      updatePosition();
+      delay(100);
+    }
+  }
+}`}</pre>
+                </div>
+              </div>
+            </div>
+
+            {/* Sensor Integration */}
+            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
+              <div className="bg-black text-white p-3 font-mono text-sm">
+                <span className="text-orange-500">●</span> sensor_integration.ino
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-black mb-3">SENSOR INTEGRATION</h3>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                  <pre className="whitespace-pre-wrap">{`#include <MPU6050.h>
+
+MPU6050 mpu;
+
+void readIMU() {
+  Vector rawAccel = mpu.readRawAccel();
+  Vector rawGyro = mpu.readRawGyro();
+  
+  // Calculate angles
+  pitch = atan2(rawAccel.XAxis, 
+    sqrt(rawAccel.YAxis * rawAccel.YAxis + 
+         rawAccel.ZAxis * rawAccel.ZAxis)) * 180/PI;
+  roll = atan2(rawAccel.YAxis, rawAccel.ZAxis) * 180/PI;
+}`}</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Interactive IDE Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              INTERACTIVE IDE
+            </h2>
+            <p className="text-gray-600 font-mono">
+              Test and compile your ESP32 flight controller code
+            </p>
+          </div>
+
+          <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
+            {/* IDE Header */}
+            <div className="bg-gray-800 text-white p-3 flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <span className="font-mono text-sm">flight_controller.ino</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-orange-500 text-white px-4 py-1 rounded font-mono text-sm"
+                >
+                  COMPILE
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-green-500 text-white px-4 py-1 rounded font-mono text-sm"
+                >
+                  UPLOAD
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Code Editor */}
+            <div className="grid lg:grid-cols-2 h-96">
+              <div className="bg-gray-900 text-green-400 p-4 overflow-y-auto">
+                <div className="font-mono text-sm">
+                  <pre className="whitespace-pre-wrap">{`#include "FlightController.h"
+
+FlightController fc;
+
+void setup() {
+  Serial.begin(115200);
+  fc.init();
+  fc.calibrateIMU();
+  
+  // Set flight parameters
+  fc.setThrottleRange(1000, 2000);
+  fc.enableStabilization(true);
+  
+  Serial.println("Flight Controller Ready");
+}
+
+void loop() {
+  // Read sensor data
+  fc.updateSensors();
+  
+  // Apply stabilization
+  fc.stabilize();
+  
+  // Update motor outputs
+  fc.updateMotors();
+  
+  // Send telemetry
+  sendTelemetry();
+  
+  delay(10); // 100Hz loop
+}
+
+void sendTelemetry() {
+  Serial.print("Alt: ");
+  Serial.print(fc.getAltitude());
+  Serial.print(" | Speed: ");
+  Serial.print(fc.getSpeed());
+  Serial.print(" | Battery: ");
+  Serial.println(fc.getBatteryLevel());
+}`}</pre>
+                </div>
+              </div>
+
+              {/* Output Console */}
+              <div className="bg-black text-white p-4 overflow-y-auto">
+                <div className="font-mono text-sm">
+                  <div className="text-orange-500 mb-2">COMPILATION OUTPUT:</div>
+                  <div className="text-green-400 mb-1">✓ Sketch compiled successfully</div>
+                  <div className="text-green-400 mb-1">✓ Flash memory usage: 847,392 bytes (64%)</div>
+                  <div className="text-green-400 mb-1">✓ Global variables: 41,536 bytes (12%)</div>
+                  <div className="text-white mb-4">Ready to upload to ESP32</div>
+                  
+                  <div className="text-orange-500 mb-2">SERIAL MONITOR:</div>
+                  <div className="text-gray-400 mb-1">Flight Controller Ready</div>
+                  <div className="text-gray-400 mb-1">Alt: 0.0 | Speed: 0.0 | Battery: 100.0</div>
+                  <div className="text-gray-400 mb-1">Alt: 0.5 | Speed: 2.1 | Battery: 99.9</div>
+                  <div className="text-gray-400 mb-1">Alt: 1.2 | Speed: 4.3 | Battery: 99.8</div>
+                  <div className="text-gray-400 mb-1">Alt: 2.1 | Speed: 6.7 | Battery: 99.7</div>
+                  <div className="text-green-400 animate-pulse">█</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Advanced Features Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              ADVANCED FEATURES
+            </h2>
+            <p className="text-gray-600 font-mono">
+              Explore advanced ESP32 flight controller capabilities
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Real-time Data Streaming */}
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">REAL-TIME DATA STREAMING</h3>
+              <div className="bg-gray-100 p-4 rounded mb-4">
+                <div className="grid grid-cols-2 gap-4 text-sm font-mono">
+                  <div>
+                    <span className="text-gray-600">GPS Coordinates:</span>
+                    <div className="text-black">40.7128°N, 74.0060°W</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Orientation:</span>
+                    <div className="text-black">Roll: 2.5°, Pitch: -1.2°</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Acceleration:</span>
+                    <div className="text-black">X: 0.02g, Y: 0.01g, Z: 1.0g</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Signal Strength:</span>
+                    <div className="text-black">WiFi: -45dBm, GPS: 8 sats</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-600 font-mono text-sm">
+                Monitor live flight data with WebSocket connections and JSON telemetry streaming
+              </p>
+            </div>
+
+            {/* Flight Path Planning */}
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">FLIGHT PATH PLANNING</h3>
+              <div className="bg-gray-100 p-4 rounded mb-4">
+                <svg className="w-full h-32" viewBox="0 0 200 80">
+                  <path 
+                    d="M 10 60 Q 50 20 90 40 Q 130 60 170 30" 
+                    stroke="#FF7120" 
+                    strokeWidth="3" 
+                    fill="none"
+                    strokeDasharray="5,5"
+                  />
+                  <circle cx="10" cy="60" r="4" fill="#FF7120" />
+                  <circle cx="90" cy="40" r="4" fill="#FF7120" />
+                  <circle cx="170" cy="30" r="4" fill="#FF7120" />
+                  <text x="10" y="75" className="text-xs font-mono" fill="#666">START</text>
+                  <text x="80" y="55" className="text-xs font-mono" fill="#666">WAYPOINT</text>
+                  <text x="160" y="45" className="text-xs font-mono" fill="#666">END</text>
+                </svg>
+              </div>
+              <p className="text-gray-600 font-mono text-sm">
+                Create complex flight paths with multiple waypoints and automatic navigation
+              </p>
+            </div>
+
+            {/* Safety Systems */}
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">SAFETY SYSTEMS</h3>
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="font-mono text-sm">Failsafe Mode: ACTIVE</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="font-mono text-sm">Geofencing: ENABLED</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="font-mono text-sm">Low Battery Return: SET</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <span className="font-mono text-sm">Emergency Landing: READY</span>
+                </div>
+              </div>
+              <p className="text-gray-600 font-mono text-sm">
+                Comprehensive safety systems including failsafe modes and emergency procedures
+              </p>
+            </div>
+
+            {/* Camera Control */}
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">CAMERA CONTROL</h3>
+              <div className="bg-gray-100 p-4 rounded mb-4">
+                <div className="grid grid-cols-2 gap-4 text-sm font-mono">
+                  <div>
+                    <span className="text-gray-600">Resolution:</span>
+                    <div className="text-black">1920x1080 @ 30fps</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Gimbal Position:</span>
+                    <div className="text-black">Pan: 0°, Tilt: -15°</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Recording:</span>
+                    <div className="text-black">ACTIVE - 00:02:34</div>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Storage:</span>
+                    <div className="text-black">15.2GB / 32GB</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-600 font-mono text-sm">
+                Integrated camera controls with gimbal stabilization and video recording
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Tutorials Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6 }}
+          className="mb-20 bg-orange-50 border-2 border-orange-500 rounded-lg p-8"
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-black mb-4 font-mono">
-              PROGRAMMING GUIDE
+              STEP-BY-STEP TUTORIALS
+            </h2>
+            <p className="text-gray-600 font-mono">
+              Learn ESP32 drone programming with guided tutorials
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold text-lg">1</span>
+                </div>
+                <h3 className="text-lg font-bold text-black">BASIC SETUP</h3>
+              </div>
+              <ul className="space-y-2 text-sm font-mono">
+                <li>• Install ESP32 development environment</li>
+                <li>• Configure Arduino IDE for ESP32</li>
+                <li>• Test basic GPIO operations</li>
+                <li>• Establish WiFi connection</li>
+              </ul>
+            </div>
+
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold text-lg">2</span>
+                </div>
+                <h3 className="text-lg font-bold text-black">SENSOR INTEGRATION</h3>
+              </div>
+              <ul className="space-y-2 text-sm font-mono">
+                <li>• Connect IMU sensor (MPU6050)</li>
+                <li>• Read accelerometer data</li>
+                <li>• Calculate orientation angles</li>
+                <li>• Implement sensor fusion</li>
+              </ul>
+            </div>
+
+            <div className="bg-white border-2 border-black rounded-lg p-6">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold text-lg">3</span>
+                </div>
+                <h3 className="text-lg font-bold text-black">FLIGHT CONTROL</h3>
+              </div>
+              <ul className="space-y-2 text-sm font-mono">
+                <li>• Configure ESC and motors</li>
+                <li>• Implement PID controllers</li>
+                <li>• Add stabilization algorithms</li>
+                <li>• Test manual flight control</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Programming Guide Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8 }}
+          className="bg-white border-4 border-black p-8 mb-20"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+              PROGRAMMING CONCEPTS
             </h2>
             <p className="text-gray-600 font-mono">
               Essential concepts for ESP32 flight controller development
