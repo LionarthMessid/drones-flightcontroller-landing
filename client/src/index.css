@@ -73,11 +73,31 @@ pre {
   word-wrap: break-word;
   white-space: pre-wrap;
   max-width: 100%;
+  position: relative !important;
+  z-index: 1 !important;
+  background: inherit !important;
+  contain: strict !important;
 }
 
 /* Ensure proper stacking context */
 .motion-div {
   transform: translateZ(0);
+}
+
+/* Force containment for all code sections */
+.code-container * {
+  position: relative;
+  z-index: 1;
+  contain: layout style paint;
+}
+
+/* Absolute containment for problematic elements */
+.bg-gray-900 {
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  contain: strict !important;
+  isolation: isolate !important;
 }
 
 /* Additional scrollbar animations */

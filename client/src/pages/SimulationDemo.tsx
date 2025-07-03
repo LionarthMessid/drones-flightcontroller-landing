@@ -41,22 +41,24 @@ const SimulationDemo = () => {
       <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl lg:text-6xl font-bold text-black mb-6">
-            ESP32 FLIGHT SIMULATION
-          </h1>
-          <div className="flex items-center justify-center space-x-2 text-orange-500 mb-6">
-            <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-            <span className="text-sm font-bold uppercase tracking-wider">INTERACTIVE DEMO</span>
-          </div>
-          <p className="text-xl text-gray-600 font-mono max-w-3xl mx-auto">
-            EXPERIENCE THE CAPABILITIES OF OUR ESP32 FLIGHT CONTROLLER THROUGH THIS INTERACTIVE SIMULATION
-          </p>
-        </motion.div>
+        <div className="simulation-container bg-white p-6 mb-8 border-2 border-black rounded-lg">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-5xl lg:text-6xl font-bold text-black mb-6">
+              ESP32 FLIGHT SIMULATION
+            </h1>
+            <div className="flex items-center justify-center space-x-2 text-orange-500 mb-6">
+              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
+              <span className="text-sm font-bold uppercase tracking-wider">INTERACTIVE DEMO</span>
+            </div>
+            <p className="text-xl text-gray-600 font-mono max-w-3xl mx-auto">
+              EXPERIENCE THE CAPABILITIES OF OUR ESP32 FLIGHT CONTROLLER THROUGH THIS INTERACTIVE SIMULATION
+            </p>
+          </motion.div>
+        </div>
 
         {/* Simulation Interface */}
         <motion.div
@@ -256,138 +258,57 @@ const SimulationDemo = () => {
           </div>
         </motion.div>
 
-        {/* Code Examples Section */}
+        {/* Code Reference Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="code-container mb-20"
+          className="mb-20 bg-white border-4 border-black p-8"
         >
-          <div className="text-center mt-[35px] mb-[35px]">
-            <h2 className="text-3xl font-bold text-black font-mono mt-[12px] mb-[12px]">
-              CODE EXAMPLES
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-black font-mono mb-4">
+              CODE REFERENCE
             </h2>
             <p className="text-gray-600 font-mono">
-              Interactive programming examples for ESP32 flight controllers
+              Essential ESP32 flight controller programming concepts
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Basic Flight Control */}
-            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
-              <div className="bg-black text-white p-3 font-mono text-sm">
-                <span className="text-orange-500">●</span> basic_flight.ino
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-black mb-3">BASIC FLIGHT CONTROL</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
-                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include "FlightController.h"
-
-FlightController fc;
-
-void setup() {
-  Serial.begin(115200);
-  fc.init();
-  fc.calibrateIMU();
-  fc.setThrottleRange(1000, 2000);
-  fc.enableStabilization(true);
-  Serial.println("Flight Controller Ready");
-}
-
-void loop() {
-  fc.updateSensors();
-  fc.stabilize();
-  fc.updateMotors();
-  delay(10);
-}`}</pre>
-                </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">FLIGHT CONTROL</h3>
+              <p className="text-gray-600 font-mono text-sm mb-3">
+                Initialize sensors, configure PID controllers, and manage motor outputs
+              </p>
+              <div className="text-xs font-mono text-gray-500">
+                FlightController.h • IMU calibration • Motor control
               </div>
             </div>
-
-            {/* WiFi Telemetry */}
-            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
-              <div className="bg-black text-white p-3 font-mono text-sm">
-                <span className="text-orange-500">●</span> wifi_telemetry.ino
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-black mb-3">WIFI TELEMETRY</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
-                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include <WiFi.h>
-#include <WebSocketsServer.h>
-
-WebSocketsServer webSocket(81);
-
-void setup() {
-  WiFi.begin("DroneNet", "password");
-  webSocket.begin();
-  webSocket.onEvent(webSocketEvent);
-}
-
-void sendTelemetry() {
-  String data = "{";
-  data += "\\"altitude\\":" + String(altitude);
-  data += ",\\"speed\\":" + String(speed);
-  data += ",\\"battery\\":" + String(battery);
-  data += "}";
-  webSocket.broadcastTXT(data);
-}`}</pre>
-                </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">WIFI TELEMETRY</h3>
+              <p className="text-gray-600 font-mono text-sm mb-3">
+                Stream real-time flight data via WebSocket connections
+              </p>
+              <div className="text-xs font-mono text-gray-500">
+                WiFi.h • WebSocketsServer • JSON streaming
               </div>
             </div>
-
-            {/* Autonomous Flight */}
-            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
-              <div className="bg-black text-white p-3 font-mono text-sm">
-                <span className="text-orange-500">●</span> autonomous_flight.ino
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-black mb-3">AUTONOMOUS FLIGHT</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
-                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`struct Waypoint {
-  float lat, lon, alt;
-};
-
-Waypoint waypoints[] = {
-  {40.7128, -74.0060, 10.0},
-  {40.7589, -73.9851, 15.0}
-};
-
-void followWaypoints() {
-  for(int i = 0; i < 2; i++) {
-    navigateToWaypoint(waypoints[i]);
-    while(!atWaypoint(waypoints[i])) {
-      updatePosition();
-      delay(100);
-    }
-  }
-}`}</pre>
-                </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">AUTONOMOUS FLIGHT</h3>
+              <p className="text-gray-600 font-mono text-sm mb-3">
+                Implement waypoint navigation and automated flight patterns
+              </p>
+              <div className="text-xs font-mono text-gray-500">
+                Waypoint structs • Navigation algorithms • GPS tracking
               </div>
             </div>
-
-            {/* Sensor Integration */}
-            <div className="bg-white border-2 border-black rounded-lg overflow-hidden">
-              <div className="bg-black text-white p-3 font-mono text-sm">
-                <span className="text-orange-500">●</span> sensor_integration.ino
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-black mb-3">SENSOR INTEGRATION</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
-                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include <MPU6050.h>
-
-MPU6050 mpu;
-
-void readIMU() {
-  Vector rawAccel = mpu.readRawAccel();
-  Vector rawGyro = mpu.readRawGyro();
-  
-  // Calculate angles
-  pitch = atan2(rawAccel.XAxis, 
-    sqrt(rawAccel.YAxis * rawAccel.YAxis + 
-         rawAccel.ZAxis * rawAccel.ZAxis)) * 180/PI;
-  roll = atan2(rawAccel.YAxis, rawAccel.ZAxis) * 180/PI;
-}`}</pre>
-                </div>
+            <div className="bg-gray-100 p-6 border-2 border-gray-300">
+              <h3 className="text-lg font-bold text-black mb-2">SENSOR INTEGRATION</h3>
+              <p className="text-gray-600 font-mono text-sm mb-3">
+                Process IMU data and calculate orientation angles
+              </p>
+              <div className="text-xs font-mono text-gray-500">
+                MPU6050.h • Accelerometer • Gyroscope data
               </div>
             </div>
           </div>
@@ -438,68 +359,42 @@ void readIMU() {
               </div>
             </div>
 
-            {/* Code Editor */}
-            <div className="grid lg:grid-cols-2 h-96">
-              <div className="bg-gray-900 text-green-400 p-4 overflow-y-auto overflow-x-hidden">
+            {/* Code Editor Interface */}
+            <div className="grid lg:grid-cols-2 h-96 border-2 border-gray-300 rounded overflow-hidden">
+              <div className="bg-gray-900 text-green-400 p-4 overflow-hidden">
                 <div className="font-mono text-sm">
-                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include "FlightController.h"
-
-FlightController fc;
-
-void setup() {
-  Serial.begin(115200);
-  fc.init();
-  fc.calibrateIMU();
-  
-  // Set flight parameters
-  fc.setThrottleRange(1000, 2000);
-  fc.enableStabilization(true);
-  
-  Serial.println("Flight Controller Ready");
-}
-
-void loop() {
-  // Read sensor data
-  fc.updateSensors();
-  
-  // Apply stabilization
-  fc.stabilize();
-  
-  // Update motor outputs
-  fc.updateMotors();
-  
-  // Send telemetry
-  sendTelemetry();
-  
-  delay(10); // 100Hz loop
-}
-
-void sendTelemetry() {
-  Serial.print("Alt: ");
-  Serial.print(fc.getAltitude());
-  Serial.print(" | Speed: ");
-  Serial.print(fc.getSpeed());
-  Serial.print(" | Battery: ");
-  Serial.println(fc.getBatteryLevel());
-}`}</pre>
+                  <div className="text-gray-500 mb-2">// ESP32 Flight Controller Code</div>
+                  <div className="text-blue-400">#include</div>
+                  <div className="text-yellow-400 ml-4">"FlightController.h"</div>
+                  <div className="mt-2 text-white">FlightController fc;</div>
+                  <div className="mt-2 text-purple-400">void setup() {</div>
+                  <div className="text-white ml-4">Serial.begin(115200);</div>
+                  <div className="text-white ml-4">fc.init();</div>
+                  <div className="text-white ml-4">fc.calibrateIMU();</div>
+                  <div className="text-gray-500 ml-4">// Ready for flight</div>
+                  <div className="text-purple-400">}</div>
+                  <div className="mt-2 text-purple-400">void loop() {</div>
+                  <div className="text-white ml-4">fc.updateSensors();</div>
+                  <div className="text-white ml-4">fc.stabilize();</div>
+                  <div className="text-white ml-4">fc.updateMotors();</div>
+                  <div className="text-purple-400">}</div>
                 </div>
               </div>
 
               {/* Output Console */}
-              <div className="bg-black text-white p-4 overflow-y-auto">
+              <div className="bg-black text-white p-4 overflow-hidden">
                 <div className="font-mono text-sm">
                   <div className="text-orange-500 mb-2">COMPILATION OUTPUT:</div>
                   <div className="text-green-400 mb-1">✓ Sketch compiled successfully</div>
-                  <div className="text-green-400 mb-1">✓ Flash memory usage: 847,392 bytes (64%)</div>
-                  <div className="text-green-400 mb-1">✓ Global variables: 41,536 bytes (12%)</div>
+                  <div className="text-green-400 mb-1">✓ Flash memory usage: 64%</div>
+                  <div className="text-green-400 mb-1">✓ Global variables: 12%</div>
                   <div className="text-white mb-4">Ready to upload to ESP32</div>
                   
                   <div className="text-orange-500 mb-2">SERIAL MONITOR:</div>
                   <div className="text-gray-400 mb-1">Flight Controller Ready</div>
-                  <div className="text-gray-400 mb-1">Alt: 0.0 | Speed: 0.0 | Battery: 100.0</div>
-                  <div className="text-gray-400 mb-1">Alt: 0.5 | Speed: 2.1 | Battery: 99.9</div>
-                  <div className="text-gray-400 mb-1">Alt: 1.2 | Speed: 4.3 | Battery: 99.8</div>
-                  <div className="text-gray-400 mb-1">Alt: 2.1 | Speed: 6.7 | Battery: 99.7</div>
+                  <div className="text-gray-400 mb-1">Alt: 0.0 | Speed: 0.0 | Battery: 100%</div>
+                  <div className="text-gray-400 mb-1">Alt: 0.5 | Speed: 2.1 | Battery: 99%</div>
+                  <div className="text-gray-400 mb-1">Alt: 1.2 | Speed: 4.3 | Battery: 98%</div>
                   <div className="text-green-400 animate-pulse">█</div>
                 </div>
               </div>
