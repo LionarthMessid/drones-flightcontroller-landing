@@ -68,7 +68,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
+            <Link href="/game">
               <div className="flex items-center space-x-2 cursor-pointer">
                 <div className="w-8 h-8 bg-orange-500 border-2 border-black flex items-center justify-center">
                   <span className="text-white font-bold text-sm">FC</span>
@@ -80,6 +80,11 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            <Link href="/">
+              <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
+                <CrypticText>HOME</CrypticText>
+              </span>
+            </Link>
             <Link href="/controller">
               <span className="text-black hover:text-orange-500 transition-colors duration-200 cursor-pointer font-bold tracking-wide">
                 <CrypticText>THE CONTROLLER</CrypticText>
@@ -203,6 +208,14 @@ const Header = () => {
             className="lg:hidden bg-white border-t-4 border-black"
           >
             <div className="px-4 py-6 space-y-4">
+              <Link href="/">
+                <span 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-black hover:text-orange-500 transition-colors duration-200 font-bold tracking-wide"
+                >
+                  HOME
+                </span>
+              </Link>
               <Link href="/controller">
                 <span 
                   onClick={() => setIsMenuOpen(false)}

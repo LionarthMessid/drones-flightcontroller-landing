@@ -120,7 +120,7 @@ Aeroque is a full-stack web application designed to make drone programming acces
 
 ```
 Changelog:
-- July 3, 2025. Migration from Replit Agent completed - Updated landing page design with minimal sections (Home, Team, FAQ, Updates), added Company Mission and Product Glimpse sections, created drone mini-game, updated routes to /controller and /simulation, added shared Header/Footer to all pages
+- July 3, 2025. Migration from Replit Agent completed - Updated landing page design with minimal sections (Home, Team, FAQ, Updates), added Company Mission and Product Glimpse sections, created drone mini-game, updated routes to /controller and /simulation, added shared Header/Footer to all pages. Logo now links to dedicated game page at /game, added HOME navigation link.
 - June 30, 2025. Initial setup
 ```
 

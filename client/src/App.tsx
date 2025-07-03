@@ -11,6 +11,7 @@ import DroneGame from './components/DroneGame';
 import Footer from './components/Footer';
 import ControllerBoard from './pages/ControllerBoard';
 import SimulationDemo from './pages/SimulationDemo';
+import GamePage from './pages/GamePage';
 
 // Scroll Progress Bar Component
 const ScrollProgressBar = () => {
@@ -60,6 +61,7 @@ function App() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/game" component={GamePage} />
       <Route path="/controller" component={ControllerBoard} />
       <Route path="/simulation" component={SimulationDemo} />
       {/* Legacy routes for backward compatibility */}
