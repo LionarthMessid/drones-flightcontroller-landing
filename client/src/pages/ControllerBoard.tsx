@@ -7,10 +7,54 @@ import Footer from '../components/Footer';
 
 const ControllerBoard = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
       <Header />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      {/* Floating Geometric Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 w-16 h-16 border-4 border-orange-500 rotate-45"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-40 right-32 w-12 h-12 border-4 border-black"
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-32 left-32 w-20 h-20 border-4 border-gray-400"
+          animate={{ rotate: [0, 180, 360] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-32 right-20 w-8 h-8 bg-orange-500 border-2 border-black"
+          animate={{ 
+            rotate: 360,
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-40 w-6 h-6 bg-black"
+          animate={{ x: [0, 30, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="grid grid-cols-12 h-full">
+          {Array.from({ length: 144 }).map((_, i) => (
+            <div key={i} className="border border-black"></div>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,22 +137,58 @@ const ControllerBoard = () => {
 
             {/* Key Features Grid */}
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-orange-500 text-white p-4 border-4 border-black text-center">
-                <Cpu className="w-8 h-8 mx-auto mb-2" />
+              <motion.div 
+                className="bg-orange-500 text-white p-4 border-4 border-black text-center cursor-pointer"
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                >
+                  <Cpu className="w-8 h-8 mx-auto mb-2" />
+                </motion.div>
                 <div className="font-bold text-sm">DUAL-CORE</div>
-              </div>
-              <div className="bg-black text-orange-500 p-4 border-4 border-black text-center">
-                <Wifi className="w-8 h-8 mx-auto mb-2" />
+              </motion.div>
+              <motion.div 
+                className="bg-black text-orange-500 p-4 border-4 border-black text-center cursor-pointer"
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Wifi className="w-8 h-8 mx-auto mb-2" />
+                </motion.div>
                 <div className="font-bold text-sm">WIFI ENABLED</div>
-              </div>
-              <div className="bg-white text-black p-4 border-4 border-black text-center">
-                <Bluetooth className="w-8 h-8 mx-auto mb-2" />
+              </motion.div>
+              <motion.div 
+                className="bg-white text-black p-4 border-4 border-black text-center cursor-pointer"
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Bluetooth className="w-8 h-8 mx-auto mb-2" />
+                </motion.div>
                 <div className="font-bold text-sm">BLUETOOTH</div>
-              </div>
-              <div className="bg-gray-200 text-black p-4 border-4 border-black text-center">
-                <Usb className="w-8 h-8 mx-auto mb-2" />
+              </motion.div>
+              <motion.div 
+                className="bg-gray-200 text-black p-4 border-4 border-black text-center cursor-pointer"
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ rotateY: [0, 180, 360] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  <Usb className="w-8 h-8 mx-auto mb-2" />
+                </motion.div>
                 <div className="font-bold text-sm">USB TYPE-C</div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>

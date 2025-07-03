@@ -37,9 +37,54 @@ const SimulationDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
       <Header />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      
+      {/* Floating Geometric Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 w-16 h-16 border-4 border-orange-500 rotate-45"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-40 right-32 w-12 h-12 border-4 border-black"
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-32 left-32 w-20 h-20 border-4 border-gray-400"
+          animate={{ rotate: [0, 180, 360] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-32 right-20 w-8 h-8 bg-orange-500 border-2 border-black"
+          animate={{ 
+            rotate: 360,
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-40 w-6 h-6 bg-black"
+          animate={{ x: [0, 30, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="grid grid-cols-12 h-full">
+          {Array.from({ length: 144 }).map((_, i) => (
+            <div key={i} className="border border-black"></div>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Hero Section */}
         <div className="simulation-container bg-white p-6 mb-8 rounded-lg">
           <motion.div
@@ -144,43 +189,109 @@ const SimulationDemo = () => {
 
               {/* Status Indicators */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-100 p-4 rounded border">
+                <motion.div 
+                  className="bg-gray-100 p-4 rounded border"
+                  whileHover={{ scale: 1.02 }}
+                  animate={{ 
+                    backgroundColor: batteryLevel < 20 ? '#fee2e2' : '#f3f4f6'
+                  }}
+                >
                   <div className="flex items-center space-x-2 mb-2">
-                    <Zap className="w-4 h-4 text-orange-500" />
+                    <motion.div
+                      animate={{ scale: batteryLevel < 20 ? [1, 1.2, 1] : 1 }}
+                      transition={{ duration: 0.5, repeat: batteryLevel < 20 ? Infinity : 0 }}
+                    >
+                      <Zap className="w-4 h-4 text-orange-500" />
+                    </motion.div>
                     <span className="font-bold text-sm">BATTERY</span>
                   </div>
-                  <div className="text-2xl font-bold font-mono">{batteryLevel.toFixed(1)}%</div>
+                  <motion.div 
+                    className="text-2xl font-bold font-mono"
+                    animate={{ 
+                      color: batteryLevel < 20 ? '#dc2626' : '#000'
+                    }}
+                  >
+                    {batteryLevel.toFixed(1)}%
+                  </motion.div>
                   <div className="w-full bg-gray-300 rounded-full h-2 mt-2">
-                    <div 
-                      className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                    <motion.div 
+                      className="h-2 rounded-full transition-all duration-300"
                       style={{ width: `${batteryLevel}%` }}
-                    ></div>
+                      animate={{ 
+                        backgroundColor: batteryLevel < 20 ? '#dc2626' : '#ff6b35'
+                      }}
+                    />
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="bg-gray-100 p-4 rounded border">
+                <motion.div 
+                  className="bg-gray-100 p-4 rounded border"
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="flex items-center space-x-2 mb-2">
-                    <Settings className="w-4 h-4 text-orange-500" />
+                    <motion.div
+                      animate={{ y: [0, -2, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Settings className="w-4 h-4 text-orange-500" />
+                    </motion.div>
                     <span className="font-bold text-sm">ALTITUDE</span>
                   </div>
-                  <div className="text-2xl font-bold font-mono">{altitude.toFixed(1)}m</div>
-                </div>
+                  <motion.div 
+                    className="text-2xl font-bold font-mono"
+                    animate={{ scale: [1, 1.02, 1] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    {altitude.toFixed(1)}m
+                  </motion.div>
+                </motion.div>
                 
-                <div className="bg-gray-100 p-4 rounded border">
+                <motion.div 
+                  className="bg-gray-100 p-4 rounded border"
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="flex items-center space-x-2 mb-2">
-                    <Wifi className="w-4 h-4 text-orange-500" />
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Wifi className="w-4 h-4 text-orange-500" />
+                    </motion.div>
                     <span className="font-bold text-sm">SPEED</span>
                   </div>
-                  <div className="text-2xl font-bold font-mono">{speed.toFixed(1)} m/s</div>
-                </div>
+                  <motion.div 
+                    className="text-2xl font-bold font-mono"
+                    animate={{ 
+                      scale: speed > 30 ? [1, 1.05, 1] : 1
+                    }}
+                    transition={{ duration: 0.3, repeat: speed > 30 ? Infinity : 0 }}
+                  >
+                    {speed.toFixed(1)} m/s
+                  </motion.div>
+                </motion.div>
                 
-                <div className="bg-gray-100 p-4 rounded border">
+                <motion.div 
+                  className="bg-gray-100 p-4 rounded border"
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="flex items-center space-x-2 mb-2">
-                    <Cpu className="w-4 h-4 text-orange-500" />
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Cpu className="w-4 h-4 text-orange-500" />
+                    </motion.div>
                     <span className="font-bold text-sm">CPU LOAD</span>
                   </div>
-                  <div className="text-2xl font-bold font-mono">{(simulationStep % 50 + 25).toFixed(0)}%</div>
-                </div>
+                  <motion.div 
+                    className="text-2xl font-bold font-mono"
+                    animate={{ 
+                      color: (simulationStep % 50 + 25) > 75 ? '#dc2626' : '#000'
+                    }}
+                  >
+                    {(simulationStep % 50 + 25).toFixed(0)}%
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -193,35 +304,71 @@ const SimulationDemo = () => {
           transition={{ delay: 0.4 }}
           className="grid md:grid-cols-3 gap-8 mb-16"
         >
-          <div className="bg-white rounded-lg border-2 border-black p-6">
-            <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-              <Cpu className="w-6 h-6 text-white" />
-            </div>
+          <motion.div 
+            className="bg-white rounded-lg border-2 border-black p-6"
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div 
+              className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4"
+              whileHover={{ rotate: 5 }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <Cpu className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.div>
             <h3 className="text-xl font-bold text-black mb-2">DUAL-CORE PROCESSING</h3>
             <p className="text-gray-600 font-mono text-sm">
               ESP32'S DUAL-CORE ARCHITECTURE ALLOWS SIMULTANEOUS FLIGHT CONTROL AND WIRELESS COMMUNICATION
             </p>
-          </div>
+          </motion.div>
           
-          <div className="bg-white rounded-lg border-2 border-black p-6">
-            <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-              <Wifi className="w-6 h-6 text-white" />
-            </div>
+          <motion.div 
+            className="bg-white rounded-lg border-2 border-black p-6"
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div 
+              className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4"
+              whileHover={{ rotate: -5 }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Wifi className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.div>
             <h3 className="text-xl font-bold text-black mb-2">WIRELESS TELEMETRY</h3>
             <p className="text-gray-600 font-mono text-sm">
               REAL-TIME DATA TRANSMISSION AND REMOTE MONITORING THROUGH WI-FI CONNECTIVITY
             </p>
-          </div>
+          </motion.div>
           
-          <div className="bg-white rounded-lg border-2 border-black p-6">
-            <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-              <Settings className="w-6 h-6 text-white" />
-            </div>
+          <motion.div 
+            className="bg-white rounded-lg border-2 border-black p-6"
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div 
+              className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4"
+              whileHover={{ rotate: 5 }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 15, -15, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Settings className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.div>
             <h3 className="text-xl font-bold text-black mb-2">ADVANCED CONTROL</h3>
             <p className="text-gray-600 font-mono text-sm">
               SOPHISTICATED FLIGHT ALGORITHMS WITH CUSTOMIZABLE PARAMETERS AND SAFETY FEATURES
             </p>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Technical Info */}
