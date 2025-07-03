@@ -39,7 +39,6 @@ const SimulationDemo = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Hero Section */}
         <motion.div
@@ -262,7 +261,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mb-20 bg-white border-4 border-black p-8"
+          className="bg-white border-4 border-black p-8 mt-[41px] mb-[41px]"
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-black mb-4 font-mono">
