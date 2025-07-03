@@ -113,11 +113,11 @@ const DroneGame = () => {
           // Different heights for different building types
           let buildingHeight = OBSTACLE_HEIGHT;
           if (randomType === 'cafe') {
-            buildingHeight = 30; // Smaller cafe
+            buildingHeight = 40; // Half the size of hotel/tower
           } else if (randomType === 'hotel') {
-            buildingHeight = 50; // Medium hotel
+            buildingHeight = 80; // Large hotel
           } else if (randomType === 'tower') {
-            buildingHeight = 45; // Medium tower
+            buildingHeight = 80; // Same size as hotel
           }
           
           onScreen.push({
@@ -145,7 +145,7 @@ const DroneGame = () => {
       const droneTop = droneY;
       const droneBottom = droneY + DRONE_SIZE;
 
-      const obstacleWidth = obstacle.type === 'cafe' ? 25 : OBSTACLE_WIDTH;
+      const obstacleWidth = obstacle.type === 'cafe' ? 40 : 60;
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + obstacleWidth;
       const obstacleTop = GROUND_HEIGHT - obstacle.height;
@@ -231,20 +231,23 @@ const DroneGame = () => {
             </motion.div>
 
             {/* Ground obstacles */}
-            {obstacles.map(obstacle => (
-              <img
-                key={obstacle.id}
-                src={`/game-assets/${obstacle.type}.png`}
-                alt={obstacle.type}
-                className="absolute object-contain"
-                style={{
-                  left: obstacle.x,
-                  top: GROUND_HEIGHT - obstacle.height,
-                  width: obstacle.type === 'cafe' ? 25 : OBSTACLE_WIDTH,
-                  height: obstacle.height,
-                }}
-              />
-            ))}
+            {obstacles.map(obstacle => {
+              const buildingWidth = obstacle.type === 'cafe' ? 40 : 60; // Cafe half size, hotel/tower same size
+              return (
+                <img
+                  key={obstacle.id}
+                  src={`/game-assets/${obstacle.type}.png`}
+                  alt={obstacle.type}
+                  className="absolute object-contain"
+                  style={{
+                    left: obstacle.x,
+                    bottom: GAME_HEIGHT - GROUND_HEIGHT, // Position from bottom to sit on ground
+                    width: buildingWidth,
+                    height: obstacle.height,
+                  }}
+                />
+              );
+            })}
 
             {/* Game Over overlay */}
             {gameOver && (
