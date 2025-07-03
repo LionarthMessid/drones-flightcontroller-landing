@@ -367,17 +367,17 @@ const SimulationDemo = () => {
                   <div className="text-blue-400">#include</div>
                   <div className="text-yellow-400 ml-4">"FlightController.h"</div>
                   <div className="mt-2 text-white">FlightController fc;</div>
-                  <div className="mt-2 text-purple-400">void setup() {</div>
+                  <div className="mt-2 text-purple-400">void setup() {"{"}</div>
                   <div className="text-white ml-4">Serial.begin(115200);</div>
                   <div className="text-white ml-4">fc.init();</div>
                   <div className="text-white ml-4">fc.calibrateIMU();</div>
                   <div className="text-gray-500 ml-4">// Ready for flight</div>
-                  <div className="text-purple-400">}</div>
-                  <div className="mt-2 text-purple-400">void loop() {</div>
+                  <div className="text-purple-400">{"}"}</div>
+                  <div className="mt-2 text-purple-400">void loop() {"{"}</div>
                   <div className="text-white ml-4">fc.updateSensors();</div>
                   <div className="text-white ml-4">fc.stabilize();</div>
                   <div className="text-white ml-4">fc.updateMotors();</div>
-                  <div className="text-purple-400">}</div>
+                  <div className="text-purple-400">{"}"}</div>
                 </div>
               </div>
 
