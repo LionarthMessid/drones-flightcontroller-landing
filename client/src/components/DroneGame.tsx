@@ -147,10 +147,10 @@ const DroneGame = () => {
 
       const obstacleWidth = obstacle.type === 'cafe' ? 50 : obstacle.type === 'tower' ? 80 : 70;
       
-      // Reduce collision area by 1/4th on all sides
+      // Reduce collision area by 40% on all sides for more forgiving gameplay
       const collisionReduction = {
-        width: obstacleWidth * 0.25,
-        height: obstacle.height * 0.25
+        width: obstacleWidth * 0.4,
+        height: obstacle.height * 0.4
       };
       
       const obstacleLeft = obstacle.x + collisionReduction.width / 2;
@@ -248,7 +248,7 @@ const DroneGame = () => {
                   className="absolute"
                   style={{
                     left: obstacle.x,
-                    top: GROUND_HEIGHT - obstacle.height + 2, // Position 2px closer to ground to reduce gap
+                    top: GROUND_HEIGHT - obstacle.height + 5, // Position 5px closer to ground to reduce gap
                     width: buildingWidth,
                     height: obstacle.height,
                     objectFit: 'contain',
