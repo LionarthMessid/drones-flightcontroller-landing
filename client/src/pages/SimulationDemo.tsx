@@ -63,7 +63,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-lg border-2 border-black p-8 mb-8 relative z-10"
+          className="simulation-container bg-white rounded-lg border-2 border-black p-8 mb-8"
         >
           {/* Simulation Display */}
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
@@ -261,7 +261,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mb-20"
+          className="code-container mb-20"
         >
           <div className="text-center mt-[35px] mb-[35px]">
             <h2 className="text-3xl font-bold text-black font-mono mt-[12px] mb-[12px]">
@@ -280,8 +280,8 @@ const SimulationDemo = () => {
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-bold text-black mb-3">BASIC FLIGHT CONTROL</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
-                  <pre className="whitespace-pre-wrap">{`#include "FlightController.h"
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
+                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include "FlightController.h"
 
 FlightController fc;
 
@@ -311,8 +311,8 @@ void loop() {
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-bold text-black mb-3">WIFI TELEMETRY</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
-                  <pre className="whitespace-pre-wrap">{`#include <WiFi.h>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
+                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include <WiFi.h>
 #include <WebSocketsServer.h>
 
 WebSocketsServer webSocket(81);
@@ -342,8 +342,8 @@ void sendTelemetry() {
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-bold text-black mb-3">AUTONOMOUS FLIGHT</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
-                  <pre className="whitespace-pre-wrap">{`struct Waypoint {
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
+                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`struct Waypoint {
   float lat, lon, alt;
 };
 
@@ -372,8 +372,8 @@ void followWaypoints() {
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-bold text-black mb-3">SENSOR INTEGRATION</h3>
-                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
-                  <pre className="whitespace-pre-wrap">{`#include <MPU6050.h>
+                <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-hidden">
+                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include <MPU6050.h>
 
 MPU6050 mpu;
 
@@ -440,9 +440,9 @@ void readIMU() {
 
             {/* Code Editor */}
             <div className="grid lg:grid-cols-2 h-96">
-              <div className="bg-gray-900 text-green-400 p-4 overflow-y-auto">
+              <div className="bg-gray-900 text-green-400 p-4 overflow-y-auto overflow-x-hidden">
                 <div className="font-mono text-sm">
-                  <pre className="whitespace-pre-wrap">{`#include "FlightController.h"
+                  <pre className="whitespace-pre-wrap overflow-hidden break-words">{`#include "FlightController.h"
 
 FlightController fc;
 
