@@ -10,35 +10,40 @@ interface Obstacle {
 const DroneGame = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
-  const [droneY, setDroneY] = useState(150);
+  const [droneY, setDroneY] = useState(250); // Start on ground
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [gameOver, setGameOver] = useState(false);
   const [velocity, setVelocity] = useState(0);
+  const [isJumping, setIsJumping] = useState(false);
 
   const GAME_HEIGHT = 300;
   const GAME_WIDTH = 600;
   const DRONE_SIZE = 20;
-  const GRAVITY = 0.6;
-  const JUMP_FORCE = -12;
-  const OBSTACLE_WIDTH = 30;
-  const OBSTACLE_SPEED = 3;
+  const GROUND_HEIGHT = 250; // Ground level
+  const GRAVITY = 0.8;
+  const JUMP_FORCE = -15;
+  const OBSTACLE_WIDTH = 20;
+  const OBSTACLE_HEIGHT = 40;
+  const OBSTACLE_SPEED = 4;
 
   const jump = useCallback(() => {
-    if (!gameOver) {
+    if (!gameOver && !isJumping) {
       setVelocity(JUMP_FORCE);
+      setIsJumping(true);
       if (!isPlaying) {
         setIsPlaying(true);
       }
     }
-  }, [gameOver, isPlaying]);
+  }, [gameOver, isJumping, isPlaying]);
 
   const resetGame = useCallback(() => {
-    setDroneY(150);
+    setDroneY(GROUND_HEIGHT);
     setVelocity(0);
     setObstacles([]);
     setScore(0);
     setGameOver(false);
     setIsPlaying(false);
+    setIsJumping(false);
   }, []);
 
   // Handle keyboard input
@@ -67,11 +72,19 @@ const DroneGame = () => {
       setVelocity(prev => prev + GRAVITY);
       setDroneY(prev => {
         const newY = prev + velocity;
-        // Check ground and ceiling collision
-        if (newY > GAME_HEIGHT - DRONE_SIZE || newY < 0) {
-          setGameOver(true);
-          return prev;
+        
+        // Check if drone lands on ground
+        if (newY >= GROUND_HEIGHT) {
+          setIsJumping(false);
+          setVelocity(0);
+          return GROUND_HEIGHT;
         }
+        
+        // Check ceiling collision
+        if (newY < 0) {
+          return 0;
+        }
+        
         return newY;
       });
 
@@ -91,12 +104,12 @@ const DroneGame = () => {
           return true;
         });
 
-        // Add new obstacles
-        if (onScreen.length === 0 || onScreen[onScreen.length - 1].x < GAME_WIDTH - 200) {
+        // Add new obstacles (ground obstacles)
+        if (onScreen.length === 0 || onScreen[onScreen.length - 1].x < GAME_WIDTH - 300) {
           onScreen.push({
             id: Date.now(),
             x: GAME_WIDTH,
-            height: Math.random() * 100 + 50
+            height: OBSTACLE_HEIGHT // Fixed height for ground obstacles
           });
         }
 
@@ -119,24 +132,15 @@ const DroneGame = () => {
 
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + OBSTACLE_WIDTH;
-      const obstacleTop = 0;
-      const obstacleBottom = obstacle.height;
+      const obstacleTop = GROUND_HEIGHT - obstacle.height;
+      const obstacleBottom = GROUND_HEIGHT;
 
-      // Check collision with top obstacle
+      // Check collision with ground obstacle
       if (
         droneRight > obstacleLeft &&
         droneLeft < obstacleRight &&
+        droneBottom > obstacleTop &&
         droneTop < obstacleBottom
-      ) {
-        setGameOver(true);
-      }
-
-      // Check collision with bottom obstacle (gap of 120px)
-      const bottomObstacleTop = obstacle.height + 120;
-      if (
-        droneRight > obstacleLeft &&
-        droneLeft < obstacleRight &&
-        droneBottom > bottomObstacleTop
       ) {
         setGameOver(true);
       }
@@ -150,7 +154,7 @@ const DroneGame = () => {
           EASTER EGG: DRONE RUNNER
         </h3>
         <p className="text-gray-600 font-mono mb-6">
-          Press SPACE or click to make the drone fly. Avoid the obstacles!
+          Press SPACE or click to make the drone jump over obstacles!
         </p>
         
         <div className="inline-block bg-white border-4 border-black p-4">
@@ -169,10 +173,19 @@ const DroneGame = () => {
           </div>
           
           <div
-            className="relative bg-gradient-to-b from-blue-200 to-blue-300 border-2 border-black cursor-pointer"
+            className="relative bg-gradient-to-b from-blue-200 to-green-200 border-2 border-black cursor-pointer"
             style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
             onClick={gameOver ? resetGame : jump}
           >
+            {/* Ground line */}
+            <div 
+              className="absolute w-full border-t-2 border-green-800 bg-green-300"
+              style={{ 
+                top: GROUND_HEIGHT, 
+                height: GAME_HEIGHT - GROUND_HEIGHT 
+              }}
+            />
+            
             {/* Clouds */}
             <div className="absolute top-4 left-20 w-8 h-4 bg-white rounded-full opacity-60"></div>
             <div className="absolute top-12 right-32 w-6 h-3 bg-white rounded-full opacity-60"></div>
@@ -187,7 +200,8 @@ const DroneGame = () => {
                 width: DRONE_SIZE,
                 height: DRONE_SIZE,
               }}
-              animate={{ rotate: velocity * 2 }}
+              animate={{ rotate: isJumping ? -15 : 0 }}
+              transition={{ duration: 0.1 }}
             >
               {/* Drone body */}
               <div className="w-full h-full relative">
@@ -200,30 +214,18 @@ const DroneGame = () => {
               </div>
             </motion.div>
 
-            {/* Obstacles */}
+            {/* Ground obstacles */}
             {obstacles.map(obstacle => (
-              <div key={obstacle.id}>
-                {/* Top obstacle */}
-                <div
-                  className="absolute bg-gray-600 border-2 border-black"
-                  style={{
-                    left: obstacle.x,
-                    top: 0,
-                    width: OBSTACLE_WIDTH,
-                    height: obstacle.height,
-                  }}
-                />
-                {/* Bottom obstacle */}
-                <div
-                  className="absolute bg-gray-600 border-2 border-black"
-                  style={{
-                    left: obstacle.x,
-                    top: obstacle.height + 120,
-                    width: OBSTACLE_WIDTH,
-                    height: GAME_HEIGHT - obstacle.height - 120,
-                  }}
-                />
-              </div>
+              <div 
+                key={obstacle.id}
+                className="absolute bg-gray-700 border-2 border-black"
+                style={{
+                  left: obstacle.x,
+                  top: GROUND_HEIGHT - obstacle.height,
+                  width: OBSTACLE_WIDTH,
+                  height: obstacle.height,
+                }}
+              />
             ))}
 
             {/* Game Over overlay */}
@@ -242,14 +244,14 @@ const DroneGame = () => {
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                 <div className="text-center text-white">
                   <div className="text-xl font-bold font-mono mb-2">DRONE RUNNER</div>
-                  <div className="text-sm font-mono">CLICK OR PRESS SPACE TO START</div>
+                  <div className="text-sm font-mono">PRESS SPACE TO JUMP AND START</div>
                 </div>
               </div>
             )}
           </div>
           
           <div className="mt-4 text-xs text-gray-500 font-mono">
-            Use SPACE key or click to control the drone
+            Use SPACE key or click to make the drone jump over obstacles
           </div>
         </div>
       </div>
