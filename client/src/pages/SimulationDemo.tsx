@@ -37,7 +37,7 @@ const SimulationDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       <Header />
       
       {/* Floating Geometric Elements */}
