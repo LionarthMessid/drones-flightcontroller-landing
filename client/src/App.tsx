@@ -47,8 +47,6 @@ const HomePage = () => {
       <ScrollProgressBar />
       <Header />
       <Hero />
-      <Programs />
-      <Simulation />
       <Team />
       <FAQ />
       <Blog />
