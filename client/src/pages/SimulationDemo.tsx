@@ -110,7 +110,7 @@ const SimulationDemo = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="simulation-container bg-white rounded-lg border-2 border-black p-8 mb-8"
+          className="simulation-container rounded-lg border-2 border-black p-8 mb-8"
         >
           {/* Simulation Display */}
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
