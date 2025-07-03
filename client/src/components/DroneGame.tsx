@@ -5,6 +5,7 @@ interface Obstacle {
   id: number;
   x: number;
   height: number;
+  type: 'cafe' | 'hotel' | 'tower';
 }
 
 const DroneGame = () => {
@@ -106,10 +107,24 @@ const DroneGame = () => {
 
         // Add new obstacles (ground obstacles)
         if (onScreen.length === 0 || onScreen[onScreen.length - 1].x < GAME_WIDTH - 300) {
+          const buildingTypes: Array<'cafe' | 'hotel' | 'tower'> = ['cafe', 'hotel', 'tower'];
+          const randomType = buildingTypes[Math.floor(Math.random() * buildingTypes.length)];
+          
+          // Different heights for different building types
+          let buildingHeight = OBSTACLE_HEIGHT;
+          if (randomType === 'cafe') {
+            buildingHeight = 30; // Smaller cafe
+          } else if (randomType === 'hotel') {
+            buildingHeight = 50; // Medium hotel
+          } else if (randomType === 'tower') {
+            buildingHeight = 45; // Medium tower
+          }
+          
           onScreen.push({
             id: Date.now(),
             x: GAME_WIDTH,
-            height: OBSTACLE_HEIGHT // Fixed height for ground obstacles
+            height: buildingHeight,
+            type: randomType
           });
         }
 
@@ -130,8 +145,9 @@ const DroneGame = () => {
       const droneTop = droneY;
       const droneBottom = droneY + DRONE_SIZE;
 
+      const obstacleWidth = obstacle.type === 'cafe' ? 25 : OBSTACLE_WIDTH;
       const obstacleLeft = obstacle.x;
-      const obstacleRight = obstacle.x + OBSTACLE_WIDTH;
+      const obstacleRight = obstacle.x + obstacleWidth;
       const obstacleTop = GROUND_HEIGHT - obstacle.height;
       const obstacleBottom = GROUND_HEIGHT;
 
@@ -216,13 +232,15 @@ const DroneGame = () => {
 
             {/* Ground obstacles */}
             {obstacles.map(obstacle => (
-              <div 
+              <img
                 key={obstacle.id}
-                className="absolute bg-gray-700 border-2 border-black"
+                src={`/game-assets/${obstacle.type}.png`}
+                alt={obstacle.type}
+                className="absolute object-contain"
                 style={{
                   left: obstacle.x,
                   top: GROUND_HEIGHT - obstacle.height,
-                  width: OBSTACLE_WIDTH,
+                  width: obstacle.type === 'cafe' ? 25 : OBSTACLE_WIDTH,
                   height: obstacle.height,
                 }}
               />
