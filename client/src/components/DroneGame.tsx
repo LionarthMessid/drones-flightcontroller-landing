@@ -146,12 +146,19 @@ const DroneGame = () => {
       const droneBottom = droneY + DRONE_SIZE;
 
       const obstacleWidth = obstacle.type === 'cafe' ? 50 : obstacle.type === 'tower' ? 80 : 70;
-      const obstacleLeft = obstacle.x;
-      const obstacleRight = obstacle.x + obstacleWidth;
-      const obstacleTop = GROUND_HEIGHT - obstacle.height;
-      const obstacleBottom = GROUND_HEIGHT;
+      
+      // Reduce collision area by 1/4th on all sides
+      const collisionReduction = {
+        width: obstacleWidth * 0.25,
+        height: obstacle.height * 0.25
+      };
+      
+      const obstacleLeft = obstacle.x + collisionReduction.width / 2;
+      const obstacleRight = obstacle.x + obstacleWidth - collisionReduction.width / 2;
+      const obstacleTop = GROUND_HEIGHT - obstacle.height + collisionReduction.height / 2;
+      const obstacleBottom = GROUND_HEIGHT - collisionReduction.height / 2;
 
-      // Check collision with ground obstacle
+      // Check collision with ground obstacle (reduced collision area)
       if (
         droneRight > obstacleLeft &&
         droneLeft < obstacleRight &&
