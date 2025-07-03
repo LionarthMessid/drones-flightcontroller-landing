@@ -20,7 +20,7 @@ const DroneGame = () => {
 
   const GAME_HEIGHT = 300;
   const GAME_WIDTH = 600;
-  const DRONE_SIZE = 20;
+  const DRONE_SIZE = 35; // Increased size for the pixel art drone
   const GROUND_HEIGHT = 260; // Ground level - adjusted for proper drone positioning
   const GRAVITY = 0.8;
   const JUMP_FORCE = -15;
@@ -234,27 +234,20 @@ const DroneGame = () => {
             <div className="absolute top-8 left-80 w-5 h-2 bg-white rounded-full opacity-70 shadow-sm"></div>
             
             {/* Drone */}
-            <motion.div
-              className="absolute bg-orange-500 border-2 border-black"
+            <motion.img
+              src="/game-assets/drone.png"
+              alt="drone"
+              className="absolute"
               style={{
                 left: 50,
                 top: droneY,
                 width: DRONE_SIZE,
                 height: DRONE_SIZE,
+                objectFit: 'contain',
               }}
-              animate={{ rotate: isJumping ? -15 : 0 }}
-              transition={{ duration: 0.1 }}
-            >
-              {/* Drone body */}
-              <div className="w-full h-full relative">
-                <div className="absolute inset-1 bg-orange-600"></div>
-                {/* Propellers */}
-                <div className="absolute -top-1 -left-1 w-2 h-2 bg-black rounded-full"></div>
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-black rounded-full"></div>
-                <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-black rounded-full"></div>
-                <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-black rounded-full"></div>
-              </div>
-            </motion.div>
+              animate={{ rotate: isJumping ? -10 : 0 }}
+              transition={{ duration: 0.15 }}
+            />
 
             {/* Ground obstacles */}
             {obstacles.map(obstacle => {
