@@ -277,8 +277,8 @@ const SimulationDemo = () => {
             {/* Basic Flight Control */}
             <div className="bg-white border-4 border-black p-6">
               <h3 className="text-lg font-bold text-black mb-4">BASIC FLIGHT CONTROL</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
-                <pre>{`// Basic ESP32 flight initialization
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
+                <pre className="whitespace-pre-wrap">{`// Basic ESP32 flight initialization
 #include "FlightController.h"
 
 FlightController fc;
@@ -287,22 +287,14 @@ void setup() {
   Serial.begin(115200);
   fc.init();
   fc.calibrateIMU();
-  
-  // Set flight parameters
   fc.setThrottleRange(1000, 2000);
   fc.enableStabilization(true);
 }
 
 void loop() {
-  // Read sensor data
   fc.updateSensors();
-  
-  // Apply PID control
   fc.stabilize();
-  
-  // Output to motors
   fc.updateMotors();
-  
   delay(10); // 100Hz loop
 }`}</pre>
               </div>
@@ -311,8 +303,8 @@ void loop() {
             {/* WiFi Telemetry */}
             <div className="bg-white border-4 border-black p-6">
               <h3 className="text-lg font-bold text-black mb-4">WIFI TELEMETRY</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
-                <pre>{`// WiFi telemetry streaming
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
+                <pre className="whitespace-pre-wrap">{`// WiFi telemetry streaming
 #include <WiFi.h>
 #include <WebSocketsServer.h>
 
@@ -330,7 +322,6 @@ void sendTelemetry() {
   data += ",\"speed\":" + String(speed);
   data += ",\"battery\":" + String(battery);
   data += "}";
-  
   webSocket.broadcastTXT(data);
 }`}</pre>
               </div>
@@ -339,20 +330,19 @@ void sendTelemetry() {
             {/* Autonomous Flight */}
             <div className="bg-white border-4 border-black p-6">
               <h3 className="text-lg font-bold text-black mb-4">AUTONOMOUS FLIGHT</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
-                <pre>{`// Waypoint navigation
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
+                <pre className="whitespace-pre-wrap">{`// Waypoint navigation
 struct Waypoint {
   float lat, lon, alt;
 };
 
 Waypoint waypoints[] = {
   {40.7128, -74.0060, 10.0},
-  {40.7589, -73.9851, 15.0},
-  {40.7505, -73.9934, 12.0}
+  {40.7589, -73.9851, 15.0}
 };
 
 void followWaypoints() {
-  for(int i = 0; i < 3; i++) {
+  for(int i = 0; i < 2; i++) {
     navigateToWaypoint(waypoints[i]);
     while(!atWaypoint(waypoints[i])) {
       delay(100);
@@ -365,8 +355,8 @@ void followWaypoints() {
             {/* Sensor Integration */}
             <div className="bg-white border-4 border-black p-6">
               <h3 className="text-lg font-bold text-black mb-4">SENSOR INTEGRATION</h3>
-              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-sm overflow-x-auto">
-                <pre>{`// IMU data processing
+              <div className="bg-gray-900 text-green-400 p-4 border-2 border-gray-700 font-mono text-xs overflow-x-auto">
+                <pre className="whitespace-pre-wrap">{`// IMU data processing
 #include <MPU6050.h>
 
 MPU6050 mpu;
