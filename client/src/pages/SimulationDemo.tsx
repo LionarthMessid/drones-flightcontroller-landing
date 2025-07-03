@@ -4,37 +4,9 @@ import { Link } from 'wouter';
 import { ArrowLeft, Play, Pause, RotateCcw, Settings, Zap, Wifi, Cpu } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import AdvancedDroneSimulation from '../components/AdvancedDroneSimulation';
 
 const SimulationDemo = () => {
-  const [isRunning, setIsRunning] = useState(false);
-  const [simulationStep, setSimulationStep] = useState(0);
-  const [batteryLevel, setBatteryLevel] = useState(100);
-  const [altitude, setAltitude] = useState(0);
-  const [speed, setSpeed] = useState(0);
-
-  // Simulation logic
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setSimulationStep(prev => (prev + 1) % 100);
-        setBatteryLevel(prev => Math.max(0, prev - 0.1));
-        setAltitude(prev => Math.sin(prev * 0.1) * 50 + 50);
-        setSpeed(prev => Math.cos(prev * 0.05) * 20 + 25);
-      }, 100);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning]);
-
-  const handleStart = () => setIsRunning(true);
-  const handlePause = () => setIsRunning(false);
-  const handleReset = () => {
-    setIsRunning(false);
-    setSimulationStep(0);
-    setBatteryLevel(100);
-    setAltitude(0);
-    setSpeed(0);
-  };
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -105,196 +77,14 @@ const SimulationDemo = () => {
           </motion.div>
         </div>
 
-        {/* Simulation Interface */}
+        {/* Advanced Drone Simulation */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="simulation-container rounded-lg border-2 border-black p-8 mb-8"
         >
-          {/* Simulation Display */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-8">
-            {/* Visual Simulation */}
-            <div className="bg-gray-100 border-2 border-black rounded-lg p-6 h-80 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-green-200">
-                {/* Drone representation */}
-                <motion.div
-                  className="absolute w-8 h-8 bg-orange-500 rounded-full border-2 border-black"
-                  animate={{
-                    x: simulationStep * 4,
-                    y: Math.sin(simulationStep * 0.1) * 30 + 120,
-                    rotate: Math.sin(simulationStep * 0.05) * 10
-                  }}
-                  transition={{ duration: 0.1 }}
-                >
-                  <div className="absolute inset-0 bg-orange-500 rounded-full animate-pulse"></div>
-                </motion.div>
-                
-                {/* Flight path */}
-                <svg className="absolute inset-0 w-full h-full">
-                  <path
-                    d={`M 0 ${150 + Math.sin(0) * 30} ${Array.from({length: 100}, (_, i) => 
-                      `L ${i * 4} ${150 + Math.sin(i * 0.1) * 30}`
-                    ).join(' ')}`}
-                    stroke="#FF7120"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeDasharray="5,5"
-                    opacity="0.5"
-                  />
-                </svg>
-              </div>
-              
-              <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded text-sm font-mono">
-                {isRunning ? 'FLIGHT ACTIVE' : 'STANDBY'}
-              </div>
-            </div>
-
-            {/* Control Panel */}
-            <div className="space-y-6">
-              {/* Control Buttons */}
-              <div className="flex space-x-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleStart}
-                  disabled={isRunning}
-                  className="flex items-center space-x-2 bg-orange-500 text-white px-6 py-3 rounded font-bold disabled:opacity-50"
-                >
-                  <Play className="w-5 h-5" />
-                  <span>START</span>
-                </motion.button>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handlePause}
-                  disabled={!isRunning}
-                  className="flex items-center space-x-2 bg-gray-500 text-white px-6 py-3 rounded font-bold disabled:opacity-50"
-                >
-                  <Pause className="w-5 h-5" />
-                  <span>PAUSE</span>
-                </motion.button>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleReset}
-                  className="flex items-center space-x-2 bg-black text-white px-6 py-3 rounded font-bold"
-                >
-                  <RotateCcw className="w-5 h-5" />
-                  <span>RESET</span>
-                </motion.button>
-              </div>
-
-              {/* Status Indicators */}
-              <div className="grid grid-cols-2 gap-4">
-                <motion.div 
-                  className="bg-gray-100 p-4 rounded border"
-                  whileHover={{ scale: 1.02 }}
-                  animate={{ 
-                    backgroundColor: batteryLevel < 20 ? '#fee2e2' : '#f3f4f6'
-                  }}
-                >
-                  <div className="flex items-center space-x-2 mb-2">
-                    <motion.div
-                      animate={{ scale: batteryLevel < 20 ? [1, 1.2, 1] : 1 }}
-                      transition={{ duration: 0.5, repeat: batteryLevel < 20 ? Infinity : 0 }}
-                    >
-                      <Zap className="w-4 h-4 text-orange-500" />
-                    </motion.div>
-                    <span className="font-bold text-sm">BATTERY</span>
-                  </div>
-                  <motion.div 
-                    className="text-2xl font-bold font-mono"
-                    animate={{ 
-                      color: batteryLevel < 20 ? '#dc2626' : '#000'
-                    }}
-                  >
-                    {batteryLevel.toFixed(1)}%
-                  </motion.div>
-                  <div className="w-full bg-gray-300 rounded-full h-2 mt-2">
-                    <motion.div 
-                      className="h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${batteryLevel}%` }}
-                      animate={{ 
-                        backgroundColor: batteryLevel < 20 ? '#dc2626' : '#ff6b35'
-                      }}
-                    />
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="bg-gray-100 p-4 rounded border"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center space-x-2 mb-2">
-                    <motion.div
-                      animate={{ y: [0, -2, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Settings className="w-4 h-4 text-orange-500" />
-                    </motion.div>
-                    <span className="font-bold text-sm">ALTITUDE</span>
-                  </div>
-                  <motion.div 
-                    className="text-2xl font-bold font-mono"
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                  >
-                    {altitude.toFixed(1)}m
-                  </motion.div>
-                </motion.div>
-                
-                <motion.div 
-                  className="bg-gray-100 p-4 rounded border"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center space-x-2 mb-2">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Wifi className="w-4 h-4 text-orange-500" />
-                    </motion.div>
-                    <span className="font-bold text-sm">SPEED</span>
-                  </div>
-                  <motion.div 
-                    className="text-2xl font-bold font-mono"
-                    animate={{ 
-                      scale: speed > 30 ? [1, 1.05, 1] : 1
-                    }}
-                    transition={{ duration: 0.3, repeat: speed > 30 ? Infinity : 0 }}
-                  >
-                    {speed.toFixed(1)} m/s
-                  </motion.div>
-                </motion.div>
-                
-                <motion.div 
-                  className="bg-gray-100 p-4 rounded border"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center space-x-2 mb-2">
-                    <motion.div
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Cpu className="w-4 h-4 text-orange-500" />
-                    </motion.div>
-                    <span className="font-bold text-sm">CPU LOAD</span>
-                  </div>
-                  <motion.div 
-                    className="text-2xl font-bold font-mono"
-                    animate={{ 
-                      color: (simulationStep % 50 + 25) > 75 ? '#dc2626' : '#000'
-                    }}
-                  >
-                    {(simulationStep % 50 + 25).toFixed(0)}%
-                  </motion.div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
+          <AdvancedDroneSimulation />
         </motion.div>
 
         {/* Features Overview */}
