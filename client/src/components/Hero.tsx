@@ -95,7 +95,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
             <motion.a
-              href="/controller-board"
+              href="/controller"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-orange-500 text-white px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-orange-600 transition-all duration-200 flex items-center space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
@@ -105,7 +105,7 @@ const Hero = () => {
             </motion.a>
             
             <motion.a
-              href="/simulation-demo"
+              href="/simulation"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white text-black px-8 py-4 border-4 border-black font-bold text-lg tracking-wide hover:bg-gray-100 transition-all duration-200 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"

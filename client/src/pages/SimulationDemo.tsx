@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { ArrowLeft, Play, Pause, RotateCcw, Settings, Zap, Wifi, Cpu } from 'lucide-react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const SimulationDemo = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -36,23 +38,7 @@ const SimulationDemo = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-orange-500 hover:text-black transition-colors duration-200"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span className="font-bold">BACK TO HOME</span>
-              </motion.div>
-            </Link>
-            <div className="text-2xl font-bold text-black">FLIGHT SIMULATION</div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
@@ -271,6 +257,7 @@ const SimulationDemo = () => {
           </div>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 };

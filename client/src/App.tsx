@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'wouter';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Programs from './components/Programs';
-import Simulation from './components/Simulation';
-import Portfolio from './components/Portfolio';
-import Media from './components/Media';
-import Testimonials from './components/Testimonials';
+import CompanyMission from './components/CompanyMission';
+import ProductGlimpse from './components/ProductGlimpse';
 import Team from './components/Team';
 import FAQ from './components/FAQ';
-import Blog from './components/Blog';
+import Updates from './components/Updates';
+import DroneGame from './components/DroneGame';
 import Footer from './components/Footer';
 import ControllerBoard from './pages/ControllerBoard';
 import SimulationDemo from './pages/SimulationDemo';
@@ -47,11 +45,12 @@ const HomePage = () => {
       <ScrollProgressBar />
       <Header />
       <Hero />
-      <Programs />
-      <Simulation />
+      <CompanyMission />
+      <ProductGlimpse />
       <Team />
       <FAQ />
-      <Blog />
+      <Updates />
+      <DroneGame />
       <Footer />
     </div>
   );
@@ -61,6 +60,9 @@ function App() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/controller" component={ControllerBoard} />
+      <Route path="/simulation" component={SimulationDemo} />
+      {/* Legacy routes for backward compatibility */}
       <Route path="/controller-board" component={ControllerBoard} />
       <Route path="/simulation-demo" component={SimulationDemo} />
     </Switch>
