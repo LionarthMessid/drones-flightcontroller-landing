@@ -11,16 +11,17 @@ interface Obstacle {
 const DroneGame = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
-  const [droneY, setDroneY] = useState(240); // Start on ground
+  const [droneY, setDroneY] = useState(260); // Start on ground
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [gameOver, setGameOver] = useState(false);
   const [velocity, setVelocity] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
+  const [jumpsRemaining, setJumpsRemaining] = useState(2);
 
   const GAME_HEIGHT = 300;
   const GAME_WIDTH = 600;
   const DRONE_SIZE = 20;
-  const GROUND_HEIGHT = 240; // Ground level - adjusted for drone positioning
+  const GROUND_HEIGHT = 260; // Ground level - adjusted for proper drone positioning
   const GRAVITY = 0.8;
   const JUMP_FORCE = -15;
   const OBSTACLE_WIDTH = 20;
@@ -28,14 +29,15 @@ const DroneGame = () => {
   const OBSTACLE_SPEED = 4;
 
   const jump = useCallback(() => {
-    if (!gameOver && !isJumping) {
+    if (!gameOver && jumpsRemaining > 0) {
       setVelocity(JUMP_FORCE);
       setIsJumping(true);
+      setJumpsRemaining(prev => prev - 1);
       if (!isPlaying) {
         setIsPlaying(true);
       }
     }
-  }, [gameOver, isJumping, isPlaying]);
+  }, [gameOver, jumpsRemaining, isPlaying]);
 
   const resetGame = useCallback(() => {
     setDroneY(GROUND_HEIGHT);
@@ -45,6 +47,7 @@ const DroneGame = () => {
     setGameOver(false);
     setIsPlaying(false);
     setIsJumping(false);
+    setJumpsRemaining(2);
   }, []);
 
   // Handle keyboard input
@@ -78,6 +81,7 @@ const DroneGame = () => {
         if (newY >= GROUND_HEIGHT) {
           setIsJumping(false);
           setVelocity(0);
+          setJumpsRemaining(2); // Reset double jump when landing
           return GROUND_HEIGHT;
         }
         
@@ -177,7 +181,7 @@ const DroneGame = () => {
           EASTER EGG: DRONE RUNNER
         </h3>
         <p className="text-gray-600 font-mono mb-6">
-          Press SPACE or click to make the drone jump over obstacles!
+          Press SPACE or click to jump! You can double jump in mid-air!
         </p>
         
         <div className="inline-block bg-white border-4 border-black p-4">
@@ -200,6 +204,19 @@ const DroneGame = () => {
             style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
             onClick={gameOver ? resetGame : jump}
           >
+            {/* Sun */}
+            <div className="absolute top-8 right-16 w-12 h-12 bg-yellow-400 border-2 border-yellow-500 rounded-full">
+              {/* Sun rays */}
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-0.5 h-4 bg-yellow-400"></div>
+              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-0.5 h-4 bg-yellow-400"></div>
+              <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 h-0.5 w-4 bg-yellow-400"></div>
+              <div className="absolute -right-3 top-1/2 transform -translate-y-1/2 h-0.5 w-4 bg-yellow-400"></div>
+              <div className="absolute -top-2 -left-2 w-0.5 h-3 bg-yellow-400 transform rotate-45 origin-bottom"></div>
+              <div className="absolute -top-2 -right-2 w-0.5 h-3 bg-yellow-400 transform -rotate-45 origin-bottom"></div>
+              <div className="absolute -bottom-2 -left-2 w-0.5 h-3 bg-yellow-400 transform -rotate-45 origin-top"></div>
+              <div className="absolute -bottom-2 -right-2 w-0.5 h-3 bg-yellow-400 transform rotate-45 origin-top"></div>
+            </div>
+            
             {/* Ground line */}
             <div 
               className="absolute w-full border-t-2 border-green-800 bg-green-300"
@@ -210,9 +227,11 @@ const DroneGame = () => {
             />
             
             {/* Clouds */}
-            <div className="absolute top-4 left-20 w-8 h-4 bg-white rounded-full opacity-60"></div>
-            <div className="absolute top-12 right-32 w-6 h-3 bg-white rounded-full opacity-60"></div>
-            <div className="absolute top-6 right-64 w-10 h-5 bg-white rounded-full opacity-60"></div>
+            <div className="absolute top-4 left-20 w-8 h-4 bg-white rounded-full opacity-80 shadow-sm"></div>
+            <div className="absolute top-12 right-32 w-6 h-3 bg-white rounded-full opacity-80 shadow-sm"></div>
+            <div className="absolute top-6 right-64 w-10 h-5 bg-white rounded-full opacity-80 shadow-sm"></div>
+            <div className="absolute top-16 left-60 w-7 h-3 bg-white rounded-full opacity-70 shadow-sm"></div>
+            <div className="absolute top-8 left-80 w-5 h-2 bg-white rounded-full opacity-70 shadow-sm"></div>
             
             {/* Drone */}
             <motion.div
@@ -274,14 +293,14 @@ const DroneGame = () => {
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                 <div className="text-center text-white">
                   <div className="text-xl font-bold font-mono mb-2">DRONE RUNNER</div>
-                  <div className="text-sm font-mono">PRESS SPACE TO JUMP AND START</div>
+                  <div className="text-sm font-mono">PRESS SPACE TO JUMP! DOUBLE JUMP AVAILABLE!</div>
                 </div>
               </div>
             )}
           </div>
           
           <div className="mt-4 text-xs text-gray-500 font-mono">
-            Use SPACE key or click to make the drone jump over obstacles
+            Use SPACE key or click to jump. Double jump available in mid-air!
           </div>
         </div>
       </div>
