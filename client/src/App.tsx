@@ -7,6 +7,7 @@ import ProductGlimpse from './components/ProductGlimpse';
 import Team from './components/Team';
 import FAQ from './components/FAQ';
 import Updates from './components/Updates';
+import Roadmap from './components/Roadmap';
 import DroneGameWrapper from './components/DroneGameWrapper';
 import Footer from './components/Footer';
 import ControllerBoard from './pages/ControllerBoard';
@@ -51,6 +52,7 @@ const HomePage = () => {
       <Team />
       <FAQ />
       <Updates />
+      <Roadmap />
       <DroneGameWrapper />
       <Footer />
     </div>
