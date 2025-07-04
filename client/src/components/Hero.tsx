@@ -47,7 +47,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter"
+              className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter"
             >
               <span className="text-black">ESP32</span>
               <br />
@@ -60,7 +60,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg sm:text-xl lg:text-2xl font-bold tracking-wider text-black"
+              className="text-base sm:text-lg lg:text-xl font-bold tracking-wider text-black"
             >
               NEXT-GEN AVIATION BOARD
             </motion.div>
@@ -82,7 +82,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-mono"
+            className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed font-mono"
           >
             REVOLUTIONARY ESP32-BASED FLIGHT CONTROLLER. TWO VERSIONS IN DEVELOPMENT. INNOVATION MEETS SIMPLICITY.
           </motion.p>
@@ -98,7 +98,7 @@ const Hero = () => {
               href="/controller"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-orange-500 text-white px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-orange-600 transition-all duration-200 flex items-center space-x-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+              className="bg-orange-500 text-white px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-orange-600 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center space-x-2"
             >
               <span>VIEW THE CONTROLLER BOARD</span>
               <ArrowRight className="w-4 h-4" />
@@ -108,7 +108,7 @@ const Hero = () => {
               href="/simulation"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-black px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-gray-100 transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+              className="bg-white text-black px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-gray-100 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
             >
               CHECKOUT THE SIMULATION
             </motion.a>
@@ -145,11 +145,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="pt-8 pb-4"
+          className="pt-6 pb-2"
         >
           <div className="text-center">
-            <h3 className="text-base font-bold text-gray-600 mb-4 tracking-wider">KEY SPECIFICATIONS:</h3>
-            <div className="flex items-center justify-center space-x-2 text-xl font-bold">
+            <h3 className="text-sm font-bold text-gray-600 mb-3 tracking-wider">KEY SPECIFICATIONS:</h3>
+            <div className="flex items-center justify-center space-x-2 text-lg font-bold">
               <span className="text-gray-500">{'>'}</span>
               <motion.span
                 key={currentFeature}
@@ -162,7 +162,7 @@ const Hero = () => {
               </motion.span>
               <span className="text-gray-500">_</span>
             </div>
-            <div className="mt-2 text-xs text-gray-500 font-mono">
+            <div className="mt-1 text-xs text-gray-500 font-mono">
               {features.length} CORE FEATURES AVAILABLE
             </div>
           </div>
