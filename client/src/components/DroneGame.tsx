@@ -206,14 +206,7 @@ const DroneGame = ({ inModal = false, onClose, onPlayInWindow }: DroneGameProps 
           Press SPACE or click to jump! You can double jump in mid-air!
         </p>
         
-        {!inModal && onPlayInWindow && (
-          <button
-            onClick={onPlayInWindow}
-            className="mb-6 bg-orange-500 text-white px-6 py-3 border-2 border-black font-bold text-lg hover:bg-orange-600 transition-colors"
-          >
-            🎮 PLAY IN WINDOW
-          </button>
-        )}
+
         
         <div className="inline-block bg-white border-4 border-black p-4">
           <div className="mb-4 flex justify-between items-center">
