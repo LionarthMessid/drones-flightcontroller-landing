@@ -115,25 +115,25 @@ const Hero = () => {
           {/* Decorative Elements */}
           <div className="flex items-center justify-center space-x-4 pt-6">
             <motion.div
-              className="p-3 border-3 border-black bg-white"
+              className="p-3 border-4 border-black bg-white"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Square className="w-6 h-6 text-orange-500" />
+              <Square className="w-6 h-6 text-orange-500 border-2 border-orange-500" />
             </motion.div>
             <motion.div
-              className="p-3 border-3 border-black bg-orange-500"
+              className="p-3 border-4 border-black bg-orange-500"
               whileHover={{ rotate: -15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Triangle className="w-6 h-6 text-white" />
+              <Triangle className="w-6 h-6 text-white border-2 border-white" />
             </motion.div>
             <motion.div
-              className="p-3 border-3 border-black bg-white"
+              className="p-3 border-4 border-black bg-white"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Circle className="w-6 h-6 text-black" />
+              <Circle className="w-6 h-6 text-black border-2 border-black" />
             </motion.div>
           </div>
         </div>
