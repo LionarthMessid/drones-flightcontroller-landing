@@ -43,11 +43,11 @@ const Updates = () => {
           {/* Section Header */}
           <div className="space-y-4">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black font-mono tracking-tight">
-              RECENT UPDATES
+              UPDATES
             </h2>
             <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
             <p className="text-xl text-gray-600 font-mono max-w-3xl mx-auto">
-              Latest developments and completed milestones
+              Stay updated with our latest developments and milestones
             </p>
           </div>
 
