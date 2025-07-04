@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+
+import React, { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, RotateCcw, Settings, Zap, Wifi, Cpu, Code, Wind, Eye } from 'lucide-react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { KeyboardControls, useKeyboardControls, OrbitControls, Text, Box, Plane, Cylinder } from '@react-three/drei';
+import * as THREE from 'three';
 import { useDrone } from '../lib/useDrone';
 import { useWind } from '../lib/useWind';
 import { useEnvironment } from '../lib/useEnvironment';
@@ -8,94 +12,225 @@ import { useEditor } from '../lib/useEditor';
 import { compileCode } from '../lib/codeCompiler';
 import { PIDController } from '../lib/pidController';
 import { DronePhysics } from '../lib/dronePhysics';
-import * as THREE from 'three';
 
-const AdvancedDroneSimulation = () => {
-  const [isRunning, setIsRunning] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const [showCode, setShowCode] = useState(false);
-  const [showWind, setShowWind] = useState(false);
-  const [keys, setKeys] = useState<Record<string, boolean>>({});
+// Control mappings for drone movement
+enum Controls {
+  forward = 'forward',      // W - Pitch forward
+  backward = 'backward',    // S - Pitch backward
+  left = 'left',           // A - Roll left
+  right = 'right',         // D - Roll right
+  yawLeft = 'yawLeft',     // Left Arrow - Yaw left
+  yawRight = 'yawRight',   // Right Arrow - Yaw right
+  throttleUp = 'throttleUp', // Up Arrow - Throttle up
+  throttleDown = 'throttleDown', // Down Arrow - Throttle down
+}
+
+const keyMap = [
+  { name: Controls.forward, keys: ['KeyW'] },
+  { name: Controls.backward, keys: ['KeyS'] },
+  { name: Controls.left, keys: ['KeyA'] },
+  { name: Controls.right, keys: ['KeyD'] },
+  { name: Controls.yawLeft, keys: ['ArrowLeft'] },
+  { name: Controls.yawRight, keys: ['ArrowRight'] },
+  { name: Controls.throttleUp, keys: ['ArrowUp'] },
+  { name: Controls.throttleDown, keys: ['ArrowDown'] },
+];
+
+// 3D Drone Model Component
+const DroneModel = () => {
+  const groupRef = useRef<THREE.Group>(null);
+  const rotorRefs = useRef<THREE.Mesh[]>([]);
+  const { position, rotation, telemetry } = useDrone();
+
+  // Animate rotors based on throttle
+  useFrame((state, delta) => {
+    if (rotorRefs.current) {
+      const rotorSpeed = (telemetry.throttle + 0.5) * 50;
+      rotorRefs.current.forEach((rotor, index) => {
+        if (rotor) {
+          const direction = index % 2 === 0 ? 1 : -1;
+          rotor.rotation.y += direction * rotorSpeed * delta;
+        }
+      });
+    }
+  });
+
+  useEffect(() => {
+    if (groupRef.current) {
+      groupRef.current.position.copy(position);
+      groupRef.current.rotation.setFromVector3(rotation);
+    }
+  }, [position, rotation]);
+
+  return (
+    <group ref={groupRef}>
+      {/* Main Body */}
+      <Box args={[2, 0.3, 2]} position={[0, 0, 0]} castShadow receiveShadow>
+        <meshPhongMaterial color="#FF7120" />
+      </Box>
+
+      {/* Center Hub */}
+      <Cylinder args={[0.3, 0.3, 0.2, 8]} position={[0, 0.2, 0]} castShadow>
+        <meshPhongMaterial color="#444444" />
+      </Cylinder>
+
+      {/* Arms */}
+      {[
+        { pos: [0.8, 0, 0], rot: [0, 0, 0] },
+        { pos: [-0.8, 0, 0], rot: [0, 0, 0] },
+        { pos: [0, 0, 0.8], rot: [0, Math.PI / 2, 0] },
+        { pos: [0, 0, -0.8], rot: [0, Math.PI / 2, 0] }
+      ].map((arm, index) => (
+        <Box
+          key={index}
+          args={[0.8, 0.1, 0.1]}
+          position={arm.pos}
+          rotation={arm.rot}
+          castShadow
+        >
+          <meshPhongMaterial color="#333333" />
+        </Box>
+      ))}
+
+      {/* Rotors */}
+      {[
+        [1.2, 0.3, 0],
+        [-1.2, 0.3, 0],
+        [0, 0.3, 1.2],
+        [0, 0.3, -1.2]
+      ].map((pos, index) => (
+        <group key={index} position={pos}>
+          <Cylinder
+            ref={(ref) => {
+              if (ref) rotorRefs.current[index] = ref;
+            }}
+            args={[0.6, 0.6, 0.02, 8]}
+            castShadow
+          >
+            <meshPhongMaterial color="#666666" transparent opacity={0.3} />
+          </Cylinder>
+        </group>
+      ))}
+    </group>
+  );
+};
+
+// 3D Environment Component
+const Environment3D = () => {
+  const { obstacles } = useEnvironment();
+  const { windSources } = useWind();
+
+  return (
+    <group>
+      {/* Ground */}
+      <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+        <meshPhongMaterial color="#4ade80" />
+      </Plane>
+
+      {/* Grid */}
+      <gridHelper args={[100, 50, '#22c55e', '#16a34a']} />
+
+      {/* Landing Pad */}
+      <Cylinder args={[3, 3, 0.1, 16]} position={[0, 0.05, 0]} receiveShadow>
+        <meshPhongMaterial color="#f59e0b" />
+      </Cylinder>
+
+      {/* Landing Pad Markings */}
+      <Text
+        position={[0, 0.11, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        fontSize={1}
+        color="#000000"
+        anchorX="center"
+        anchorY="middle"
+      >
+        H
+      </Text>
+
+      {/* Obstacles */}
+      {obstacles.map((obstacle) => (
+        <Box
+          key={obstacle.id}
+          args={[obstacle.size.x, obstacle.size.y, obstacle.size.z]}
+          position={[obstacle.position.x, obstacle.position.y + obstacle.size.y / 2, obstacle.position.z]}
+          castShadow
+          receiveShadow
+        >
+          <meshPhongMaterial color={obstacle.color} />
+        </Box>
+      ))}
+
+      {/* Wind Sources Visualization */}
+      {windSources.map((source) => (
+        <group key={source.id} position={[source.position.x, source.position.y, source.position.z]}>
+          <Cylinder args={[source.radius, source.radius, 0.5, 16]} position={[0, 0.25, 0]}>
+            <meshPhongMaterial color="#3b82f6" transparent opacity={0.2} />
+          </Cylinder>
+          <Text
+            position={[0, source.radius + 1, 0]}
+            fontSize={0.5}
+            color="#3b82f6"
+            anchorX="center"
+            anchorY="middle"
+          >
+            {source.name}
+          </Text>
+        </group>
+      ))}
+    </group>
+  );
+};
+
+// 3D Scene Component
+const Scene3D = () => {
+  const [, getControls] = useKeyboardControls<Controls>();
+  const { camera } = useThree();
   
-  const animationRef = useRef<number>();
-  const lastTimeRef = useRef<number>(0);
-  const pidControllerRef = useRef<PIDController | null>(null);
-  const dronePhysicsRef = useRef<DronePhysics | null>(null);
-
+  const pidController = useRef<PIDController | null>(null);
+  const dronePhysics = useRef<DronePhysics | null>(null);
+  
   const { 
     position, 
     rotation, 
     velocity, 
     angularVelocity,
     pidParams,
-    telemetry,
     updateDrone,
-    updatePIDParams,
-    setTelemetry,
-    reset
+    setTelemetry
   } = useDrone();
-
-  const { getWindAtPosition, windSources, addWindSource, removeWindSource } = useWind();
-  const { obstacles } = useEnvironment();
-  const { code, setCode, error, setError, isCompiling, setIsCompiling } = useEditor();
+  
+  const { getWindAtPosition } = useWind();
 
   // Initialize physics systems
   useEffect(() => {
-    pidControllerRef.current = new PIDController(pidParams);
-    dronePhysicsRef.current = new DronePhysics();
+    pidController.current = new PIDController(pidParams);
+    dronePhysics.current = new DronePhysics();
   }, []);
 
   // Update PID parameters when they change
   useEffect(() => {
-    if (pidControllerRef.current) {
-      pidControllerRef.current.updateParams(pidParams);
+    if (pidController.current) {
+      pidController.current.updateParams(pidParams);
     }
   }, [pidParams]);
 
-  // Keyboard controls
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      setKeys(prev => ({ ...prev, [event.code]: true }));
-    };
-
-    const handleKeyUp = (event: KeyboardEvent) => {
-      setKeys(prev => ({ ...prev, [event.code]: false }));
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
-
   // Animation loop
-  const animate = useCallback((timestamp: number) => {
-    if (!isRunning || !pidControllerRef.current || !dronePhysicsRef.current) {
-      animationRef.current = requestAnimationFrame(animate);
-      return;
-    }
+  useFrame((state, delta) => {
+    if (!pidController.current || !dronePhysics.current) return;
 
-    const deltaTime = (timestamp - lastTimeRef.current) / 1000;
-    lastTimeRef.current = timestamp;
-
-    if (deltaTime > 0.1) { // Skip large time jumps
-      animationRef.current = requestAnimationFrame(animate);
-      return;
-    }
-
-    // Map keyboard inputs to control setpoints
+    // Get control inputs
+    const controls = getControls();
+    
+    // Map controls to setpoints
     const setpoints = {
-      pitch: keys.KeyW ? -0.3 : keys.KeyS ? 0.3 : 0,
-      roll: keys.KeyA ? -0.3 : keys.KeyD ? 0.3 : 0,
-      yaw: keys.ArrowLeft ? -1 : keys.ArrowRight ? 1 : 0,
-      throttle: keys.ArrowUp ? 1 : keys.ArrowDown ? -0.5 : 0
+      pitch: controls.forward ? -0.3 : controls.backward ? 0.3 : 0,
+      roll: controls.left ? -0.3 : controls.right ? 0.3 : 0,
+      yaw: controls.yawLeft ? -1 : controls.yawRight ? 1 : 0,
+      throttle: controls.throttleUp ? 1 : controls.throttleDown ? -0.5 : 0
     };
 
     // Calculate PID outputs
-    const pidOutputs = pidControllerRef.current.update(
+    const pidOutputs = pidController.current.update(
       { 
         pitch: rotation.x, 
         roll: rotation.z, 
@@ -103,22 +238,22 @@ const AdvancedDroneSimulation = () => {
         altitude: position.y 
       },
       setpoints,
-      deltaTime
+      delta
     );
 
-    // Get wind forces at current drone position
+    // Get wind forces
     const windAtPosition = getWindAtPosition(
       { x: position.x, y: position.y, z: position.z },
-      timestamp / 1000
+      state.clock.elapsedTime
     );
     const wind = new THREE.Vector3(windAtPosition.x, windAtPosition.y, windAtPosition.z);
 
     // Update physics
-    const newState = dronePhysicsRef.current.update(
+    const newState = dronePhysics.current.update(
       { position, rotation, velocity, angularVelocity },
       pidOutputs,
       wind,
-      deltaTime
+      delta
     );
 
     // Update drone state
@@ -133,22 +268,92 @@ const AdvancedDroneSimulation = () => {
       yaw: newState.rotation.y * (180 / Math.PI),
       throttle: setpoints.throttle
     });
+  });
 
-    animationRef.current = requestAnimationFrame(animate);
-  }, [isRunning, keys, position, rotation, velocity, angularVelocity, updateDrone, setTelemetry, getWindAtPosition]);
+  return (
+    <>
+      {/* Lighting */}
+      <ambientLight intensity={0.4} />
+      <directionalLight
+        position={[10, 20, 10]}
+        intensity={1}
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-far={50}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
+      />
+      
+      {/* Camera Controls */}
+      <OrbitControls 
+        enablePan={true}
+        enableZoom={true}
+        enableRotate={true}
+        maxPolarAngle={Math.PI / 2}
+        target={[position.x, position.y, position.z]}
+      />
+      
+      {/* Scene Objects */}
+      <Environment3D />
+      <DroneModel />
+    </>
+  );
+};
 
-  useEffect(() => {
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [animate]);
+// HUD Component
+const HUD = () => {
+  const { telemetry } = useDrone();
+  const [, getControls] = useKeyboardControls<Controls>();
+  const controls = getControls();
+
+  return (
+    <div className="absolute top-4 left-4 z-10 pointer-events-none">
+      {/* Telemetry Display */}
+      <div className="bg-black bg-opacity-80 text-white p-4 rounded border-2 border-orange-500 mb-4">
+        <div className="text-xs font-mono space-y-1">
+          <div>ALT: {telemetry.altitude.toFixed(1)}m</div>
+          <div>SPD: {telemetry.speed.toFixed(1)}m/s</div>
+          <div>PITCH: {telemetry.pitch.toFixed(1)}°</div>
+          <div>ROLL: {telemetry.roll.toFixed(1)}°</div>
+          <div>YAW: {telemetry.yaw.toFixed(1)}°</div>
+          <div>THR: {(telemetry.throttle * 100).toFixed(0)}%</div>
+        </div>
+      </div>
+
+      {/* Active Controls Indicator */}
+      {Object.values(controls).some(Boolean) && (
+        <div className="bg-orange-500 text-black p-2 rounded border-2 border-black">
+          <div className="text-xs font-bold">
+            {controls.forward && '↑'} {controls.backward && '↓'} {controls.left && '←'} {controls.right && '→'}
+            {controls.throttleUp && '▲'} {controls.throttleDown && '▼'} {controls.yawLeft && '◄'} {controls.yawRight && '►'}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const AdvancedDroneSimulation = () => {
+  const [isRunning, setIsRunning] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const [showCode, setShowCode] = useState(false);
+  const [showWind, setShowWind] = useState(false);
+  
+  const { 
+    pidParams,
+    telemetry,
+    updatePIDParams,
+    reset
+  } = useDrone();
+
+  const { getWindAtPosition, windSources, addWindSource, removeWindSource } = useWind();
+  const { obstacles } = useEnvironment();
+  const { code, setCode, error, setError, isCompiling, setIsCompiling } = useEditor();
 
   const handleStart = () => {
     setIsRunning(true);
-    lastTimeRef.current = performance.now();
   };
 
   const handlePause = () => setIsRunning(false);
@@ -156,10 +361,6 @@ const AdvancedDroneSimulation = () => {
   const handleReset = () => {
     setIsRunning(false);
     reset();
-    if (pidControllerRef.current) {
-      pidControllerRef.current.reset();
-    }
-    setKeys({});
   };
 
   const handleCodeCompile = () => {
@@ -193,102 +394,39 @@ const AdvancedDroneSimulation = () => {
 
   return (
     <div className="relative w-full h-full">
-      {/* 3D Visualization Area */}
-      <div className="relative w-full h-96 bg-gradient-to-b from-sky-200 to-green-200 border-4 border-black overflow-hidden">
-        {/* Environment */}
-        <div className="absolute inset-0">
-          {/* Ground Grid */}
-          <div className="absolute bottom-0 w-full h-32 bg-green-300 opacity-50">
-            <div className="grid grid-cols-20 grid-rows-8 h-full">
-              {Array.from({ length: 160 }).map((_, i) => (
-                <div key={i} className="border border-green-600 opacity-30"></div>
-              ))}
-            </div>
-          </div>
+      {/* 3D Canvas */}
+      <div className="relative w-full h-96 bg-black border-4 border-black overflow-hidden">
+        <KeyboardControls map={keyMap}>
+          <Canvas
+            camera={{
+              position: [0, 15, 25],
+              fov: 60,
+              near: 0.1,
+              far: 1000
+            }}
+            shadows
+            style={{ width: '100%', height: '100%' }}
+          >
+            <Suspense fallback={null}>
+              <Scene3D />
+            </Suspense>
+          </Canvas>
           
-          {/* Obstacles */}
-          {obstacles.map((obstacle) => (
-            <div
-              key={obstacle.id}
-              className="absolute bg-gray-600 border-2 border-black"
-              style={{
-                left: `${50 + obstacle.position.x * 2}%`,
-                bottom: `${10 + obstacle.position.z * 2}%`,
-                width: `${obstacle.size.x * 4}px`,
-                height: `${obstacle.size.y * 4}px`,
-                backgroundColor: obstacle.color
-              }}
-            />
-          ))}
-          
-          {/* Wind Visualization */}
-          {showWind && windSources.map((source) => (
-            <div
-              key={source.id}
-              className="absolute"
-              style={{
-                left: `${50 + source.position.x * 2}%`,
-                top: `${50 - source.position.y * 2}%`,
-              }}
-            >
-              <motion.div
-                className="w-8 h-8 border-2 border-blue-500 rounded-full bg-blue-200 opacity-70"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <div className="absolute top-8 left-0 text-xs text-blue-600 font-bold">
-                Wind {source.force.toFixed(1)}
-              </div>
-            </div>
-          ))}
-        </div>
+          {/* HUD Overlay */}
+          <HUD />
+        </KeyboardControls>
 
-        {/* Drone */}
-        <motion.div
-          className="absolute w-8 h-8 bg-orange-500 border-4 border-black transform -translate-x-1/2 -translate-y-1/2"
-          style={{
-            left: `${50 + position.x * 2}%`,
-            top: `${50 - position.y * 2}%`,
-            transform: `translate(-50%, -50%) rotate(${rotation.y * (180 / Math.PI)}deg)`
-          }}
-          animate={isRunning ? {
-            scale: [1, 1.1, 1],
-            rotate: rotation.y * (180 / Math.PI)
-          } : {}}
-          transition={isRunning ? { 
-            scale: { duration: 0.5, repeat: Infinity },
-            rotate: { duration: 0.1 }
-          } : {}}
-        >
-          {/* Rotor blur effect when running */}
-          {isRunning && (
-            <motion.div
-              className="absolute inset-0 border-2 border-orange-300 rounded-full opacity-50"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
-            />
-          )}
-        </motion.div>
-
-        {/* HUD Overlay */}
-        <div className="absolute top-4 left-4 bg-black bg-opacity-80 text-white p-4 rounded border-2 border-orange-500">
+        {/* Instructions */}
+        <div className="absolute bottom-4 right-4 bg-black bg-opacity-80 text-white p-4 rounded border-2 border-orange-500">
           <div className="text-xs font-mono space-y-1">
-            <div>ALT: {telemetry.altitude.toFixed(1)}m</div>
-            <div>SPD: {telemetry.speed.toFixed(1)}m/s</div>
-            <div>YAW: {telemetry.yaw.toFixed(1)}°</div>
-            <div>THR: {(telemetry.throttle * 100).toFixed(0)}%</div>
+            <div className="font-bold mb-2">CONTROLS:</div>
+            <div>W/S: Pitch</div>
+            <div>A/D: Roll</div>
+            <div>←/→: Yaw</div>
+            <div>↑/↓: Throttle</div>
+            <div className="mt-2">Mouse: Camera</div>
           </div>
         </div>
-
-        {/* Active Controls Indicator */}
-        {Object.values(keys).some(Boolean) && (
-          <div className="absolute top-4 right-4 bg-orange-500 text-black p-2 rounded border-2 border-black">
-            <div className="text-xs font-bold">
-              {keys.KeyW && '↑'} {keys.KeyS && '↓'} {keys.KeyA && '←'} {keys.KeyD && '→'}
-              {keys.ArrowUp && '▲'} {keys.ArrowDown && '▼'} {keys.ArrowLeft && '◄'} {keys.ArrowRight && '►'}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Control Panel */}
@@ -330,12 +468,12 @@ const AdvancedDroneSimulation = () => {
             </div>
 
             <div className="bg-gray-100 p-4 border-2 border-black">
-              <h4 className="font-bold mb-2">Control Scheme:</h4>
+              <h4 className="font-bold mb-2">3D Flight Simulator:</h4>
               <div className="text-sm space-y-1">
-                <div><strong>W/S:</strong> Pitch Forward/Backward</div>
-                <div><strong>A/D:</strong> Roll Left/Right</div>
-                <div><strong>←/→:</strong> Yaw Left/Right</div>
-                <div><strong>↑/↓:</strong> Throttle Up/Down</div>
+                <div><strong>WASD:</strong> Pitch/Roll Control</div>
+                <div><strong>Arrow Keys:</strong> Yaw/Throttle</div>
+                <div><strong>Mouse:</strong> Camera Controls</div>
+                <div><strong>Scroll:</strong> Zoom In/Out</div>
               </div>
             </div>
           </div>
