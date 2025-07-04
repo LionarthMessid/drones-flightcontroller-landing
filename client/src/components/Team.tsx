@@ -90,12 +90,12 @@ const Team = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white border-3 border-black overflow-hidden hover:border-orange-500 transition-all duration-300 group cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[3px_3px_0px_0px_rgba(255,165,0,0.3)]"
+              className="bg-white border-4 border-black overflow-hidden hover:border-orange-500 transition-all duration-300 group cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[4px_4px_0px_0px_rgba(255,165,0,0.3)]"
               onClick={() => setSelectedMember(member)}
             >
               {/* Avatar */}
-              <div className="relative h-32 bg-gray-200 border-b-3 border-black flex items-center justify-center">
-                <div className="w-16 h-16 bg-orange-500 border-3 border-black flex items-center justify-center group-hover:bg-black transition-colors duration-300">
+              <div className="relative h-32 bg-gray-200 border-b-4 border-black flex items-center justify-center">
+                <div className="w-16 h-16 bg-orange-500 border-4 border-black flex items-center justify-center group-hover:bg-black transition-colors duration-300">
                   <span className="text-white font-bold text-lg">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </span>
