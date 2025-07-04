@@ -2,9 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, RotateCcw, Settings, Zap, Wifi, Cpu, Code, Wind, Eye } from 'lucide-react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { KeyboardControls, useKeyboardControls, OrbitControls, Text, Box, Plane, Cylinder } from '@react-three/drei';
-import * as THREE from 'three';
 import { useDrone } from '../lib/useDrone';
 import { useWind } from '../lib/useWind';
 import { useEnvironment } from '../lib/useEnvironment';

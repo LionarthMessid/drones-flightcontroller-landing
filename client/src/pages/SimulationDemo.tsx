@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import { ArrowLeft, Play, Pause, RotateCcw, Settings, Zap, Wifi, Cpu } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import AdvancedDroneSimulation from '../components/AdvancedDroneSimulation';
+import Simple3DDroneSimulation from '../components/Simple3DDroneSimulation';
 
 const SimulationDemo = () => {
 
@@ -84,7 +84,7 @@ const SimulationDemo = () => {
           transition={{ delay: 0.2 }}
           className="simulation-container rounded-lg border-2 border-black p-8 mb-8"
         >
-          <AdvancedDroneSimulation />
+          <Simple3DDroneSimulation />
         </motion.div>
 
         {/* Features Overview */}
