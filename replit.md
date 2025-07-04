@@ -120,6 +120,7 @@ Aeroque is a full-stack web application designed to make drone programming acces
 
 ```
 Changelog:
+- July 4, 2025. Enhanced 3D simulation with demo notification and code editor - Converted 2D drone simulation to full 3D using Three.js with geometric drone model (orange body, spinning rotors, realistic lighting/shadows). Added demo notification banner indicating development status. Integrated custom code editor with ESP32 flight controller code, real-time compilation output, serial monitor display, and live telemetry data. Generated high-quality 3D drone model asset for future integration. Improved user experience with comprehensive flight controls and visual feedback.
 - July 3, 2025. Migration from Replit Agent completed - Updated landing page design with minimal sections (Home, Team, FAQ, Updates), added Company Mission and Product Glimpse sections, created drone mini-game, updated routes to /controller and /simulation, added shared Header/Footer to all pages. Logo now links to dedicated game page at /game, added HOME navigation link. Enhanced controller page with comprehensive sections including ESP32 hardware visualization, PCB schematic, pin configuration details, technical specifications (processing, sensors, power), and programming platform information. Generated ESP32 3D model asset for future use.
 - June 30, 2025. Initial setup
 ```

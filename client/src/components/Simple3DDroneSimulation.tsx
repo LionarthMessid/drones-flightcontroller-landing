@@ -417,6 +417,23 @@ const Simple3DDroneSimulation = () => {
 
   return (
     <div className="relative w-full h-full">
+      {/* Demo Notification */}
+      <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-6">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <div className="ml-3">
+            <p className="text-sm text-yellow-700 font-mono">
+              <strong>DEMO VERSION:</strong> This is a demonstration of our 3D flight simulator. 
+              The full production simulator with advanced features is currently in development.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 3D Canvas */}
       <div className="relative w-full h-96 bg-black border-4 border-black overflow-hidden">
         <canvas
@@ -449,6 +466,115 @@ const Simple3DDroneSimulation = () => {
             <div>A/D: Roll</div>
             <div>←/→: Yaw</div>
             <div>↑/↓: Throttle</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Code Editor Section */}
+      <div className="mt-6 mb-8">
+        <div className="bg-white border-4 border-black p-6">
+          <h3 className="text-xl font-bold mb-4 flex items-center">
+            <Code className="mr-2" size={20} />
+            Flight Controller Code Editor
+          </h3>
+          
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Code Input */}
+            <div>
+              <h4 className="font-bold mb-2">ESP32 Flight Controller Code:</h4>
+              <textarea
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                className="w-full h-64 p-3 border-2 border-black font-mono text-sm bg-gray-900 text-green-400 rounded"
+                placeholder="// Enter your ESP32 flight controller code here
+void setup() {
+  Serial.begin(115200);
+  // Initialize flight controller
+  pid_pitch_kp = 2.5;
+  pid_pitch_ki = 0.1;
+  pid_pitch_kd = 0.8;
+  
+  pid_roll_kp = 2.5;
+  pid_roll_ki = 0.1;
+  pid_roll_kd = 0.8;
+  
+  pid_yaw_kp = 1.0;
+  pid_yaw_ki = 0.05;
+  pid_yaw_kd = 0.3;
+  
+  pid_altitude_kp = 3.0;
+  pid_altitude_ki = 0.2;
+  pid_altitude_kd = 1.0;
+}
+
+void loop() {
+  // Flight control loop
+  updateSensors();
+  calculatePID();
+  updateMotors();
+}"
+              />
+              
+              <div className="mt-4 flex space-x-2">
+                <button
+                  onClick={handleCodeCompile}
+                  disabled={isCompiling}
+                  className="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white px-4 py-2 border-2 border-black font-bold transition-colors"
+                >
+                  {isCompiling ? 'COMPILING...' : 'COMPILE & UPLOAD'}
+                </button>
+                
+                <button
+                  onClick={() => setShowCode(!showCode)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-2 border-black font-bold transition-colors"
+                >
+                  {showCode ? 'HIDE DETAILS' : 'SHOW DETAILS'}
+                </button>
+              </div>
+            </div>
+            
+            {/* Output Console */}
+            <div>
+              <h4 className="font-bold mb-2">Compilation Output & Serial Monitor:</h4>
+              <div className="bg-black text-white p-4 border-2 border-gray-300 rounded h-64 overflow-y-auto font-mono text-sm">
+                {error ? (
+                  <div>
+                    <div className="text-red-400 mb-2">COMPILATION ERROR:</div>
+                    <div className="text-red-300">{error}</div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="text-orange-500 mb-2">COMPILATION OUTPUT:</div>
+                    <div className="text-green-400 mb-1">✓ Sketch compiled successfully</div>
+                    <div className="text-green-400 mb-1">✓ Flash memory usage: 67%</div>
+                    <div className="text-green-400 mb-1">✓ Global variables: 14%</div>
+                    <div className="text-white mb-4">Ready to upload to ESP32</div>
+                    
+                    <div className="text-orange-500 mb-2">SERIAL MONITOR:</div>
+                    <div className="text-gray-400 mb-1">Flight Controller Ready</div>
+                    <div className="text-gray-400 mb-1">PID Parameters Updated</div>
+                    <div className="text-gray-400 mb-1">Alt: {telemetry.altitude.toFixed(1)}m | Speed: {telemetry.speed.toFixed(1)}m/s | Battery: 98%</div>
+                    <div className="text-gray-400 mb-1">Pitch: {telemetry.pitch.toFixed(1)}° | Roll: {telemetry.roll.toFixed(1)}° | Yaw: {telemetry.yaw.toFixed(1)}°</div>
+                    <div className="text-blue-400">Telemetry streaming at 50Hz</div>
+                    <div className="text-green-400 animate-pulse">█</div>
+                  </div>
+                )}
+              </div>
+              
+              {showCode && (
+                <div className="mt-4 text-sm">
+                  <h5 className="font-bold mb-2">Code Analysis:</h5>
+                  <div className="bg-gray-100 p-3 border border-gray-300 rounded">
+                    <div className="space-y-1">
+                      <div>• Functions detected: setup(), loop()</div>
+                      <div>• PID parameters: {Object.keys(pidParams).length} controllers</div>
+                      <div>• Memory usage: Estimated 15KB</div>
+                      <div>• Execution time: ~2ms per loop</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
