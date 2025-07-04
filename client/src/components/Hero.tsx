@@ -98,7 +98,7 @@ const Hero = () => {
               href="/controller"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-orange-500 text-white px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-orange-600 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center space-x-2"
+              className="bg-orange-500 text-white px-6 py-3 border-4 border-black font-bold text-base tracking-wide hover:bg-orange-600 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center space-x-2"
             >
               <span>VIEW THE CONTROLLER BOARD</span>
               <ArrowRight className="w-4 h-4" />
@@ -108,7 +108,7 @@ const Hero = () => {
               href="/simulation"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-black px-6 py-3 border-3 border-black font-bold text-base tracking-wide hover:bg-gray-100 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
+              className="bg-white text-black px-6 py-3 border-4 border-black font-bold text-base tracking-wide hover:bg-gray-100 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
             >
               CHECKOUT THE SIMULATION
             </motion.a>
