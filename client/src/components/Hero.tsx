@@ -27,7 +27,6 @@ const Hero = () => {
           ))}
         </div>
       </div>
-
       {/* Geometric Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-20 w-16 h-16 border-4 border-orange-500 rotate-45"></div>
@@ -39,7 +38,6 @@ const Hero = () => {
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
       </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4">
           {/* Main Title */}
@@ -100,7 +98,7 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               className="bg-orange-500 text-white px-6 py-3 border-4 border-black font-bold text-base tracking-wide hover:bg-orange-600 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center space-x-2"
             >
-              <span>VIEW THE CONTROLLER BOARD</span>
+              <span>VIEW FLIGHT CONTROLLERS</span>
               <ArrowRight className="w-4 h-4" />
             </motion.a>
             
