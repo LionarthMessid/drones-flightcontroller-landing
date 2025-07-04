@@ -58,19 +58,19 @@ const Team = () => {
     <section id="team" className="py-20 bg-gray-100 border-t-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center space-y-6 mb-16">
+        <div className="text-center space-y-3 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-2"
           >
-            <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight">
+            <h2 className="text-2xl lg:text-3xl font-bold text-black tracking-tight">
               THE TEAM
             </h2>
             <div className="flex items-center justify-center space-x-2 text-orange-500">
-              <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-              <span className="text-sm font-bold uppercase tracking-wider">BUILDING THE FUTURE OF FLIGHT CONTROL</span>
+              <div className="w-3 h-3 bg-orange-500 border-2 border-black"></div>
+              <span className="text-xs font-bold uppercase tracking-wider">BUILDING THE FUTURE OF FLIGHT CONTROL</span>
             </div>
           </motion.div>
         </div>
@@ -80,7 +80,7 @@ const Team = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {teamMembers.map((member, index) => (
             <motion.div
@@ -90,29 +90,29 @@ const Team = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white border-4 border-black overflow-hidden hover:border-orange-500 transition-all duration-300 group cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[4px_4px_0px_0px_rgba(255,165,0,0.3)]"
+              className="bg-white border-3 border-black overflow-hidden hover:border-orange-500 transition-all duration-300 group cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[3px_3px_0px_0px_rgba(255,165,0,0.3)]"
               onClick={() => setSelectedMember(member)}
             >
               {/* Avatar */}
-              <div className="relative h-48 bg-gray-200 border-b-4 border-black flex items-center justify-center">
-                <div className="w-24 h-24 bg-orange-500 border-4 border-black flex items-center justify-center group-hover:bg-black transition-colors duration-300">
-                  <span className="text-white font-bold text-2xl">
+              <div className="relative h-32 bg-gray-200 border-b-3 border-black flex items-center justify-center">
+                <div className="w-16 h-16 bg-orange-500 border-3 border-black flex items-center justify-center group-hover:bg-black transition-colors duration-300">
+                  <span className="text-white font-bold text-lg">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
                 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="text-white font-bold tracking-wide">VIEW BIO</span>
+                  <span className="text-white font-bold tracking-wide text-sm">VIEW BIO</span>
                 </div>
               </div>
 
               {/* Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-black mb-2 group-hover:text-orange-500 transition-colors duration-300 tracking-wide">
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-black mb-1 group-hover:text-orange-500 transition-colors duration-300 tracking-wide">
                   {member.name}
                 </h3>
-                <p className="text-gray-600 text-sm font-mono tracking-wide">
+                <p className="text-gray-600 text-xs font-mono tracking-wide">
                   {member.position}
                 </p>
               </div>

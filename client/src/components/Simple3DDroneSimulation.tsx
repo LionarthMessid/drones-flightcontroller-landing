@@ -435,7 +435,7 @@ const Simple3DDroneSimulation = () => {
       </div>
 
       {/* 3D Canvas */}
-      <div className="relative w-full h-96 bg-black border-4 border-black overflow-hidden">
+      <div className="relative w-full h-64 bg-black border-4 border-black overflow-hidden">
         <canvas
           ref={canvasRef}
           width={800}
@@ -485,7 +485,7 @@ const Simple3DDroneSimulation = () => {
               <textarea
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className="w-full h-64 p-3 border-2 border-black font-mono text-sm bg-gray-900 text-green-400 rounded"
+                className="w-full h-48 p-3 border-2 border-black font-mono text-sm bg-gray-900 text-green-400 rounded"
                 placeholder="// Enter your ESP32 flight controller code here
 void setup() {
   Serial.begin(115200);
@@ -536,7 +536,7 @@ void loop() {
             {/* Output Console */}
             <div>
               <h4 className="font-bold mb-2">Compilation Output & Serial Monitor:</h4>
-              <div className="bg-black text-white p-4 border-2 border-gray-300 rounded h-64 overflow-y-auto font-mono text-sm">
+              <div className="bg-black text-white p-4 border-2 border-gray-300 rounded h-48 overflow-y-auto font-mono text-sm">
                 {error ? (
                   <div>
                     <div className="text-red-400 mb-2">COMPILATION ERROR:</div>

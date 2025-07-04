@@ -59,16 +59,16 @@ const ControllerBoard = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
-          <h1 className="text-5xl lg:text-6xl font-bold text-black mb-6">
+          <h1 className="text-3xl lg:text-4xl font-bold text-black mb-4">
             ESP32 FLIGHT CONTROLLER
           </h1>
-          <div className="flex items-center justify-center space-x-2 text-orange-500 mb-6">
-            <div className="w-4 h-4 bg-orange-500 border-2 border-black"></div>
-            <span className="text-sm font-bold uppercase tracking-wider">NEXT-GENERATION FLIGHT CONTROL</span>
+          <div className="flex items-center justify-center space-x-2 text-orange-500 mb-4">
+            <div className="w-3 h-3 bg-orange-500 border-2 border-black"></div>
+            <span className="text-xs font-bold uppercase tracking-wider">NEXT-GENERATION FLIGHT CONTROL</span>
           </div>
-          <p className="text-xl text-gray-600 font-mono max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base text-gray-600 font-mono max-w-3xl mx-auto leading-relaxed">
             Revolutionary ESP32-based flight controllers featuring dual-core processing, wireless connectivity, 
             and onboard sensors. Designed for developers who demand precision, reliability, and innovation.
           </p>
@@ -79,66 +79,66 @@ const ControllerBoard = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mb-20"
+          className="mb-10"
         >
-          <div className="bg-white border-4 border-black p-8 mb-12">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-black mb-4 font-mono">
+          <div className="bg-white border-4 border-black p-6 mb-8">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-black mb-2 font-mono">
                 CORE SPECIFICATIONS
               </h2>
-              <p className="text-gray-600 font-mono">
+              <p className="text-sm text-gray-600 font-mono">
                 Built on the powerful ESP32-S3 platform with cutting-edge features
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-4">
               {/* Core Features */}
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-black font-mono border-b-2 border-orange-500 pb-2">
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-black font-mono border-b-2 border-orange-500 pb-1">
                   PROCESSING POWER
                 </h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">PROCESSOR:</span>
-                    <span className="font-mono text-gray-700">ESP32-S3 Dual Core</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">PROCESSOR:</span>
+                    <span className="font-mono text-gray-700 text-sm">ESP32-S3 Dual Core</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">FREQUENCY:</span>
-                    <span className="font-mono text-gray-700">240MHz</span>
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">FREQUENCY:</span>
+                    <span className="font-mono text-gray-700 text-sm">240MHz</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">MEMORY:</span>
-                    <span className="font-mono text-gray-700">512KB SRAM</span>
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">MEMORY:</span>
+                    <span className="font-mono text-gray-700 text-sm">512KB SRAM</span>
                   </div>
                 </div>
               </div>
 
               {/* Connectivity */}
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-black font-mono border-b-2 border-orange-500 pb-2">
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-black font-mono border-b-2 border-orange-500 pb-1">
                   CONNECTIVITY
                 </h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">WIRELESS:</span>
-                    <span className="font-mono text-gray-700">Wi-Fi 802.11b/g/n</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">WIRELESS:</span>
+                    <span className="font-mono text-gray-700 text-sm">Wi-Fi 802.11b/g/n</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">BLUETOOTH:</span>
-                    <span className="font-mono text-gray-700">BLE 5.0 Support</span>
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">BLUETOOTH:</span>
+                    <span className="font-mono text-gray-700 text-sm">BLE 5.0 Support</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 border-2 border-gray-300">
-                    <span className="font-bold text-black">INTERFACE:</span>
-                    <span className="font-mono text-gray-700">USB Type-C</span>
+                  <div className="flex justify-between items-center p-2 bg-gray-50 border-2 border-gray-300">
+                    <span className="font-bold text-black text-sm">INTERFACE:</span>
+                    <span className="font-mono text-gray-700 text-sm">USB Type-C</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Key Features Grid */}
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
               <motion.div 
-                className="bg-orange-500 text-white p-4 border-4 border-black text-center cursor-pointer"
+                className="bg-orange-500 text-white p-3 border-3 border-black text-center cursor-pointer"
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -146,7 +146,7 @@ const ControllerBoard = () => {
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
-                  <Cpu className="w-8 h-8 mx-auto mb-2" />
+                  <Cpu className="w-6 h-6 mx-auto mb-1" />
                 </motion.div>
                 <div className="font-bold text-sm">DUAL-CORE</div>
               </motion.div>

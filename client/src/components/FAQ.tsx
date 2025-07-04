@@ -41,10 +41,10 @@ const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white border-t-4 border-black">
+    <section id="faq" className="py-12 bg-white border-t-4 border-black">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center space-y-6 mb-16">
+        <div className="text-center space-y-3 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
