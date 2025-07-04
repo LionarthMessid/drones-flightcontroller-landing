@@ -119,21 +119,21 @@ const Hero = () => {
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Square className="w-6 h-6 text-orange-500 border-2 border-orange-500" />
+              <Square className="w-6 h-6 text-orange-500" />
             </motion.div>
             <motion.div
               className="p-3 border-4 border-black bg-orange-500"
               whileHover={{ rotate: -15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Triangle className="w-6 h-6 text-white border-2 border-white" />
+              <Triangle className="w-6 h-6 text-white" />
             </motion.div>
             <motion.div
               className="p-3 border-4 border-black bg-white"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Circle className="w-6 h-6 text-black border-2 border-black" />
+              <Circle className="w-6 h-6 text-black" />
             </motion.div>
           </div>
         </div>
